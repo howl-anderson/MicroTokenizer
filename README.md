@@ -48,6 +48,15 @@ micro_tokenizer.write_graphml("output.graphml")
 #### 效果演示
 ![DAG of 'knowledge is power'](.images/DAG_of_knowledge_is_power.png)
 
+##### 备注
+* `<s>` 和 `</s>` 是图的起始和结束节点，不是实际要分词的文本
+* 图中 Edge 上标注的是 `log(下一个节点的概率的倒数)`
+* 最短路径已经用 `深绿色` 作了标记
+
+#### 更多演示
+##### "王小明在北京的清华大学读书"
+![DAG of xiaomin](.images/DAG_of_xiaomin.png)
+
 
 
 
