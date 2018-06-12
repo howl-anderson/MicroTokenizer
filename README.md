@@ -49,7 +49,7 @@ pip install git+https://github.com/howl-anderson/MicroTokenizer.git
 ```
 
 # 如何使用
-## 粉刺
+## 分词
 见上文
 
 ## 导出 GraphML 文件
