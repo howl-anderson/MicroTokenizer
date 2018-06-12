@@ -3,6 +3,7 @@ include CONTRIBUTING.rst
 include HISTORY.rst
 include LICENSE
 include README.rst
+include MicroTokenizer/dictionary/dict.txt
 
 recursive-include tests *
 recursive-exclude * __pycache__
