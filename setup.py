@@ -45,7 +45,7 @@ setup(
     keywords='MicroTokenizer',
     name='MicroTokenizer',
     packages=find_packages(include=['MicroTokenizer']),
-    package_data={'MicroTokenizer': ['dictionary/*.txt']},
+    package_data={'MicroTokenizer': ['MicroTokenizer/dictionary/*.txt']},
     test_suite='tests',
     tests_require=test_requirements,
     url='https://github.com/howl-anderson/MicroTokenizer',
