@@ -11,8 +11,7 @@ with open('README.md') as readme_file:
 with open('HISTORY.rst') as history_file:
     history = history_file.read()
 
-requirements = ['Click>=6.0', 'networkx>=2.1', 'tqdm']
-
+requirements = ['Click>=6.0', 'networkx>=2.1', 'tqdm', 'matplotlib']
 setup_requirements = ['pytest-runner', ]
 
 test_requirements = ['pytest', ]
@@ -45,7 +44,7 @@ setup(
     keywords='MicroTokenizer',
     name='MicroTokenizer',
     packages=find_packages(include=['MicroTokenizer']),
-    setup_requires=setup_requirements,
+    data_files=[('', ['MicroTokenizer/dictionary/dict.txt'])],
     test_suite='tests',
     tests_require=test_requirements,
     url='https://github.com/howl-anderson/MicroTokenizer',
