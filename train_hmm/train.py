@@ -5,8 +5,8 @@ from MicroHMM.hmm import HMMModel
 
 
 class HMMTagger(object):
-    def __init__(self):
-        self.hmm_model = HMMModel()
+    def __init__(self, hmm_model=None):
+        self.hmm_model = HMMModel() if hmm_model is None else hmm_model
 
     def train_one_line(self, line):
         line = line.strip()
@@ -54,6 +54,12 @@ class HMMTagger(object):
                 word_char = []
 
         return token_list
+
+    @classmethod
+    def load_model(cls, model_dir="model"):
+        hmm_model = HMMModel.load_model(model_dir)
+
+        return cls(hmm_model)
 
 
 if __name__ == "__main__":
