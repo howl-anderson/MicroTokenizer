@@ -44,7 +44,16 @@ setup(
     keywords='MicroTokenizer',
     name='MicroTokenizer',
     packages=find_packages(include=['MicroTokenizer']),
-    data_files=[('', ['MicroTokenizer/dictionary/dict.txt'])],
+    data_files=[(
+        '',
+        [
+            'MicroTokenizer/dictionary/dict.txt',
+
+            'MicroTokenizer/hmm_model_data/A.pickle',
+            'MicroTokenizer/hmm_model_data/B.pickle',
+            'MicroTokenizer/hmm_model_data/vocabulary.pickle'
+        ]
+    )],
     test_suite='tests',
     tests_require=test_requirements,
     url='https://github.com/howl-anderson/MicroTokenizer',

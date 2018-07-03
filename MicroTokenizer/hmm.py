@@ -1,10 +1,7 @@
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
-
 from MicroHMM.hmm import HMMModel
 
 
-class HMMTagger(object):
+class HMMTokenizer(object):
     def __init__(self, hmm_model=None):
         self.hmm_model = HMMModel() if hmm_model is None else hmm_model
 
@@ -63,8 +60,8 @@ class HMMTagger(object):
 
 
 if __name__ == "__main__":
-    hmm_tagger = HMMTagger()
-    hmm_tagger.train_one_line("我/A 是/B 中国人/C")
-    hmm_tagger.train_one_line("你/A 打/B 人/C")
-    result = hmm_tagger.predict("你 打 人")
+    hmm_tokenizer = HMMTokenizer()
+    hmm_tokenizer.train_one_line("我/A 是/B 中国人/C")
+    hmm_tokenizer.train_one_line("你/A 打/B 人/C")
+    result = hmm_tokenizer.predict("你 打 人")
     print(result)

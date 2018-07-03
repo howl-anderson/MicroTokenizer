@@ -49,7 +49,15 @@ dict_data = read_dict(default_dict_file)
 compute_edge_weight(dict_data)
 
 
-def cut(message):
+def cut(message, HMM=False):
+    if not HMM:
+        return cut_by_DAG(message)
+    else:
+        return cut_by_HMM(message)
+
+
+def cut_by_DAG(message):
+    # NOTE: this import statement can not put the head line for it will cause cycle import
     from MicroTokenizer.MicroTokenizer import MicroTokenizer
 
     micro_tokenizer = MicroTokenizer(dict_data)
@@ -58,3 +66,14 @@ def cut(message):
     graph_token = micro_tokenizer.get_tokens()
     message_token = graph_token[1:-1]  # remove start & end node which is not part of message
     return message_token
+
+
+def cut_by_HMM(message):
+    # NOTE: this import statement can not put the head line for it will cause cycle import
+    from MicroTokenizer.hmm import HMMTokenizer
+
+    default_model_dir = os.path.join(current_dir, 'hmm_model_data')
+    hmm_tokenizer = HMMTokenizer.load_model(default_model_dir)
+
+    message_token = hmm_tokenizer.predict(message)
+    print(message_token)
