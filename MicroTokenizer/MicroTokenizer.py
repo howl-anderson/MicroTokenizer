@@ -163,6 +163,8 @@ class MicroTokenizer(object):
 
         # always treat single char as symbol
         current_node_id = "{}-{}".format(offset, next_offset)
+
+        # TODO: need deal with OOV
         current_node_weight = self.dict_data[token]
 
         self.G.add_node(current_node_id, label=token)
