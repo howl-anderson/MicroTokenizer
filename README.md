@@ -61,4 +61,8 @@ micro_tokenizer.build_graph("知识就是力量")
 micro_tokenizer.write_graphml("output.graphml")
 ```
 
+# Roadmap
+* 融合 HMM 模型 以处理 OOV 以及提高 Performance
+* 和主流分词模型做一个分词能力的测试
+
 # Credits
