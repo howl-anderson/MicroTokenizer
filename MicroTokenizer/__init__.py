@@ -76,4 +76,4 @@ def cut_by_HMM(message):
     hmm_tokenizer = HMMTokenizer.load_model(default_model_dir)
 
     message_token = hmm_tokenizer.predict(message)
-    print(message_token)
+    return message_token
