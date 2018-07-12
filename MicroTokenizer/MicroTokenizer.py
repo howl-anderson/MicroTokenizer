@@ -164,8 +164,9 @@ class MicroTokenizer(object):
         # always treat single char as symbol
         current_node_id = "{}-{}".format(offset, next_offset)
 
-        # FIXME: need deal with OOV
-        current_node_weight = self.dict_data[token]
+        # FIXME: need deal with OOV, current very basic strategy
+        default_node_weight = 0.001
+        current_node_weight = self.dict_data.get(token, default_node_weight)
 
         self.G.add_node(current_node_id, label=token)
 
