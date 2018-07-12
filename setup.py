@@ -11,7 +11,7 @@ with open('README.md') as readme_file:
 with open('HISTORY.rst') as history_file:
     history = history_file.read()
 
-requirements = ['Click>=6.0', 'networkx>=2.1', 'tqdm', 'matplotlib']
+requirements = ['Click>=6.0', 'networkx>=2.1', 'tqdm', 'matplotlib', 'MicroHMM']
 setup_requirements = ['pytest-runner', ]
 
 test_requirements = ['pytest', ]
