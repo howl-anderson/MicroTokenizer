@@ -44,6 +44,12 @@ print(tokens)
 只在 python 3.5+ 环境测试过，其他环境不做兼容性保障。
 
 # 安装
+## pip
+```bash
+pip install MicroTokenizer
+```
+
+## source
 ```console
 pip install git+https://github.com/howl-anderson/MicroTokenizer.git
 ```
