@@ -81,3 +81,4 @@ micro_tokenizer.write_graphml("output.graphml")
 * [TODO] 开发自定义 HMM 参数构建 Feature, 允许用户训练自己的 HMM 模型
 
 # Credits
+* 目前 DAG 算法所用的字典文件来自 [jieba](https://github.com/fxsjy/jieba) 项目
