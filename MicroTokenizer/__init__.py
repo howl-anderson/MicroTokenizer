@@ -16,7 +16,7 @@ default_dict_file = os.path.join(current_dir, 'dictionary', 'dict.txt')
 def read_dict(dict_file):
     dict_data = {}
 
-    with open(dict_file) as fd:
+    with open(dict_file, encoding='utf_8') as fd:
         for line in fd:
             splited_line = line.split(' ')
             data = dict(enumerate(splited_line))
