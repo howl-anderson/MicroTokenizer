@@ -72,6 +72,8 @@ micro_tokenizer.build_graph("知识就是力量")
 micro_tokenizer.write_graphml("output.graphml")
 ```
 
+NOTE: 导出后的 `graphml` 文件可以使用 [Cytoscape](http://www.cytoscape.org/) 进行浏览和渲染
+
 # Roadmap
 * [TODO] DAG 模型融合 HMM 模型 以处理 OOV 以及提高 Performance
 * [DOING] 和主流分词模型做一个分词能力的测试
@@ -79,6 +81,7 @@ micro_tokenizer.write_graphml("output.graphml")
 * [TODO] 允许添加自定义 DAG 词典
 * [TODO] 开发自定义 DAG 字典构造 Feature, 允许用户构建自己的 DAG 字典
 * [TODO] 开发自定义 HMM 参数构建 Feature, 允许用户训练自己的 HMM 模型
+
 
 # Credits
 * 目前 DAG 算法所用的字典文件来自 [jieba](https://github.com/fxsjy/jieba) 项目
