@@ -17,10 +17,10 @@ dict_data = None
 
 
 def cut(message, HMM=False):
-    if not HMM:
-        return cut_by_DAG(message)
+    if HMM:
+        return cut_by_joint_model(message)
     else:
-        return cut_by_HMM(message)
+        return cut_by_DAG(message)
 
 
 def cut_by_DAG(message):
@@ -50,3 +50,16 @@ def cut_by_HMM(message):
 
     message_token = hmm_tokenizer.predict(message)
     return message_token
+
+
+def cut_by_joint_model(message):
+    # NOTE: this import statement can not put the head line for it will cause cycle import
+    from MicroTokenizer.merge_token import MergeSolutions
+    solutions = [
+        cut_by_DAG(message),
+        cut_by_HMM(message)
+    ]
+    merge_solutions = MergeSolutions()
+    best_solution = merge_solutions.merge(solutions)
+
+    return best_solution
