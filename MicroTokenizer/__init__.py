@@ -1,12 +1,11 @@
 # -*- coding: utf-8 -*-
 
 """Top-level package for Micro Tokenizer for Chinese."""
-import math
 import os
 
 __author__ = """Xiaoquan Kong"""
 __email__ = 'u1mail2me@gmail.com'
-__version__ = '0.1.0'
+__version__ = '0.1.4'
 
 current_dir = os.path.dirname(os.path.abspath(__file__))
 
