@@ -10,7 +10,7 @@ __version__ = '0.1.0'
 
 current_dir = os.path.dirname(os.path.abspath(__file__))
 
-default_dag_dict_file = os.path.join(current_dir, 'mode_data', 'dict.txt')
+default_dag_dict_file = os.path.join(current_dir, 'model_data', 'dict.txt')
 default_hmm_model_dir = os.path.join(current_dir, 'model_data')
 
 # global cache for dict_data
