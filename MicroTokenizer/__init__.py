@@ -10,7 +10,8 @@ __version__ = '0.1.0'
 
 current_dir = os.path.dirname(os.path.abspath(__file__))
 
-default_dict_file = os.path.join(current_dir, 'dictionary', 'dict.txt')
+default_dag_dict_file = os.path.join(current_dir, 'mode_data', 'dict.txt')
+default_hmm_model_dir = os.path.join(current_dir, 'model_data')
 
 # global cache for dict_data
 dict_data = None
@@ -30,7 +31,7 @@ def cut_by_DAG(message):
     global dict_data
 
     if dict_data is None:
-        dict_data = MicroTokenizer.read_dict(default_dict_file)
+        dict_data = MicroTokenizer.read_dict(default_dag_dict_file)
         MicroTokenizer.compute_edge_weight(dict_data)
 
     micro_tokenizer = MicroTokenizer(dict_data)
@@ -45,8 +46,7 @@ def cut_by_HMM(message):
     # NOTE: this import statement can not put the head line for it will cause cycle import
     from MicroTokenizer.hmm import HMMTokenizer
 
-    default_model_dir = os.path.join(current_dir, 'hmm_model_data')
-    hmm_tokenizer = HMMTokenizer.load_model(default_model_dir)
+    hmm_tokenizer = HMMTokenizer.load_model(default_hmm_model_dir)
 
     message_token = hmm_tokenizer.predict(message)
     return message_token

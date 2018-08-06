@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-from train_hmm import tool
+from . import tool
 from MicroTokenizer.hmm import HMMTokenizer
 
 hmm_tokenizer = HMMTokenizer()
