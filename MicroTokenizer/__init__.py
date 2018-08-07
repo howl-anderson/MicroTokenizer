@@ -64,3 +64,8 @@ def cut_by_joint_model(message):
     best_solution = merge_solutions.merge(solutions)
 
     return best_solution
+
+
+def load_model(model_path):
+    global default_model_dir
+    default_model_dir = model_path
