@@ -9,7 +9,9 @@ __version__ = '0.1.4'
 
 current_dir = os.path.dirname(os.path.abspath(__file__))
 
-default_model_dir = os.path.join(current_dir, 'model_data')
+_default_model_dir = os.path.join(current_dir, 'model_data')
+
+default_model_dir = _default_model_dir
 
 default_dag_dict_file = os.path.join(default_model_dir, 'dict.txt')
 default_hmm_model_dir = default_model_dir
@@ -69,3 +71,8 @@ def cut_by_joint_model(message):
 def load_model(model_path):
     global default_model_dir
     default_model_dir = model_path
+
+
+def load_default_model():
+    global default_model_dir
+    default_model_dir = _default_model_dir
