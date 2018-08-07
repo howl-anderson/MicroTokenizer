@@ -3,7 +3,7 @@
 """Console script for MicroTokenizer."""
 import plac
 import sys
-from .cli import train
+from .cli_command import train
 
 
 def _wrap(text, wrap_max=80, indent=4):
