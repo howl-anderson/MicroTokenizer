@@ -1,5 +1,7 @@
 import plac
 
+from ..train.train import train as train_func
+
 
 @plac.annotations(
     output_dir=("output directory to store model in", "positional", None, str),
@@ -7,4 +9,4 @@ import plac
                 None, str)
 )
 def train(output_dir, train_data):
-    pass
+    train_func(train_data, output_dir)
