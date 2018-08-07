@@ -73,6 +73,10 @@ class MicroTokenizer(object):
             dict_data[k] = math.log(total_weight / v)
 
     def build_graph(self, message):
+        print("Message max length: {}".format(len(message)))
+
+        # FIXME: if the message is very long (about 500), it will raise
+        # RecursionError: maximum recursion depth exceeded while calling a Python object
         self.create_node_from_string(
             message,
             self.start_node_id,
