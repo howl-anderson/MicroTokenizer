@@ -9,7 +9,7 @@ import networkx as nx
 
 current_dir = os.path.dirname(os.path.abspath(__file__))
 
-default_dict_file = os.path.join(current_dir, 'dictionary', 'dict.txt')
+default_dict_file = os.path.join(current_dir, 'model_data', 'dict.txt')
 
 
 class MicroTokenizer(object):
