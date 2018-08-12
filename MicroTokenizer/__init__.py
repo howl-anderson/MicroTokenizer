@@ -42,6 +42,7 @@ def cut_by_DAG(message):
 
     micro_tokenizer = DAGTokenizer(dict_data)
     micro_tokenizer.build_graph(message)
+    micro_tokenizer.compute_shortest_path()
 
     graph_token = micro_tokenizer.get_tokens()
     message_token = graph_token[1:-1]  # remove start & end node which is not part of message
