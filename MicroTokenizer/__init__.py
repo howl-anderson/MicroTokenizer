@@ -44,7 +44,7 @@ def cut_by_HMM(message):
 def cut_by_joint_model(message):
     initialize()
 
-    return default_tokenizer.cut_by_join_model(message)
+    return default_tokenizer.cut_by_joint_model(message)
 
 
 def initialize():
