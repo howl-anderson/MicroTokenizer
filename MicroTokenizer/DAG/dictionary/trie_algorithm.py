@@ -14,8 +14,8 @@ class TreeNode(dict):
 
 
 class TrieAlgorithm(DictionaryData):
-    def __init__(self, dict_data=None):
-        super().__init__(dict_data)
+    def __init__(self, dict_file):
+        super().__init__(dict_file)
 
         self.tree_root = TreeNode()
         self.build_trie_tree()
@@ -59,7 +59,9 @@ class TrieAlgorithm(DictionaryData):
 if __name__ == "__main__":
     from timer_cm import Timer
 
-    dictionary_object = TrieAlgorithm()
+    from MicroTokenizer import default_model_dir, get_dict_file
+
+    dictionary_object = TrieAlgorithm(get_dict_file(default_model_dir))
 
     with Timer('Building DAG graph'):
         for _ in range(10000):

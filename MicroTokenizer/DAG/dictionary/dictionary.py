@@ -1,17 +1,10 @@
 import math
 
-from MicroTokenizer import default_dag_dict_file as default_dict_file
-
 
 class DictionaryData(object):
-    def __init__(self, dict_data=None):
-        self.dict_data = None
-
-        if dict_data is None:
-            raw_dict_data = self.read_dict(default_dict_file)
-            self.dict_data = self.process_data(raw_dict_data)
-        else:
-            self.dict_data = dict_data
+    def __init__(self, dict_file):
+        raw_dict_data = self.read_dict(dict_file)
+        self.dict_data = self.process_data(raw_dict_data)
 
     @staticmethod
     def read_dict(dict_file):

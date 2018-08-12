@@ -5,6 +5,8 @@
 
 from setuptools import setup, find_packages
 
+from MicroTokenizer import __version__, __author__, __email__
+
 with open('README.md') as readme_file:
     readme = readme_file.read()
 
@@ -17,8 +19,8 @@ setup_requirements = ['pytest-runner', ]
 test_requirements = ['pytest', 'timer_cm']
 
 setup(
-    author="Xiaoquan Kong",
-    author_email='u1mail2me@gmail.com',
+    author=__author__,
+    author_email=__email__,
     classifiers=[
         'Development Status :: 2 - Pre-Alpha',
         'Intended Audience :: Developers',
@@ -57,6 +59,6 @@ setup(
     test_suite='tests',
     tests_require=test_requirements,
     url='https://github.com/howl-anderson/MicroTokenizer',
-    version='0.1.3',
+    version=__version__,
     zip_safe=False,
 )

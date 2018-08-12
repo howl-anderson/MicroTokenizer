@@ -1,8 +1,5 @@
-import math
-
 import networkx as nx
 
-from MicroTokenizer import default_dag_dict_file as default_dict_file
 from MicroTokenizer.DAG.dictionary.trie_algorithm import TrieAlgorithm
 
 
