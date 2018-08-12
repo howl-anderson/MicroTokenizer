@@ -1,0 +1,4 @@
+from MicroTokenizer.DAG.graph_builder.non_recursive_algorithm import NonRecursiveAlgorithm
+
+
+DAGTokenizer = NonRecursiveAlgorithm

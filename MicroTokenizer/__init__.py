@@ -29,15 +29,16 @@ def cut(message, HMM=False):
 
 def cut_by_DAG(message):
     # NOTE: this import statement can not put the head line for it will cause cycle import
-    from MicroTokenizer.MicroTokenizer import MicroTokenizer
+    from MicroTokenizer.dag import DAGTokenizer
+    from MicroTokenizer.DAG.dictionary.trie_algorithm import TrieAlgorithm
 
     global dict_data
 
     if dict_data is None:
-        dict_data = MicroTokenizer.read_dict(default_dag_dict_file)
-        MicroTokenizer.compute_edge_weight(dict_data)
+        raw_dict_data = TrieAlgorithm.read_dict(default_dag_dict_file)
+        dict_data = TrieAlgorithm.process_data(raw_dict_data)
 
-    micro_tokenizer = MicroTokenizer(dict_data)
+    micro_tokenizer = DAGTokenizer(dict_data)
     micro_tokenizer.build_graph(message)
 
     graph_token = micro_tokenizer.get_tokens()

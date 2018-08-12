@@ -14,7 +14,7 @@ with open('HISTORY.rst') as history_file:
 requirements = ['Click>=6.0', 'networkx>=2.1', 'tqdm', 'matplotlib', 'MicroHMM', 'plac']
 setup_requirements = ['pytest-runner', ]
 
-test_requirements = ['pytest', ]
+test_requirements = ['pytest', 'timer_cm']
 
 setup(
     author="Xiaoquan Kong",
