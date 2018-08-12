@@ -47,11 +47,11 @@ setup(
     data_files=[(
         '',
         [
-            'MicroTokenizer/dictionary/dict.txt',
+            'MicroTokenizer/model_data/dict.txt',
 
-            'MicroTokenizer/hmm_model_data/A.pickle',
-            'MicroTokenizer/hmm_model_data/B.pickle',
-            'MicroTokenizer/hmm_model_data/vocabulary.pickle'
+            'MicroTokenizer/model_data/A.pickle',
+            'MicroTokenizer/model_data/B.pickle',
+            'MicroTokenizer/model_data/vocabulary.pickle'
         ]
     )],
     test_suite='tests',
