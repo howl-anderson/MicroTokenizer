@@ -1,6 +1,6 @@
 # 微型中文分词器
 
-一个微型的中文分词器，目前提供了三种分词算法: 
+一个微型的中文分词器，目前提供了三种分词算法:
 
 1. 按照词语的频率（概率）来利用构建 DAG（有向无环图）来分词
 2. 使用隐马尔可夫模型（Hidden Markov Model，HMM）来分词
@@ -81,7 +81,7 @@ NOTE: 导出后的 `graphml` 文件可以使用 [Cytoscape](http://www.cytoscape
 # Roadmap
 * [DONE] DAG 模型融合 HMM 模型 以处理 OOV 以及提高 Performance
 * [DOING] 和主流分词模型做一个分词能力的测试
-* [TODO] 使用 Trie树 来压缩运行时内存和改善前缀查找速度
+* [DONE] 使用 Trie树 来压缩运行时内存和改善前缀查找速度
 * [TODO] 允许添加自定义 DAG 词典
 * [TODO] 开发自定义 DAG 字典构造 Feature, 允许用户构建自己的 DAG 字典
 * [TODO] 开发自定义 HMM 参数构建 Feature, 允许用户训练自己的 HMM 模型
