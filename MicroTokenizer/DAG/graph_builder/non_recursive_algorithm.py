@@ -43,7 +43,7 @@ class NonRecursiveAlgorithm(GraphBuilder):
                                             current_weight)
                     )
 
-                if token_weight_pair:  # it's OOV
+                if not token_weight_pair:  # it's OOV
                     # to deal with OOV, any single char will treat as a token
                     token = current_message[0]
 
