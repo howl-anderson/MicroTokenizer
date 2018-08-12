@@ -36,7 +36,9 @@ def cut_by_DAG(message):
 
     if dict_data is None:
         raw_dict_data = TrieAlgorithm.read_dict(default_dag_dict_file)
-        dict_data = TrieAlgorithm.process_data(raw_dict_data)
+        dict_data = TrieAlgorithm(
+            TrieAlgorithm.process_data(raw_dict_data)
+        )
 
     micro_tokenizer = DAGTokenizer(dict_data)
     micro_tokenizer.build_graph(message)
