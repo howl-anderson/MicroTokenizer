@@ -44,6 +44,12 @@ if __name__ == "__main__":
     dict_data = TrieAlgorithm(dag_dict_file)
 
     tokenizer = MaxMatchForwardTokenizer(dict_data)
-    result = tokenizer.process("王小明在北京的清华大学读书。")
 
+    result = tokenizer.process("中国的首都是北京")
+    print(result)
+
+    result = tokenizer.process("我们在野生动物园玩")
+    print(result)
+
+    result = tokenizer.process("王小明在北京的清华大学读书。")
     print(result)
