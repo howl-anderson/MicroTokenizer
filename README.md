@@ -85,6 +85,7 @@ NOTE: 导出后的 `graphml` 文件可以使用 [Cytoscape](http://www.cytoscape
 * [TODO] 允许添加自定义 DAG 词典
 * [TODO] 开发自定义 DAG 字典构造 Feature, 允许用户构建自己的 DAG 字典
 * [TODO] 开发自定义 HMM 参数构建 Feature, 允许用户训练自己的 HMM 模型
+* [TODO] 引入 CRF 分词模型，拟使用 CRF++
 
 
 # Credits
