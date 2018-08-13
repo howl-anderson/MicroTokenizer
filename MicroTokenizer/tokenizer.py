@@ -4,6 +4,7 @@ from MicroTokenizer.dag import DAGTokenizer
 from MicroTokenizer.hmm import HMMTokenizer
 from MicroTokenizer.max_match.backward import MaxMatchBackwardTokenizer
 from MicroTokenizer.max_match.forward import MaxMatchForwardTokenizer
+from MicroTokenizer.max_match.bidirectional import MaxMatchBidirectionalTokenizer
 from MicroTokenizer.merge_token import MergeSolutions
 
 
@@ -25,6 +26,11 @@ class Tokenizer(object):
             self.dict_data)
         self.max_match_backward_tokenizer = MaxMatchBackwardTokenizer(
             self.reversed_dict_data)
+
+        self.max_match_bidirectional_tokenizer = MaxMatchBidirectionalTokenizer(
+            self.dict_data,
+            self.reversed_dict_data
+        )
 
     @staticmethod
     def load_data(model_dir):
@@ -78,6 +84,11 @@ class Tokenizer(object):
 
     def cut_by_max_match_backward(self, message):
         message_token = self.max_match_backward_tokenizer.process(message)
+
+        return message_token
+
+    def cut_by_max_match_bidirectional(self, message):
+        message_token = self.max_match_bidirectional_tokenizer.process(message)
 
         return message_token
 
