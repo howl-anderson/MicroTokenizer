@@ -2,6 +2,8 @@ from MicroTokenizer import default_model_dir, get_dict_file
 from MicroTokenizer.DAG.dictionary.trie_algorithm import TrieAlgorithm
 from MicroTokenizer.dag import DAGTokenizer
 from MicroTokenizer.hmm import HMMTokenizer
+from MicroTokenizer.max_match.backward import MaxMatchBackwardTokenizer
+from MicroTokenizer.max_match.forward import MaxMatchForwardTokenizer
 from MicroTokenizer.merge_token import MergeSolutions
 
 
@@ -13,15 +15,30 @@ class Tokenizer(object):
         self.model_dir = model_dir
 
         self.dict_data = self.load_data(self.model_dir)
+        self.reversed_dict_data = self.load_reversed_data(self.model_dir)
+
         self.dag_tokenizer = DAGTokenizer(self.dict_data)
 
         self.hmm_tokenizer = HMMTokenizer.load_model(self.model_dir)
+
+        self.max_match_forward_tokenizer = MaxMatchForwardTokenizer(
+            self.dict_data)
+        self.max_match_backward_tokenizer = MaxMatchBackwardTokenizer(
+            self.reversed_dict_data)
 
     @staticmethod
     def load_data(model_dir):
         dag_dict_file = get_dict_file(model_dir)
 
         dict_data = TrieAlgorithm(dag_dict_file)
+
+        return dict_data
+
+    @staticmethod
+    def load_reversed_data(model_dir):
+        dag_dict_file = get_dict_file(model_dir)
+
+        dict_data = TrieAlgorithm(dag_dict_file, reverse=True)
 
         return dict_data
 
@@ -53,6 +70,16 @@ class Tokenizer(object):
         return best_solution
 
     cut = cut_by_DAG
+
+    def cut_by_max_match_forward(self, message):
+        message_token = self.max_match_forward_tokenizer.process(message)
+
+        return message_token
+
+    def cut_by_max_match_backward(self, message):
+        message_token = self.max_match_backward_tokenizer.process(message)
+
+        return message_token
 
     def load_custom_dict(self, dict_file):
         # TODO: not implement yet
