@@ -14,8 +14,11 @@ class TreeNode(dict):
 
 
 class TrieAlgorithm(DictionaryData):
-    def __init__(self, dict_file):
+    def __init__(self, dict_file, reverse=False):
         super().__init__(dict_file)
+
+        # reverse the char order from head to tail
+        self.reverse = reverse
 
         self.tree_root = TreeNode()
         self.build_trie_tree()
@@ -23,7 +26,10 @@ class TrieAlgorithm(DictionaryData):
     def build_trie_tree(self):
         for token, weight in self.dict_data.items():
             current_node = self.tree_root
-            for i in token:
+
+            char_list = list(reversed(token)) if self.reverse else token
+
+            for i in char_list:
                 if i not in current_node:
                     current_node[i] = TreeNode()
 
@@ -32,13 +38,22 @@ class TrieAlgorithm(DictionaryData):
             current_node.set_as_leaf(weight)
 
     def get_token_and_weight_at_text_head(self, text):
+        char_list = list(reversed(text)) if self.reverse else text
+
         current_node = self.tree_root
-        for index, char in enumerate(text):
+        for index, char in enumerate(char_list):
             if char in current_node:
                 char_node = current_node[char]
 
                 if char_node.is_leaf:
-                    yield text[:index+1], char_node.weight
+                    token = char_list[:index+1]
+
+                    token_weight_pair = (
+                        "".join(reversed(token)) if self.reverse else token,
+                        char_node.weight
+                    )
+
+                    yield token_weight_pair
 
                 current_node = char_node
 
