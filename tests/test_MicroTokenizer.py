@@ -7,7 +7,6 @@ import pytest
 
 from click.testing import CliRunner
 
-from MicroTokenizer import MicroTokenizer
 from MicroTokenizer import cli
 
 
