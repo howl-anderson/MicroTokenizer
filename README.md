@@ -50,7 +50,7 @@ print(tokens)
 因 HMM 模型单独分词性能不佳, 一般情况下只用于和其他模型的融合, 故不在此提供示例, 需要演示者,可在 在线的 Jupyter Notebook 找到使用的例子.
 
 ### DAG+HMM 分词
-将前两个模型的结果融合，融合了DAG稳定的构词能力和HMM的新词发现能力，缺点是速度较慢
+将前两个模型的结果融合，融合了 DAG 稳定的构词能力和 HMM 的新词发现能力，缺点是速度较慢
 
 ### 正向最大匹配法
 
@@ -96,7 +96,7 @@ NOTE: 导出后的 `graphml` 文件可以使用 [Cytoscape](http://www.cytoscape
 # Roadmap
 * [DONE] DAG 模型融合 HMM 模型 以处理 OOV 以及提高 Performance
 * [DOING] 和主流分词模型做一个分词能力的测试
-* [DONE] 使用 Trie树 来压缩运行时内存和改善前缀查找速度
+* [DONE] 使用 `Trie Tree` 来压缩运行时内存和改善前缀查找速度
 * [TODO] 允许添加自定义 DAG 词典
 * [TODO] 开发自定义 DAG 字典构造 Feature, 允许用户构建自己的 DAG 字典
 * [TODO] 开发自定义 HMM 参数构建 Feature, 允许用户训练自己的 HMM 模型
