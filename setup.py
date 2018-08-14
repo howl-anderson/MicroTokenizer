@@ -45,7 +45,7 @@ setup(
     include_package_data=True,
     keywords='MicroTokenizer',
     name='MicroTokenizer',
-    packages=find_packages(include=['MicroTokenizer']),
+    packages=find_packages(include=['MicroTokenizer', 'MicroTokenizer.*']),
     data_files=[(
         '',
         [
