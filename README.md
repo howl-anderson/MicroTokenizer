@@ -1,10 +1,13 @@
 # 微型中文分词器
 
-一个微型的中文分词器，目前提供了三种分词算法:
+一个微型的中文分词器，目前提供了六种分词算法:
 
 1. 按照词语的频率（概率）来利用构建 DAG（有向无环图）来分词，使用 `Trie Tree` 构建前缀字典树
 2. 使用隐马尔可夫模型（Hidden Markov Model，HMM）来分词
 3. 融合两种分词模型的结果，按照分词粒度最大化的原则进行融合得到的模型
+4. 正向最大匹配法
+5. 反向最大匹配法
+6. 双向最大匹配法
 
 # 特点 / 特色
 
@@ -49,6 +52,18 @@ print(tokens)
 ### DAG+HMM 分词
 将前两个模型的结果融合，融合了DAG稳定的构词能力和HMM的新词发现能力，缺点是速度较慢
 
+### 正向最大匹配法
+
+具体介绍，请阅读博文 [构建中文分词器 - 正向最大匹配法](http://blog.xiaoquankong.ai/%E6%9E%84%E5%BB%BA%E4%B8%AD%E6%96%87%E5%88%86%E8%AF%8D%E5%99%A8-%E6%AD%A3%E5%90%91%E6%9C%80%E5%A4%A7%E5%8C%B9%E9%85%8D%E6%B3%95/)
+
+### 反向最大匹配法
+
+具体介绍，请阅读博文 [构建中文分词器-反向最大匹配法](http://blog.xiaoquankong.ai/%E6%9E%84%E5%BB%BA%E4%B8%AD%E6%96%87%E5%88%86%E8%AF%8D%E5%99%A8-%E5%8F%8D%E5%90%91%E6%9C%80%E5%A4%A7%E5%8C%B9%E9%85%8D%E6%B3%95/)
+
+### 双向最大匹配法
+
+具体介绍，请阅读博文 [构建中文分词器 - 双向最大匹配法](http://blog.xiaoquankong.ai/%E6%9E%84%E5%BB%BA%E4%B8%AD%E6%96%87%E5%88%86%E8%AF%8D%E5%99%A8-%E5%8F%8C%E5%90%91%E6%9C%80%E5%A4%A7%E5%8C%B9%E9%85%8D%E6%B3%95/)
+
 # 依赖
 只在 python 3.5+ 环境测试过，其他环境不做兼容性保障。
 
@@ -69,11 +84,11 @@ pip install git+https://github.com/howl-anderson/MicroTokenizer.git
 
 ## 导出 GraphML 文件
 ```python
-from MicroTokenizer.MicroTokenizer import MicroTokenizer
+from MicroTokenizer import default_tokenizer
 
-micro_tokenizer = MicroTokenizer()
-micro_tokenizer.build_graph("知识就是力量")
-micro_tokenizer.write_graphml("output.graphml")
+dag_tokenizer = default_tokenizer.dag_tokenizer
+dag_tokenizer.build_graph("知识就是力量")
+dag_tokenizer.write_graphml("output.graphml")
 ```
 
 NOTE: 导出后的 `graphml` 文件可以使用 [Cytoscape](http://www.cytoscape.org/) 进行浏览和渲染
