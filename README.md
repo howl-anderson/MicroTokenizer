@@ -84,6 +84,10 @@ pip install git+https://github.com/howl-anderson/MicroTokenizer.git
 
 ## 导出 GraphML 文件
 ```python
+import MicroTokenizer
+
+MicroTokenizer.initialize()
+
 from MicroTokenizer import default_tokenizer
 
 dag_tokenizer = default_tokenizer.dag_tokenizer
