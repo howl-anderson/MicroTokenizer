@@ -1,10 +1,11 @@
-from MicroTokenizer import default_model_dir, get_dict_file
+from MicroTokenizer import default_model_dir, get_dict_file, get_crf_file
 from MicroTokenizer.DAG.dictionary.trie_algorithm import TrieAlgorithm
 from MicroTokenizer.dag import DAGTokenizer
 from MicroTokenizer.hmm import HMMTokenizer
 from MicroTokenizer.max_match.backward import MaxMatchBackwardTokenizer
 from MicroTokenizer.max_match.forward import MaxMatchForwardTokenizer
 from MicroTokenizer.max_match.bidirectional import MaxMatchBidirectionalTokenizer
+from MicroTokenizer.CRF.crf_tokenizer import CRFTokenizer
 from MicroTokenizer.merge_token import MergeSolutions
 
 
@@ -31,6 +32,9 @@ class Tokenizer(object):
             self.dict_data,
             self.reversed_dict_data
         )
+
+        crf_file = get_crf_file(self.model_dir)
+        self.crf_tokenizer = CRFTokenizer(crf_file)
 
     @staticmethod
     def load_data(model_dir):
@@ -89,6 +93,11 @@ class Tokenizer(object):
 
     def cut_by_max_match_bidirectional(self, message):
         message_token = self.max_match_bidirectional_tokenizer.process(message)
+
+        return message_token
+
+    def cut_by_crf(self, message):
+        message_token = self.crf_tokenizer.cut(message)
 
         return message_token
 

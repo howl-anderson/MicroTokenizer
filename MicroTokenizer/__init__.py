@@ -20,6 +20,10 @@ def get_dict_file(model_dir):
     return os.path.join(model_dir, 'dict.txt')
 
 
+def get_crf_file(model_dir):
+    return os.path.join(model_dir, 'model.crfsuite')
+
+
 def cut(message, HMM=False):
     initialize()
 
