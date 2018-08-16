@@ -1,6 +1,6 @@
 # 微型中文分词器
 
-一个微型的中文分词器，目前提供了六种分词算法:
+一个微型的中文分词器，目前提供了七种分词算法:
 
 1. 按照词语的频率（概率）来利用构建 DAG（有向无环图）来分词，使用 `Trie Tree` 构建前缀字典树
 2. 使用隐马尔可夫模型（Hidden Markov Model，HMM）来分词
@@ -8,6 +8,7 @@
 4. 正向最大匹配法
 5. 反向最大匹配法
 6. 双向最大匹配法
+7. 基于 CRF (Conditional Random Field, 条件随机场) 的分词方法
 
 # 特点 / 特色
 
@@ -64,6 +65,10 @@ print(tokens)
 
 具体介绍，请阅读博文 [构建中文分词器 - 双向最大匹配法](http://blog.xiaoquankong.ai/%E6%9E%84%E5%BB%BA%E4%B8%AD%E6%96%87%E5%88%86%E8%AF%8D%E5%99%A8-%E5%8F%8C%E5%90%91%E6%9C%80%E5%A4%A7%E5%8C%B9%E9%85%8D%E6%B3%95/)
 
+### 基于 CRF 的分词
+
+TODO
+
 # 依赖
 只在 python 3.5+ 环境测试过，其他环境不做兼容性保障。
 
@@ -104,7 +109,7 @@ NOTE: 导出后的 `graphml` 文件可以使用 [Cytoscape](http://www.cytoscape
 * [TODO] 允许添加自定义 DAG 词典
 * [TODO] 开发自定义 DAG 字典构造 Feature, 允许用户构建自己的 DAG 字典
 * [TODO] 开发自定义 HMM 参数构建 Feature, 允许用户训练自己的 HMM 模型
-* [TODO] 引入 CRF 分词模型，拟使用 CRF++
+* [DONE] 引入 CRF 分词模型，使用 python-crfsuite
 
 
 # Credits
