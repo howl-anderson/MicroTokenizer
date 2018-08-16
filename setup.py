@@ -53,7 +53,9 @@ setup(
 
             'MicroTokenizer/model_data/A.pickle',
             'MicroTokenizer/model_data/B.pickle',
-            'MicroTokenizer/model_data/vocabulary.pickle'
+            'MicroTokenizer/model_data/vocabulary.pickle',
+
+            'MicroTokenizer/model_data/model.crfsuite'
         ]
     )],
     test_suite='tests',
