@@ -4,7 +4,7 @@
 
 1. 按照词语的频率（概率）来利用构建 DAG（有向无环图）来分词，使用 `Trie Tree` 构建前缀字典树
 2. 使用隐马尔可夫模型（Hidden Markov Model，HMM）来分词
-3. 融合两种分词模型的结果，按照分词粒度最大化的原则进行融合得到的模型
+3. 融合 DAG 和 HMM 两种分词模型的结果，按照分词粒度最大化的原则进行融合得到的模型
 4. 正向最大匹配法
 5. 反向最大匹配法
 6. 双向最大匹配法
@@ -104,12 +104,14 @@ NOTE: 导出后的 `graphml` 文件可以使用 [Cytoscape](http://www.cytoscape
 
 # Roadmap
 * [DONE] DAG 模型融合 HMM 模型 以处理 OOV 以及提高 Performance
-* [DOING] 和主流分词模型做一个分词能力的测试
+* [DONE] 和主流分词模型做一个分词能力的测试 @ [中文分词软件基准测试 | Chinese tokenizer benchmark](https://github.com/howl-anderson/Chinese_tokenizer_benchmark)
 * [DONE] 使用 `Trie Tree` 来压缩运行时内存和改善前缀查找速度
 * [TODO] 允许添加自定义 DAG 词典
 * [TODO] 开发自定义 DAG 字典构造 Feature, 允许用户构建自己的 DAG 字典
 * [TODO] 开发自定义 HMM 参数构建 Feature, 允许用户训练自己的 HMM 模型
 * [DONE] 引入 CRF 分词模型，使用 python-crfsuite
+* [TODO] 模型系统分成代码和模型两个部分，用户可以选择性的下载和安装模型以及让用户训练和安装定制的模型
+* [TODO] 引入 char-level word embedding + Bi-LSTM + CRF 分词模型，参考 [FoolNLTK](https://github.com/rockyzhengwu/FoolNLTK)
 
 
 # Credits
