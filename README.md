@@ -16,6 +16,7 @@
 * 良好的分词性能：由于使用类似 `结巴分词` 的算法，具有良好的分词性能
 * 具有良好的扩展性：使用和 `结巴分词` 一样的字典文件，可以轻松添加自定义字典
 * 自定义能力强
+* 提供工具和脚本帮助用户训练自己的分词模型而不是使用内建的模型
 
 # 演示
 
@@ -107,8 +108,8 @@ NOTE: 导出后的 `graphml` 文件可以使用 [Cytoscape](http://www.cytoscape
 * [DONE] 和主流分词模型做一个分词能力的测试 @ [中文分词软件基准测试 | Chinese tokenizer benchmark](https://github.com/howl-anderson/Chinese_tokenizer_benchmark)
 * [DONE] 使用 `Trie Tree` 来压缩运行时内存和改善前缀查找速度
 * [TODO] 允许添加自定义 DAG 词典
-* [TODO] 开发自定义 DAG 字典构造 Feature, 允许用户构建自己的 DAG 字典
-* [TODO] 开发自定义 HMM 参数构建 Feature, 允许用户训练自己的 HMM 模型
+* [DONE] 开发自定义 DAG 字典构造 Feature, 允许用户构建自己的 DAG 字典
+* [DONE] 开发自定义 HMM 参数构建 Feature, 允许用户训练自己的 HMM 模型
 * [DONE] 引入 CRF 分词模型，使用 python-crfsuite
 * [TODO] 模型系统分成代码和模型两个部分，用户可以选择性的下载和安装模型以及让用户训练和安装定制的模型
 * [TODO] 引入 char-level word embedding + Bi-LSTM + CRF 分词模型，参考 [FoolNLTK](https://github.com/rockyzhengwu/FoolNLTK)
