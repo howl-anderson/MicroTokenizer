@@ -45,6 +45,12 @@ def cut_by_HMM(message):
     return default_tokenizer.cut_by_HMM(message)
 
 
+def cut_by_CRF(message):
+    initialize()
+
+    return default_tokenizer.cut_by_crf(message)
+
+
 def cut_by_joint_model(message):
     initialize()
 
