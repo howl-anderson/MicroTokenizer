@@ -5,7 +5,7 @@ import os
 
 __author__ = """Xiaoquan Kong"""
 __email__ = 'u1mail2me@gmail.com'
-__version__ = '0.1.7.1'
+__version__ = '0.1.7.2'
 
 current_dir = os.path.dirname(os.path.abspath(__file__))
 
