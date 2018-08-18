@@ -24,6 +24,11 @@ class CRFTrainer:
 
     def train_one_raw_line(self, blank_splittable_string):
         token_list = blank_splittable_string.split()
+
+        # drop blank line
+        if not token_list:
+            return None
+
         tag_list = reduce(
             lambda x, y: x + y,
             [
