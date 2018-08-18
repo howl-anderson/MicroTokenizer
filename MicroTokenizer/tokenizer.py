@@ -96,7 +96,7 @@ class Tokenizer(object):
 
         return message_token
 
-    def cut_by_crf(self, message):
+    def cut_by_CRF(self, message):
         message_token = self.crf_tokenizer.cut(message)
 
         return message_token
