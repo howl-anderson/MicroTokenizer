@@ -1,0 +1,27 @@
+<h1>微型中文分词器</h1>
+
+<p>一个微型的中文分词器，目前提供了七种分词算法:</p>
+
+<ol>
+<li>按照词语的频率（概率）来利用构建 DAG（有向无环图）来分词，使用 <code>Trie Tree</code> 构建前缀字典树</li>
+<li>使用隐马尔可夫模型（Hidden Markov Model，HMM）来分词</li>
+<li>融合 DAG 和 HMM 两种分词模型的结果，按照分词粒度最大化的原则进行融合得到的模型</li>
+<li>正向最大匹配法</li>
+<li>反向最大匹配法</li>
+<li>双向最大匹配法</li>
+<li>基于 CRF (Conditional Random Field, 条件随机场) 的分词方法</li>
+</ol>
+
+<h1>特点 / 特色</h1>
+
+<ul>
+<li>面向教育：可以导出 <code>graphml</code> 格式的图结构文件，辅助学习者理解算法过程</li>
+<li>良好的分词性能：由于使用类似 <code>结巴分词</code> 的算法，具有良好的分词性能</li>
+<li>具有良好的扩展性：使用和 <code>结巴分词</code> 一样的字典文件，可以轻松添加自定义字典</li>
+<li>自定义能力强</li>
+<li>提供工具和脚本帮助用户训练自己的分词模型而不是使用内建的模型</li>
+</ul>
+
+<hr />
+
+<p>更多内容见仓库 https://github.com/howl-anderson/MicroTokenizer</p>

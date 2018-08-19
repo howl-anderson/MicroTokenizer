@@ -7,11 +7,8 @@ from setuptools import setup, find_packages
 
 from MicroTokenizer import __version__, __author__, __email__
 
-with open('README.rst') as readme_file:
-    readme = readme_file.read()
-
-with open('HISTORY.rst') as history_file:
-    history = history_file.read()
+with open('long_description.html') as long_description_file:
+    long_description = long_description_file.read()
 
 requirements = ['Click>=6.0', 'networkx>=2.1', 'tqdm', 'matplotlib', 'MicroHMM', 'plac', 'python-crfsuite']
 setup_requirements = ['pytest-runner', ]
@@ -41,7 +38,7 @@ setup(
     },
     install_requires=requirements,
     license="MIT license",
-    long_description=readme + '\n\n' + history,
+    long_description=long_description,
     long_description_content_type='text/x-rst',
     include_package_data=True,
     keywords='MicroTokenizer',
