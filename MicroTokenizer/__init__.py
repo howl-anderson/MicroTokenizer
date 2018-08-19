@@ -5,9 +5,15 @@ import os
 
 __author__ = """Xiaoquan Kong"""
 __email__ = 'u1mail2me@gmail.com'
-__version__ = '0.7.6'
+__version__ = ''
 
 current_dir = os.path.dirname(os.path.abspath(__file__))
+
+# dynamic load version from version file
+version_file = os.path.join(current_dir, 'version.txt')
+with open(version_file) as fd:
+    version_string = fd.read().strip()
+    __version__ = version_string
 
 default_model_dir = os.path.join(current_dir, 'model_data')
 current_model_dir = default_model_dir
