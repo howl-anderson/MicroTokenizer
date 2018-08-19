@@ -31,6 +31,7 @@ import MicroTokenizer
 
 tokens = MicroTokenizer.cut("知识就是力量")
 print(tokens)
+
 ```
 输出：
 ```python
@@ -99,6 +100,7 @@ from MicroTokenizer import default_tokenizer
 dag_tokenizer = default_tokenizer.dag_tokenizer
 dag_tokenizer.build_graph("知识就是力量")
 dag_tokenizer.write_graphml("output.graphml")
+
 ```
 
 NOTE: 导出后的 `graphml` 文件可以使用 [Cytoscape](http://www.cytoscape.org/) 进行浏览和渲染
