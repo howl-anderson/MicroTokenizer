@@ -30,7 +30,10 @@
 --------
 
 在线的 Jupyter Notebook 在
-.. image:: https://mybinder.org/badge.svg :target: https://mybinder.org/v2/gh/howl-anderson/MicroTokenizer/master?filepath=.notebooks%2FMicroTokenizer.ipynb
+
+.. image:: https://mybinder.org/badge.svg
+   :target: https://mybinder.org/v2/gh/howl-anderson/MicroTokenizer/master?filepath=.notebooks%2FMicroTokenizer.ipynb
+   :alt: Binder
 
 
 离线演示
