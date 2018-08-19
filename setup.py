@@ -7,7 +7,7 @@ from setuptools import setup, find_packages
 
 from MicroTokenizer import __version__, __author__, __email__
 
-with open('long_description.html') as long_description_file:
+with open('long_description.rst') as long_description_file:
     long_description = long_description_file.read()
 
 requirements = ['Click>=6.0', 'networkx>=2.1', 'tqdm', 'matplotlib', 'MicroHMM', 'plac', 'python-crfsuite']
@@ -39,7 +39,6 @@ setup(
     install_requires=requirements,
     license="MIT license",
     long_description=long_description,
-    long_description_content_type='text/html',
     include_package_data=True,
     keywords='MicroTokenizer',
     name='MicroTokenizer',
