@@ -89,4 +89,4 @@ def load_default_model():
 def load_userdict(f):
     initialize()
 
-    return default_tokenizer.dag_tokenizer.dict_data.load_user_dict(f)
+    return default_tokenizer.load_user_dict(f)

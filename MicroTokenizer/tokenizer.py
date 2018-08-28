@@ -113,6 +113,9 @@ class Tokenizer(object):
         # TODO: not implement yet
         pass
 
+    def add_user_dict(self, dict_file):
+        return self.dag_tokenizer.dict_data.load_user_dict(dict_file)
+
     @property
     def mini_log_freq(self):
         # TODO: not implement yet
