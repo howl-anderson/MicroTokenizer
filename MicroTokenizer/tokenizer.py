@@ -19,7 +19,7 @@ class Tokenizer(object):
         self.dict_data = self.load_data(self.model_dir)
         self.reversed_dict_data = self.load_reversed_data(self.model_dir)
 
-        self.dag_tokenizer = DAGTokenizer(self.dict_data)
+        self.dag_tokenizer = DAGTokenizer(self.dict_data)  # type: DAGTokenizer
 
         self.hmm_tokenizer = HMMTokenizer.load_model(self.model_dir)
 
