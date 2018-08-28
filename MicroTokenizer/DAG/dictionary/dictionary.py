@@ -37,6 +37,14 @@ class DictionaryData(object):
     def add_token_and_weight(self, token, weight):
         raise NotImplemented
 
+    def load_user_dict(self, dict_file):
+        with open(dict_file) as fd:
+            for raw_line in fd:
+                line = raw_line.strip()
+                word, frequency = line.split()
+
+                self.add_token_and_weight(word, frequency)
+
     def write_to_file(self, output_file):
         # TODO: maybe will implement in future
         pass
