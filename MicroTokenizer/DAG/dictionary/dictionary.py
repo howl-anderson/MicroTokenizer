@@ -41,9 +41,11 @@ class DictionaryData(object):
         with open(dict_file) as fd:
             for raw_line in fd:
                 line = raw_line.strip()
-                word, frequency = line.split()
+                word, frequency_str = line.split()
 
-                self.add_token_and_weight(word, frequency)
+                frequency_int = int(frequency_str)
+
+                self.add_token_and_weight(word, frequency_int)
 
     def write_to_file(self, output_file):
         # TODO: maybe will implement in future
