@@ -82,3 +82,11 @@ def load_model(model_path):
 def load_default_model():
     global current_model_dir
     current_model_dir = default_model_dir
+
+# below interfaces/functions are designed exactly equal to jieba's #
+
+
+def load_userdict(f):
+    initialize()
+
+    return default_tokenizer.dag_tokenizer.dict_data.load_user_dict(f)
