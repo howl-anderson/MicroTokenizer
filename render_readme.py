@@ -9,6 +9,8 @@ current_dir = os.path.dirname(os.path.abspath(__file__))
 input_file = os.path.join(current_dir, 'README.tpl.md')
 output_file = os.path.join(current_dir, 'README.md')
 
+readme_variable_dir = 'code_used_in_README'
+
 
 def get_file_content(relative_file_path):
     file_path = os.path.join(current_dir, relative_file_path)
@@ -20,12 +22,16 @@ def get_file_content(relative_file_path):
 with open(input_file, encoding='utf_8') as input_fd, open(output_file, mode='w', encoding='utf_8') as output_fd:
     template = Template(input_fd.read())
 
-    simple_usage_code = get_file_content('code_used_in_README/simple_usage.py')
-    export_graphml_code = get_file_content('code_used_in_README/export_graphml.py')
+    template_variable_dict = {}
 
-    rendered_string = template.render(
-        simple_usage_code=simple_usage_code,
-        export_graphml_code=export_graphml_code
-    )
+    all_files = os.listdir(readme_variable_dir)
+    for file_name in all_files:
+        file_name_without_ext, _ = os.path.splitext(file_name)
+
+        file_path = os.path.join(readme_variable_dir, file_name)
+
+        template_variable_dict[file_name_without_ext] = get_file_content(file_path)
+
+    rendered_string = template.render(**template_variable_dict)
 
     output_fd.write(rendered_string)

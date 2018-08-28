@@ -37,6 +37,35 @@ print(tokens)
 ```python
 ['知识', '就是', '力量']
 ```
+
+#### 加载用户字典
+```python
+import MicroTokenizer
+
+tokens = MicroTokenizer.cut("「杭研」正确应该不会被切开", HMM=False)
+print(tokens)
+
+# loading user's custom dictionary file
+MicroTokenizer.load_userdict('user_dict.txt')
+
+tokens = MicroTokenizer.cut("「杭研」正确应该不会被切开", HMM=False)
+print(tokens)
+
+```
+
+`user_dict.txt` 的内容为：
+```text
+杭研 10
+
+```
+
+输出:
+```text
+['「', '杭', '研', '」', '正确', '应该', '不会', '被', '切开']
+['「', '杭研', '」', '正确', '应该', '不会', '被', '切开']
+
+```
+
 ### 有向无环图效果演示
 ![DAG of 'knowledge is power'](.images/DAG_of_knowledge_is_power.png)
 

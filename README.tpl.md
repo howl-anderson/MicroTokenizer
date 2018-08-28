@@ -27,12 +27,28 @@
 ### DAG 分词
 代码：
 ```python
-{{ simple_usage_code }}
+{{ simple_usage }}
 ```
 输出：
 ```python
 ['知识', '就是', '力量']
 ```
+
+#### 加载用户字典
+```python
+{{ use_user_dict }}
+```
+
+`user_dict.txt` 的内容为：
+```text
+{{ user_dict }}
+```
+
+输出:
+```text
+{{ use_user_dict_output }}
+```
+
 ### 有向无环图效果演示
 ![DAG of 'knowledge is power'](.images/DAG_of_knowledge_is_power.png)
 
@@ -87,7 +103,7 @@ pip install git+https://github.com/howl-anderson/MicroTokenizer.git
 
 ## 导出 GraphML 文件
 ```python
-{{ export_graphml_code }}
+{{ export_graphml }}
 ```
 
 NOTE: 导出后的 `graphml` 文件可以使用 [Cytoscape](http://www.cytoscape.org/) 进行浏览和渲染
