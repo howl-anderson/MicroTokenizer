@@ -1,16 +1,9 @@
 import networkx as nx
 
-from MicroTokenizer.DAG.dictionary.trie_algorithm import TrieAlgorithm
-
 
 class GraphBuilder(object):
     def __init__(self, dict_data):
-        self.dict_data = None
-
-        if dict_data is None:
-            self.dict_data = TrieAlgorithm()
-        else:
-            self.dict_data = dict_data
+        self.dict_data = dict_data
 
         # define those value
         self.G = None

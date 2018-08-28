@@ -4,7 +4,7 @@ from MicroTokenizer.DAG.graph_builder.graph_builder import GraphBuilder
 
 
 class NonRecursiveAlgorithm(GraphBuilder):
-    def __init__(self, dict_data=None):
+    def __init__(self, dict_data):
         super().__init__(dict_data)
 
     def build_graph(self, message):

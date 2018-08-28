@@ -5,7 +5,7 @@ from MicroTokenizer.DAG.graph_builder.graph_builder import GraphBuilder
 
 
 class RecursiveAlgorithm(GraphBuilder):
-    def __init__(self, dict_data=None):
+    def __init__(self, dict_data):
         super().__init__(dict_data)
 
         self.processed_working_str = dict()
