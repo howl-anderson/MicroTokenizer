@@ -1,10 +1,11 @@
 # -*- coding: utf-8 -*-
 
 from MicroTokenizer.DAG.graph_builder.graph_builder import GraphBuilder
+from MicroTokenizer.DAG.dictionary.dictionary import DictionaryData
 
 
 class NonRecursiveAlgorithm(GraphBuilder):
-    def __init__(self, dict_data):
+    def __init__(self, dict_data: DictionaryData):
         super().__init__(dict_data)
 
     def build_graph(self, message):

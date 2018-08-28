@@ -1,9 +1,11 @@
 import networkx as nx
 
+from MicroTokenizer.DAG.dictionary.dictionary import DictionaryData
+
 
 class GraphBuilder(object):
-    def __init__(self, dict_data):
-        self.dict_data = dict_data
+    def __init__(self, dict_data: DictionaryData):
+        self.dict_data = dict_data  # type: DictionaryData
 
         # define those value
         self.G = None
