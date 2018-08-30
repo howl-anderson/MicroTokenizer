@@ -25,6 +25,9 @@ class CRFTrainer:
     def train_one_raw_line(self, blank_splittable_string):
         token_list = blank_splittable_string.split()
 
+        self.train_one_line_by_token(token_list)
+
+    def train_one_line_by_token(self, token_list):
         # drop blank line
         if not token_list:
             return None

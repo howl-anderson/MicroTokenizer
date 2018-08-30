@@ -1,17 +1,42 @@
 import operator
 
+from MicroTokenizer.DAG.dictionary.trie_algorithm import TrieAlgorithm
+from MicroTokenizer.base_dictionary_based_tokenizer import BaseDictionaryBasedTokenizer
 from MicroTokenizer.max_match.forward import MaxMatchForwardTokenizer
 from MicroTokenizer.max_match.backward import MaxMatchBackwardTokenizer
 
 
-class MaxMatchBidirectionalTokenizer(object):
-    def __init__(self, dict_data, reverse_dict_data):
-        self.forward_tokenizer = MaxMatchForwardTokenizer(dict_data)
-        self.backward_tokenizer = MaxMatchBackwardTokenizer(reverse_dict_data)
+class MaxMatchBidirectionalTokenizer(BaseDictionaryBasedTokenizer):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
 
-    def process(self, message):
-        forward_token = self.forward_tokenizer.process(message)
-        backward_token = self.backward_tokenizer.process(message)
+        self.forward_tokenizer = None
+        self.backward_tokenizer = None
+
+    def do_train(self):
+        super().do_train()
+
+        dict_data = TrieAlgorithm(raw_dict_data=self.raw_dict_data)
+
+        reverse_dict_data = TrieAlgorithm(raw_dict_data=self.raw_dict_data,
+                                          reverse=True)
+
+        self.forward_tokenizer = MaxMatchForwardTokenizer(dict_data=dict_data)
+
+        self.backward_tokenizer = MaxMatchBackwardTokenizer(dict_data=reverse_dict_data)
+
+    def load_model(self):
+        super().load_model()
+
+        self.forward_tokenizer = MaxMatchForwardTokenizer(self.model_dir)
+        self.forward_tokenizer.load_model()
+
+        self.backward_tokenizer = MaxMatchBackwardTokenizer(self.model_dir)
+        self.backward_tokenizer.load_model()
+
+    def segment(self, message):
+        forward_token = self.forward_tokenizer.segment(message)
+        backward_token = self.backward_tokenizer.segment(message)
 
         token_result = [forward_token, backward_token]
 
@@ -49,24 +74,3 @@ class MaxMatchBidirectionalTokenizer(object):
     def compute_token_len_variability(token_list):
         mean_length = sum(map(lambda x: len(x), token_list)) / len(token_list)
         return sum(map(lambda x: abs(len(x) - mean_length)**2, token_list)) / len(token_list)
-
-
-if __name__ == "__main__":
-    from MicroTokenizer import default_model_dir, get_dict_file
-    from MicroTokenizer.DAG.dictionary.trie_algorithm import TrieAlgorithm
-
-    dag_dict_file = get_dict_file(default_model_dir)
-
-    dict_data = TrieAlgorithm(dag_dict_file)
-    reversed_dict_data = TrieAlgorithm(dag_dict_file, reverse=True)
-
-    tokenizer = MaxMatchBidirectionalTokenizer(dict_data, reversed_dict_data)
-
-    result = tokenizer.process("中国的首都是北京")
-    print(result)
-
-    result = tokenizer.process("我们在野生动物园玩")
-    print(result)
-
-    result = tokenizer.process("王小明在北京的清华大学读书。")
-    print(result)

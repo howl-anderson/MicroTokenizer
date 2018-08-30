@@ -14,8 +14,8 @@ class TreeNode(dict):
 
 
 class TrieAlgorithm(DictionaryData):
-    def __init__(self, dict_file, reverse=False):
-        super().__init__(dict_file)
+    def __init__(self, *args, reverse=False, **kwargs):
+        super().__init__(*args, **kwargs)
 
         # reverse the char order from head to tail
         self.reverse = reverse

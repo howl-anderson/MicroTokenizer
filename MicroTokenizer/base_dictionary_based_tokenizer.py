@@ -1,4 +1,4 @@
-from typing import List
+from typing import List, Dict
 
 from MicroTokenizer import get_dict_file
 from MicroTokenizer.DAG.dictionary.dictionary import DictionaryData
@@ -9,31 +9,21 @@ from MicroTokenizer.base_tokenizer import BaseTokenizer
 from MicroTokenizer.DAG.dictionary.train_dictionary import TrainDictionary
 
 
-class DAGTokenizer(BaseTokenizer):
+class BaseDictionaryBasedTokenizer(BaseTokenizer):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
         self.graph_builder = None  # type: GraphBuilder
         self.train_dictionary = TrainDictionary()
-        self.dict_data = None  # type: DictionaryData
+        self.dict_data = kwargs.get('dict_data')  # type: DictionaryData
+        self.dict_file = None  # type: str
+        self.raw_dict_data = None  # type: Dict
 
     def load_model(self):
-        dag_dict_file = get_dict_file(self.model_dir)
-
-        self.dict_data = TrieAlgorithm(dag_dict_file)
-
-        self.graph_builder = NonRecursiveAlgorithm(self.dict_data)
+        self.dict_file = get_dict_file(self.model_dir)
 
     def segment(self, message: str):
-        self.graph_builder.init_graph()
-        self.graph_builder.build_graph(message)
-
-        self.graph_builder.compute_shortest_path()
-
-        raw_token = self.graph_builder.get_tokens()
-
-        # remove start and end token
-        return raw_token[1:-1]
+        raise NotImplemented
 
     def train_one_line(self, token_list: List[str]):
         self.train_dictionary.train_one_line(token_list)
@@ -41,10 +31,7 @@ class DAGTokenizer(BaseTokenizer):
     def do_train(self):
         self.train_dictionary.do_train()
 
-        # load the new model
-        self.dict_data = TrieAlgorithm(raw_dict_data=self.train_dictionary.dictionary)
-
-        self.graph_builder = NonRecursiveAlgorithm(self.dict_data)
+        self.raw_dict_data = self.train_dictionary.dictionary
 
     def persist_to_dir(self, output_dir: str):
         self.train_dictionary.persist_to_dir(output_dir)

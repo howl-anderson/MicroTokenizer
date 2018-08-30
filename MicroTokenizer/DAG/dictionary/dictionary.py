@@ -2,8 +2,11 @@ import math
 
 
 class DictionaryData(object):
-    def __init__(self, dict_file):
-        raw_dict_data = self.read_dict(dict_file)
+    def __init__(self, dict_file=None, raw_dict_data=None):
+        # TODO: check arguments is valid
+        if raw_dict_data is None and dict_file is not None:
+            raw_dict_data = self.read_dict(dict_file)
+
         self.dict_data = self.process_data(raw_dict_data)
 
     @staticmethod

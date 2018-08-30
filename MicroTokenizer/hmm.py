@@ -1,15 +1,17 @@
 from MicroHMM.hmm import HMMModel
 
+from MicroTokenizer.base_tokenizer import BaseTokenizer
 
-class HMMTokenizer(object):
-    def __init__(self, hmm_model=None):
-        self.hmm_model = HMMModel() if hmm_model is None else hmm_model
 
-    def train_one_line(self, line):
-        line = line.strip()
+class HMMTokenizer(BaseTokenizer):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
 
+        self.hmm_model = HMMModel()  # type: HMMModel
+
+    def train_one_line(self, token_list):
         list_of_word_tag_pair = []
-        for word in line.split():
+        for word in token_list:
             word = word.strip()
 
             tag = self._generate_char_tag_for_word(word)
@@ -19,6 +21,9 @@ class HMMTokenizer(object):
             )
 
         self.hmm_model.train_one_line(list_of_word_tag_pair)
+
+    def do_train(self):
+        self.hmm_model.do_train()
 
     @staticmethod
     def _generate_char_tag_for_word(word):
@@ -52,16 +57,11 @@ class HMMTokenizer(object):
 
         return token_list
 
-    @classmethod
-    def load_model(cls, model_dir="model"):
-        hmm_model = HMMModel.load_model(model_dir)
+    def segment(self, message: str):
+        return self.predict(message)
 
-        return cls(hmm_model)
+    def load_model(self):
+        self.hmm_model = HMMModel.load_model(self.model_dir)
 
-
-if __name__ == "__main__":
-    hmm_tokenizer = HMMTokenizer()
-    hmm_tokenizer.train_one_line("我/A 是/B 中国人/C")
-    hmm_tokenizer.train_one_line("你/A 打/B 人/C")
-    result = hmm_tokenizer.predict("你 打 人")
-    print(result)
+    def persist_to_dir(self, output_dir: str):
+        self.hmm_model.save_model(output_dir)
