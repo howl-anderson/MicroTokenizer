@@ -33,4 +33,4 @@ def test_segment():
     tokenizer.load_model()
     result = tokenizer.segment("你打人")
 
-    assert result == ['你', '打', '人']
+    assert result == ['你', '打人']
