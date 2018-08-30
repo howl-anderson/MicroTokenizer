@@ -1,11 +1,11 @@
-from MicroTokenizer import default_model_dir, get_dict_file, get_crf_file
-from MicroTokenizer.DAG.dictionary.trie_algorithm import TrieAlgorithm
+from MicroTokenizer import default_model_dir
+from MicroTokenizer.CRF.crf_tokenizer import CRFTokenizer
 from MicroTokenizer.dag import DAGTokenizer
 from MicroTokenizer.hmm import HMMTokenizer
 from MicroTokenizer.max_match.backward import MaxMatchBackwardTokenizer
+from MicroTokenizer.max_match.bidirectional import \
+    MaxMatchBidirectionalTokenizer
 from MicroTokenizer.max_match.forward import MaxMatchForwardTokenizer
-from MicroTokenizer.max_match.bidirectional import MaxMatchBidirectionalTokenizer
-from MicroTokenizer.CRF.crf_tokenizer import CRFTokenizer
 from MicroTokenizer.merge_token import MergeSolutions
 
 
@@ -16,58 +16,30 @@ class Tokenizer(object):
 
         self.model_dir = model_dir
 
-        self.dict_data = self.load_data(self.model_dir)
-        self.reversed_dict_data = self.load_reversed_data(self.model_dir)
+        self.dag_tokenizer = None  # type: DAGTokenizer
+        self.hmm_tokenizer = None  # type: HMMTokenizer
+        self.max_match_forward_tokenizer = None  # type: MaxMatchForwardTokenizer
+        self.max_match_backward_tokenizer = None  # type: MaxMatchBackwardTokenizer
+        self.max_match_bidirectional_tokenizer = None  # type: MaxMatchBidirectionalTokenizer
+        self.crf_tokenizer = None  # type: CRFTokenizer
 
-        self.dag_tokenizer = DAGTokenizer(self.dict_data)  # type: DAGTokenizer
-
-        self.hmm_tokenizer = HMMTokenizer.load_model(self.model_dir)
-
-        self.max_match_forward_tokenizer = MaxMatchForwardTokenizer(
-            self.dict_data)
-        self.max_match_backward_tokenizer = MaxMatchBackwardTokenizer(
-            self.reversed_dict_data)
-
-        self.max_match_bidirectional_tokenizer = MaxMatchBidirectionalTokenizer(
-            self.dict_data,
-            self.reversed_dict_data
-        )
-
-        crf_file = get_crf_file(self.model_dir)
-        self.crf_tokenizer = CRFTokenizer(crf_file)
-
-    @staticmethod
-    def load_data(model_dir):
-        dag_dict_file = get_dict_file(model_dir)
-
-        dict_data = TrieAlgorithm(dag_dict_file)
-
-        return dict_data
-
-    @staticmethod
-    def load_reversed_data(model_dir):
-        dag_dict_file = get_dict_file(model_dir)
-
-        dict_data = TrieAlgorithm(dag_dict_file, reverse=True)
-
-        return dict_data
+    def init_dag_tokenizer(self):
+        if self.dag_tokenizer is None:
+            self.dag_tokenizer = DAGTokenizer(self.model_dir)
+            self.dag_tokenizer.load_model()
 
     def cut_by_DAG(self, message):
-        # clean the graph, just in case
-        self.dag_tokenizer.init_graph()
+        self.init_dag_tokenizer()
+        return self.dag_tokenizer.segment(message)
 
-        self.dag_tokenizer.build_graph(message)
-        self.dag_tokenizer.compute_shortest_path()
-
-        graph_token = self.dag_tokenizer.get_tokens()
-
-        # remove start & end node which is not part of message
-        message_token = graph_token[1:-1]
-        return message_token
+    def init_hmm_tokenizer(self):
+        if self.hmm_tokenizer is None:
+            self.hmm_tokenizer = HMMTokenizer(self.model_dir)
+            self.hmm_tokenizer.load_model()
 
     def cut_by_HMM(self, message):
-        message_token = self.hmm_tokenizer.predict(message)
-        return message_token
+        self.init_hmm_tokenizer()
+        return self.hmm_tokenizer.segment(message)
 
     def cut_by_joint_model(self, message):
         solutions = [
@@ -81,25 +53,41 @@ class Tokenizer(object):
 
     cut = cut_by_DAG
 
-    def cut_by_max_match_forward(self, message):
-        message_token = self.max_match_forward_tokenizer.process(message)
+    def init_max_match_forward_tokenizer(self):
+        if self.max_match_forward_tokenizer is None:
+            self.max_match_forward_tokenizer = MaxMatchForwardTokenizer()
+            self.max_match_forward_tokenizer.load_model()
 
-        return message_token
+    def cut_by_max_match_forward(self, message):
+        self.init_max_match_forward_tokenizer()
+        return self.max_match_forward_tokenizer.segment(message)
+
+    def init_max_match_backward_tokenizer(self):
+        if self.max_match_backward_tokenizer is None:
+            self.max_match_backward_tokenizer = MaxMatchBackwardTokenizer()
+            self.max_match_backward_tokenizer.load_model()
 
     def cut_by_max_match_backward(self, message):
-        message_token = self.max_match_backward_tokenizer.process(message)
+        self.init_max_match_backward_tokenizer()
+        return self.max_match_backward_tokenizer.segment(message)
 
-        return message_token
+    def init_max_match_bidirectional_tokenizer(self):
+        if self.max_match_bidirectional_tokenizer is None:
+            self.max_match_bidirectional_tokenizer = MaxMatchBidirectionalTokenizer()
+            self.max_match_bidirectional_tokenizer.load_model()
 
     def cut_by_max_match_bidirectional(self, message):
-        message_token = self.max_match_bidirectional_tokenizer.process(message)
+        self.init_max_match_bidirectional_tokenizer()
+        return self.max_match_bidirectional_tokenizer.segment(message)
 
-        return message_token
+    def init_crf_tokenizer(self):
+        if self.crf_tokenizer is None:
+            self.crf_tokenizer = CRFTokenizer()
+            self.crf_tokenizer.load_model()
 
     def cut_by_CRF(self, message):
-        message_token = self.crf_tokenizer.cut(message)
-
-        return message_token
+        self.init_crf_tokenizer()
+        return self.crf_tokenizer.segment(message)
 
     def load_custom_dict(self, dict_file):
         # TODO: not implement yet
@@ -125,11 +113,3 @@ class Tokenizer(object):
     def average_log_freq(self):
         # TODO: not implement yet
         pass
-
-
-if __name__ == "__main__":
-    tokenizer = Tokenizer()
-    print(tokenizer.cut("王小明在北京的清华大学读书。"))
-    print(tokenizer.cut_by_DAG("王小明在北京的清华大学读书。"))
-    print(tokenizer.cut_by_HMM("王小明在北京的清华大学读书。"))
-    print(tokenizer.cut_by_joint_model("王小明在北京的清华大学读书。"))

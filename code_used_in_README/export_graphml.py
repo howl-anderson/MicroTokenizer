@@ -1,9 +1,8 @@
-import MicroTokenizer
+from MicroTokenizer.tokenizer import Tokenizer
 
-MicroTokenizer.initialize()
+tokenizer = Tokenizer()
+tokenizer.init_dag_tokenizer()
 
-from MicroTokenizer import default_tokenizer
-
-dag_tokenizer = default_tokenizer.dag_tokenizer
-dag_tokenizer.build_graph("知识就是力量")
-dag_tokenizer.write_graphml("output.graphml")
+dag_tokenizer = tokenizer.dag_tokenizer
+dag_tokenizer.graph_builder.build_graph("知识就是力量")
+dag_tokenizer.graph_builder.write_graphml("output.graphml")
