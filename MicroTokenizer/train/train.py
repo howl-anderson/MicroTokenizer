@@ -1,23 +1,9 @@
-from MicroTokenizer.train.registry import trainer_list
+from .train_hmm import train_hmm
+from .train_dag import train_dag
+from .train_crf import train_crf
 
 
 def train(input_files_list, output_dir):
-    trainer_instance_list = [i() for i in trainer_list]
-
-    for input_file in input_files_list:
-        with open(input_file) as fd:
-            for raw_line in fd:
-                line = raw_line.strip()
-
-                if not line:
-                    # skip empty line
-                    continue
-
-                token_list = line.split()
-
-                for trainer_instance in trainer_instance_list:
-                    trainer_instance.train_one_line(token_list)
-
-    for trainer_instance in trainer_instance_list:
-        trainer_instance.do_train()
-        trainer_instance.persist_to_dir(output_dir)
+    train_dag(input_files_list, output_dir)
+    train_hmm(input_files_list, output_dir)
+    train_crf(input_files_list, output_dir)
