@@ -51,7 +51,9 @@ class CRFTokenizer(BaseTokenizer):
 
         return decoding(char_tag_list)
 
-    def train_one_line(self, token_list: List[str]):
+    def train_one_line(self, token_list):
+        # type: (List[str]) -> None
+
         self.crf_trainer.train_one_line_by_token(token_list)
 
     def do_train(self):
