@@ -46,7 +46,7 @@ setup(
         '',
         [
             'MicroTokenizer/version.txt',
-            'long_description.rst'
+            'MicroTokenizer/long_description.rst'
 
             'MicroTokenizer/model_data/dict.txt',
 
