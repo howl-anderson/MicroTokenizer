@@ -8,13 +8,13 @@ from MicroTokenizer.max_match.backward import MaxMatchBackwardTokenizer
 
 class MaxMatchBidirectionalTokenizer(BaseDictionaryBasedTokenizer):
     def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
+        super(MaxMatchBidirectionalTokenizer, self).__init__(*args, **kwargs)
 
         self.forward_tokenizer = None
         self.backward_tokenizer = None
 
     def do_train(self):
-        super().do_train()
+        super(MaxMatchBidirectionalTokenizer, self).do_train()
 
         dict_data = TrieAlgorithm(raw_dict_data=self.raw_dict_data)
 
@@ -26,7 +26,7 @@ class MaxMatchBidirectionalTokenizer(BaseDictionaryBasedTokenizer):
         self.backward_tokenizer = MaxMatchBackwardTokenizer(dict_data=reverse_dict_data)
 
     def load_model(self):
-        super().load_model()
+        super(MaxMatchBidirectionalTokenizer, self).load_model()
 
         self.forward_tokenizer = MaxMatchForwardTokenizer(self.model_dir)
         self.forward_tokenizer.load_model()
