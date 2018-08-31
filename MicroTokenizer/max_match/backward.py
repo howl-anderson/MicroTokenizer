@@ -4,12 +4,12 @@ from MicroTokenizer.base_dictionary_based_tokenizer import BaseDictionaryBasedTo
 
 class MaxMatchBackwardTokenizer(BaseDictionaryBasedTokenizer):
     def load_model(self):
-        super(MaxMatchBackwardTokenizer).load_model()
+        super(MaxMatchBackwardTokenizer, self).load_model()
 
         self.dict_data = TrieAlgorithm(self.dict_file, reverse=True)
 
     def do_train(self):
-        super(MaxMatchBackwardTokenizer).do_train()
+        super(MaxMatchBackwardTokenizer, self).do_train()
 
         self.dict_data = TrieAlgorithm(raw_dict_data=self.raw_dict_data, reverse=True)
 
