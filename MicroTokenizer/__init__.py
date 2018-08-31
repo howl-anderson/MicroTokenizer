@@ -6,6 +6,7 @@ import os
 __author__ = """Xiaoquan Kong"""
 __email__ = 'u1mail2me@gmail.com'
 __version__ = ''
+__long_description__ = ''
 
 current_dir = os.path.dirname(os.path.abspath(__file__))
 
@@ -14,6 +15,12 @@ version_file = os.path.join(current_dir, 'version.txt')
 with open(version_file) as fd:
     version_string = fd.read().strip()
     __version__ = version_string
+
+# dynamic load long_description from long_description.rst
+long_description_file = os.path.join(current_dir, 'long_description.rst')
+with open(long_description_file) as fd:
+    version_string = fd.read()
+    __long_description__ = version_string
 
 default_model_dir = os.path.join(current_dir, 'model_data')
 current_model_dir = default_model_dir

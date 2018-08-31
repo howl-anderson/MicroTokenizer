@@ -5,10 +5,9 @@
 
 from setuptools import setup, find_packages
 
-from MicroTokenizer import __version__, __author__, __email__
+from MicroTokenizer import __version__, __author__, __email__, __long_description__
 
-with open('long_description.rst') as long_description_file:
-    long_description = long_description_file.read()
+long_description = __long_description__
 
 requirements = ['Click>=6.0', 'networkx>=2.1', 'tqdm', 'matplotlib', 'MicroHMM', 'plac', 'python-crfsuite']
 setup_requirements = ['pytest-runner', ]
