@@ -34,4 +34,4 @@ def test_segment():
     tokenizer.load_model()
     result = tokenizer.segment("你打人")
 
-    assert pytest.helpers.assert_token_equals(result, "你打人")
+    pytest.helpers.assert_token_equals(result, "你打人")
