@@ -1,3 +1,5 @@
+from typing import List
+
 from MicroTokenizer.DAG.dictionary.trie_algorithm import TrieAlgorithm
 from MicroTokenizer.base_dictionary_based_tokenizer import BaseDictionaryBasedTokenizer
 

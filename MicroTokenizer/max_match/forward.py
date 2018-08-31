@@ -1,3 +1,5 @@
+from typing import List
+
 from MicroTokenizer.DAG.dictionary.trie_algorithm import TrieAlgorithm
 from MicroTokenizer.base_dictionary_based_tokenizer import BaseDictionaryBasedTokenizer
 
@@ -13,7 +15,9 @@ class MaxMatchForwardTokenizer(BaseDictionaryBasedTokenizer):
 
         self.dict_data = TrieAlgorithm(raw_dict_data=self.raw_dict_data)
 
-    def segment(self, message: str):
+    def segment(self, message):
+        # type: (str) -> List[str]
+
         token_result = []
 
         while True:
