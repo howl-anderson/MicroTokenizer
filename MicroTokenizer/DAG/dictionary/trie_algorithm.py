@@ -71,19 +71,3 @@ class TrieAlgorithm(DictionaryData):
             current_node = current_node[i]
 
         current_node.set_as_leaf(weight)
-
-
-if __name__ == "__main__":
-    from timer_cm import Timer
-
-    from MicroTokenizer import default_model_dir, get_dict_file
-
-    dictionary_object = TrieAlgorithm(get_dict_file(default_model_dir))
-
-    with Timer('Building DAG graph'):
-        for _ in range(10000):
-            result = list(
-                dictionary_object.get_token_and_weight_at_text_head("王小明在北京的清华大学读书。")
-            )
-
-    print(result)
