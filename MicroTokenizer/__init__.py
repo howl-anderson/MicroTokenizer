@@ -19,8 +19,8 @@ with open(version_file) as fd:
 # dynamic load long_description from long_description.rst
 long_description_file = os.path.join(current_dir, 'long_description.rst')
 with open(long_description_file) as fd:
-    version_string = fd.read()
-    __long_description__ = version_string
+    ong_description_string = fd.read()
+    __long_description__ = ong_description_string
 
 default_model_dir = os.path.join(current_dir, 'model_data')
 current_model_dir = default_model_dir
