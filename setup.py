@@ -9,7 +9,11 @@ from MicroTokenizer import __version__, __author__, __email__, __long_descriptio
 
 long_description = __long_description__
 
-requirements = ['Click>=6.0', 'networkx>=2.1', 'tqdm', 'matplotlib', 'MicroHMM', 'plac', 'python-crfsuite']
+requirements = [
+    'Click>=6.0', 'networkx>=2.1', 'tqdm', 'matplotlib', 'MicroHMM', 'plac',
+    'python-crfsuite', 'pathlib2'
+]
+
 setup_requirements = ['pytest-runner', ]
 
 test_requirements = ['pytest', 'timer_cm']
