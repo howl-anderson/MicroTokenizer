@@ -46,6 +46,8 @@ setup(
     data_files=[(
         '',
         [
+            'MicroTokenizer/version.txt',
+
             'MicroTokenizer/model_data/dict.txt',
 
             'MicroTokenizer/model_data/A.pickle',
