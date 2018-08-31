@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-"""Tests for `MicroTokenizer` package."""
+import pytest
 
 from MicroTokenizer.dag import DAGTokenizer
 
@@ -13,7 +13,7 @@ def test_train():
     tokenizer.do_train()
     result = tokenizer.segment("你打人")
 
-    assert result == ['你', '打', '人']
+    assert pytest.helpers.assert_token_equals(result, "你打人")
 
 
 def test_persist(tmpdir):
@@ -34,4 +34,4 @@ def test_segment():
     tokenizer.load_model()
     result = tokenizer.segment("你打人")
 
-    assert result == ['你', '打人']
+    assert pytest.helpers.assert_token_equals(result, "你打人")

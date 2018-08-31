@@ -17,3 +17,6 @@ punch.py
 
 # for render some template
 jinja2
+
+# for pytest helper
+pytest-helpers-namespace
