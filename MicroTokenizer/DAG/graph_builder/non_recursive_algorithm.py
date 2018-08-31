@@ -5,7 +5,8 @@ from MicroTokenizer.DAG.dictionary.dictionary import DictionaryData
 
 
 class NonRecursiveAlgorithm(GraphBuilder):
-    def __init__(self, dict_data: DictionaryData):
+    def __init__(self, dict_data):
+        # type: (DictionaryData) -> None
         super(NonRecursiveAlgorithm, self).__init__(dict_data)
 
     def build_graph(self, message):
