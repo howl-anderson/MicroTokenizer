@@ -15,15 +15,7 @@ class DictionaryData(object):
 
         with open(dict_file) as fd:
             for line in fd:
-                splited_line = line.split(' ')
-                data = dict(enumerate(splited_line))
-
-                token = data[0]
-                frequency = data[1].strip()  # using strip to clean tailing newline symbol
-                part_of_speech = data.get(2, '').strip()  # using strip to clean tailing newline symbol
-
-                # print(token, frequency)
-
+                token, frequency = line.split()
                 dict_data[token] = int(frequency)
 
         return dict_data
