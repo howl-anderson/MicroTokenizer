@@ -6,7 +6,7 @@ from MicroTokenizer.DAG.dictionary.dictionary import DictionaryData
 
 class NonRecursiveAlgorithm(GraphBuilder):
     def __init__(self, dict_data: DictionaryData):
-        super(NonRecursiveAlgorithm).__init__(self, dict_data)
+        super(NonRecursiveAlgorithm, self).__init__(dict_data)
 
     def build_graph(self, message):
         cached_process_result = {}  # dictionary: message => list of head node
