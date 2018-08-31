@@ -4,12 +4,12 @@ from MicroTokenizer.base_dictionary_based_tokenizer import BaseDictionaryBasedTo
 
 class MaxMatchForwardTokenizer(BaseDictionaryBasedTokenizer):
     def load_model(self):
-        super().load_model()
+        super(MaxMatchForwardTokenizer, self).load_model()
 
         self.dict_data = TrieAlgorithm(self.dict_file)
 
     def do_train(self):
-        super().do_train()
+        super(MaxMatchForwardTokenizer, self).do_train()
 
         self.dict_data = TrieAlgorithm(raw_dict_data=self.raw_dict_data)
 
