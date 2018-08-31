@@ -44,7 +44,9 @@ class CRFTokenizer(BaseTokenizer):
 
         return tag_list
 
-    def segment(self, message: str):
+    def segment(self, message):
+        # type: (str) -> List[str]
+
         char_tag_list = self.predict_char_tag(message)
 
         return decoding(char_tag_list)
