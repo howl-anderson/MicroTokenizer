@@ -63,7 +63,9 @@ class CRFTokenizer(BaseTokenizer):
             "Also because no training here, model for this instance will not update"
         )
 
-    def persist_to_dir(self, output_dir: str):
+    def persist_to_dir(self, output_dir):
+        # type: (str) -> None
+
         model_file = self.get_model_file(output_dir)
 
         self.crf_trainer.train(model_file)
