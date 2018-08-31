@@ -1,3 +1,5 @@
+from typing import List
+
 from MicroHMM.hmm import HMMModel
 
 from MicroTokenizer.base_tokenizer import BaseTokenizer
@@ -5,7 +7,7 @@ from MicroTokenizer.base_tokenizer import BaseTokenizer
 
 class HMMTokenizer(BaseTokenizer):
     def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
+        super(HMMTokenizer, self).__init__(*args, **kwargs)
 
         self.hmm_model = HMMModel()  # type: HMMModel
 
@@ -57,11 +59,14 @@ class HMMTokenizer(BaseTokenizer):
 
         return token_list
 
-    def segment(self, message: str):
+    def segment(self, message):
+        # type: (str) -> List[str]
+
         return self.predict(message)
 
     def load_model(self):
         self.hmm_model = HMMModel.load_model(self.model_dir)
 
-    def persist_to_dir(self, output_dir: str):
+    def persist_to_dir(self, output_dir):
+        # type: (str) -> None
         self.hmm_model.save_model(output_dir)
