@@ -4,7 +4,9 @@ from MicroTokenizer.DAG.dictionary.dictionary import DictionaryData
 
 
 class GraphBuilder(object):
-    def __init__(self, dict_data: DictionaryData):
+    def __init__(self, dict_data):
+        # type: (DictionaryData) -> None
+
         self.dict_data = dict_data  # type: DictionaryData
 
         # define those value
