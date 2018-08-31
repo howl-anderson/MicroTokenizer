@@ -3,7 +3,7 @@ from MicroTokenizer.DAG.dictionary.dictionary import DictionaryData
 
 class TreeNode(dict):
     def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
+        super(TreeNode).__init__(self, *args, **kwargs)
 
         self.is_leaf = False
         self.weight = None
@@ -15,7 +15,7 @@ class TreeNode(dict):
 
 class TrieAlgorithm(DictionaryData):
     def __init__(self, *args, reverse=False, **kwargs):
-        super().__init__(*args, **kwargs)
+        super(TrieAlgorithm).__init__(self, *args, **kwargs)
 
         # reverse the char order from head to tail
         self.reverse = reverse
