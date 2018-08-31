@@ -18,12 +18,13 @@ def test_train():
 
 def test_persist(tmpdir):
     temp_path = tmpdir.mkdir("hmm")
+    temp_path_str = str(temp_path)
 
     tokenizer = HMMTokenizer()
     tokenizer.train_one_line(["我", "是", "中国人"])
     tokenizer.train_one_line(["你", "打", "人"])
     tokenizer.do_train()
-    tokenizer.persist_to_dir(temp_path)
+    tokenizer.persist_to_dir(temp_path_str)
 
     assert len(temp_path.listdir()) == 3
 
