@@ -13,7 +13,7 @@ class DictionaryData(object):
     def read_dict(dict_file):
         dict_data = {}
 
-        with open(dict_file, encoding='utf_8') as fd:
+        with open(dict_file) as fd:
             for line in fd:
                 splited_line = line.split(' ')
                 data = dict(enumerate(splited_line))
