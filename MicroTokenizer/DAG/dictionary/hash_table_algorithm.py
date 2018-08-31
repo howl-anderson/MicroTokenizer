@@ -3,7 +3,7 @@ from MicroTokenizer.DAG.dictionary.dictionary import DictionaryData
 
 class HashTableAlgorithm(DictionaryData):
     def __init__(self, dict_file):
-        super(HashTableAlgorithm).__init__(self, dict_file)
+        super(HashTableAlgorithm, self).__init__(dict_file)
 
     def get_token_and_weight_at_text_head(self, text):
         for token, weight in self.dict_data.items():
