@@ -22,7 +22,7 @@ def test_CRF():
     assert result == ['他', '走', '了']
 
 
-def test_max_match_forward():
+def test_joint_model():
     result = MicroTokenizer.cut_by_joint_model("他走了")
 
     assert result == ['他', '走', '了']
