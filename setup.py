@@ -11,7 +11,7 @@ long_description = __long_description__
 
 requirements = [
     'Click>=6.0', 'networkx>=2.1', 'tqdm', 'matplotlib', 'MicroHMM', 'plac',
-    'python-crfsuite', 'pathlib2'
+    'python-crfsuite', 'pathlib;python_version<"3.4"'
 ]
 
 setup_requirements = ['pytest-runner', ]
