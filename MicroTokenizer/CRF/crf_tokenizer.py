@@ -11,7 +11,7 @@ from MicroTokenizer.seq2seq.BMES import decoding
 
 class CRFTokenizer(BaseTokenizer):
     def __init__(self, *args, **kwargs):
-        super(CRFTokenizer).__init__(self, *args, **kwargs)
+        super(CRFTokenizer, self).__init__(*args, **kwargs)
 
         self.model_file = self.get_model_file(self.model_dir)
         self.crf_tagger = None
