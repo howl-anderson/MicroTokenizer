@@ -9,7 +9,7 @@ from MicroTokenizer.DAG.dictionary.train_dictionary import TrainDictionary
 
 class BaseDictionaryBasedTokenizer(BaseTokenizer):
     def __init__(self, *args, **kwargs):
-        super(BaseDictionaryBasedTokenizer).__init__(self, *args, **kwargs)
+        super(BaseDictionaryBasedTokenizer, self).__init__(*args, **kwargs)
 
         self.graph_builder = None  # type: GraphBuilder
         self.train_dictionary = TrainDictionary()
