@@ -13,7 +13,7 @@ def test_train():
     tokenizer.do_train()
     result = tokenizer.segment("你打人")
 
-    assert pytest.helpers.assert_token_equals(result, "你打人")
+    pytest.helpers.assert_token_equals(result, "你打人")
 
 
 def test_persist(tmpdir):
