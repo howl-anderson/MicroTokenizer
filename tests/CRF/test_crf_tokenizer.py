@@ -20,11 +20,10 @@ def test_persist(tmpdir):
     assert len(temp_path.listdir()) == 1
 
 
-def test_segment():
+@pytest.mark.parametrize("input_text", pytest.helpers.tokenizer_test_cases())
+def test_segment(input_text):
     tokenizer = CRFTokenizer()
     tokenizer.load_model()
-
-    input_text = "你打人"
 
     result = tokenizer.segment(input_text)
 

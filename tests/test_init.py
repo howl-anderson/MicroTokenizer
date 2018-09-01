@@ -6,29 +6,29 @@ import pytest
 import MicroTokenizer
 
 
-def test_DAG():
-    input_text = "你打人"
+@pytest.mark.parametrize("input_text", pytest.helpers.tokenizer_test_cases())
+def test_DAG(input_text):
     result = MicroTokenizer.cut_by_DAG(input_text)
 
     pytest.helpers.assert_token_equals(result, input_text)
 
 
-def test_HMM():
-    input_text = "你打人"
+@pytest.mark.parametrize("input_text", pytest.helpers.tokenizer_test_cases())
+def test_HMM(input_text):
     result = MicroTokenizer.cut_by_HMM(input_text)
 
     pytest.helpers.assert_token_equals(result, input_text)
 
 
-def test_CRF():
-    input_text = "你打人"
+@pytest.mark.parametrize("input_text", pytest.helpers.tokenizer_test_cases())
+def test_CRF(input_text):
     result = MicroTokenizer.cut_by_CRF(input_text)
 
     pytest.helpers.assert_token_equals(result, input_text)
 
 
-def test_joint_model():
-    input_text = "你打人"
+@pytest.mark.parametrize("input_text", pytest.helpers.tokenizer_test_cases())
+def test_joint_model(input_text):
     result = MicroTokenizer.cut_by_joint_model(input_text)
 
     pytest.helpers.assert_token_equals(result, input_text)
