@@ -1,28 +1,34 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+import pytest
+
 import MicroTokenizer
 
 
 def test_DAG():
-    result = MicroTokenizer.cut_by_DAG("他走了")
+    input_text = "你打人"
+    result = MicroTokenizer.cut_by_DAG(input_text)
 
-    assert result == ['他', '走', '了']
+    pytest.helpers.assert_token_equals(result, input_text)
 
 
 def test_HMM():
-    result = MicroTokenizer.cut_by_HMM("他走了")
+    input_text = "你打人"
+    result = MicroTokenizer.cut_by_HMM(input_text)
 
-    assert result == ['他', '走', '了']
+    pytest.helpers.assert_token_equals(result, input_text)
 
 
 def test_CRF():
-    result = MicroTokenizer.cut_by_CRF("他走了")
+    input_text = "你打人"
+    result = MicroTokenizer.cut_by_CRF(input_text)
 
-    assert result == ['他', '走', '了']
+    pytest.helpers.assert_token_equals(result, input_text)
 
 
 def test_joint_model():
-    result = MicroTokenizer.cut_by_joint_model("他走了")
+    input_text = "你打人"
+    result = MicroTokenizer.cut_by_joint_model(input_text)
 
-    assert result == ['他', '走', '了']
+    pytest.helpers.assert_token_equals(result, input_text)

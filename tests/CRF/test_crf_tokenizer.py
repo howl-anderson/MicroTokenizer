@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 
 """Tests for `MicroTokenizer` package."""
+import pytest
 
 from MicroTokenizer.CRF.crf_tokenizer import CRFTokenizer
 
@@ -22,6 +23,9 @@ def test_persist(tmpdir):
 def test_segment():
     tokenizer = CRFTokenizer()
     tokenizer.load_model()
-    result = tokenizer.segment("你打人")
 
-    assert result == ['你', '打人']
+    input_text = "你打人"
+
+    result = tokenizer.segment(input_text)
+
+    pytest.helpers.assert_token_equals(result, input_text)

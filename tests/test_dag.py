@@ -11,9 +11,11 @@ def test_train():
     tokenizer.train_one_line(["我", "是", "中国人"])
     tokenizer.train_one_line(["你", "打", "人"])
     tokenizer.do_train()
+
+    input_text = "你打人"
     result = tokenizer.segment("你打人")
 
-    pytest.helpers.assert_token_equals(result, "你打人")
+    pytest.helpers.assert_token_equals(result, input_text)
 
 
 def test_persist(tmpdir):
@@ -32,6 +34,8 @@ def test_persist(tmpdir):
 def test_segment():
     tokenizer = DAGTokenizer()
     tokenizer.load_model()
-    result = tokenizer.segment("你打人")
 
-    pytest.helpers.assert_token_equals(result, "你打人")
+    input_text = "你打人"
+    result = tokenizer.segment(input_text)
+
+    pytest.helpers.assert_token_equals(result, input_text)
