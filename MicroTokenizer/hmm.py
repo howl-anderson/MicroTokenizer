@@ -43,6 +43,8 @@ class HMMTokenizer(BaseTokenizer):
 
         char_tag_pair = self.hmm_model.predict(char_list, output_graphml_file)
 
+        # TODO: current BMES decoding is not good, can't raise decoding exception
+
         token_list = []
         word_char = []
         for char, tag in char_tag_pair:
@@ -56,6 +58,11 @@ class HMMTokenizer(BaseTokenizer):
 
                 # reset word_char cache
                 word_char = []
+
+        # no matter what, char can not disappear
+        if word_char:
+            word = "".join(word_char)
+            token_list.append(word)
 
         return token_list
 
