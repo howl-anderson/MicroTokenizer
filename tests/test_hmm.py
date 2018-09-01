@@ -7,18 +7,6 @@ import pytest
 from MicroTokenizer.hmm import HMMTokenizer
 
 
-def test_train():
-    tokenizer = HMMTokenizer()
-    tokenizer.train_one_line(["我", "是", "中国人"])
-    tokenizer.train_one_line(["你", "打", "人"])
-    tokenizer.do_train()
-
-    input_text = "你打人"
-    result = tokenizer.segment(input_text)
-
-    pytest.helpers.assert_token_equals(result, input_text)
-
-
 def test_persist(tmpdir):
     temp_path = tmpdir.mkdir("hmm")
     temp_path_str = str(temp_path)
