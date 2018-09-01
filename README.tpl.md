@@ -123,6 +123,8 @@ NOTE: 导出后的 `graphml` 文件可以使用 [Cytoscape](http://www.cytoscape
 * [DONE] 引入 CRF 分词模型，使用 python-crfsuite
 * [DOING] 模型系统分成代码和模型两个部分，用户可以选择性的下载和安装模型以及让用户训练和安装定制的模型
 * [TODO] 引入 char-level word embedding + Bi-LSTM + CRF 分词模型，参考 [FoolNLTK](https://github.com/rockyzhengwu/FoolNLTK)
+* [TODO] 将预测和训练代码分成不同的模块
+* [DOING] 添加测试代码，确保功能正常和 Python 2/3 的兼容性
 
 
 # Credits
