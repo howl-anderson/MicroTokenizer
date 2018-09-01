@@ -6,14 +6,14 @@ import pytest
 from MicroTokenizer.dag import DAGTokenizer
 
 
-def test_train():
+@pytest.mark.parametrize("input_text", pytest.helpers.tokenizer_test_cases())
+def test_train(input_text):
     tokenizer = DAGTokenizer()
     tokenizer.train_one_line(["我", "是", "中国人"])
     tokenizer.train_one_line(["你", "打", "人"])
     tokenizer.do_train()
 
-    input_text = "你打人"
-    result = tokenizer.segment("你打人")
+    result = tokenizer.segment(input_text)
 
     pytest.helpers.assert_token_equals(result, input_text)
 
@@ -31,11 +31,11 @@ def test_persist(tmpdir):
     assert len(temp_path.listdir()) == 1
 
 
-def test_segment():
+@pytest.mark.parametrize("input_text", pytest.helpers.tokenizer_test_cases())
+def test_segment(input_text):
     tokenizer = DAGTokenizer()
     tokenizer.load_model()
 
-    input_text = "你打人"
     result = tokenizer.segment(input_text)
 
     pytest.helpers.assert_token_equals(result, input_text)
