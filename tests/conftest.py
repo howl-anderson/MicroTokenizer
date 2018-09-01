@@ -20,4 +20,4 @@ def tokenizer_test_cases():
     ]
 
     # return as list of list
-    return [[i] for i in test_cases]
+    return test_cases
