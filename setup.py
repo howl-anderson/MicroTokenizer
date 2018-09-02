@@ -18,7 +18,7 @@ requirements = [
 
 setup_requirements = ['pytest-runner', ]
 
-test_requirements = ['pytest', 'timer_cm']
+test_requirements = ['pytest']
 
 setup(
     author=__author__,
