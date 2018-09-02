@@ -1,30 +1,18 @@
-# Config file for automatic testing at travis-ci.org
-
 language: python
 python:
-  - 3.6
-  - 3.5
-  - 2.7
-
+- 3.6
+- 3.5
+- 2.7
 os:
-  - linux
-
-# Command to install dependencies, e.g. pip install -r requirements.txt --use-mirrors
+- linux
 install: pip install -U tox-travis
-
-# Command to run tests, e.g. python setup.py test
 script: tox
-
-# Assuming you have installed the travis-ci CLI tool, after you
-# create the Github repo and add it to Travis, run the
-# following command to finish PyPI deployment setup:
-# $ travis encrypt --add deploy.password
 deploy:
   provider: pypi
   distributions: sdist bdist_wheel
   user: howlanderson
   password:
-    secure: "P3LqmzKIhFPjQLzeb3O8l6OEuOmWrrvNj7jzz/vsQV7q8JvFEjYXudTNAWq9kY5JGFwCb8cnUqRGe7s5rF+cKFLnQJJ/V5A+iEutOIjs0/EGgb3s5v/cIFanTeO5k8fRSVWHcnomNjl9HnLL8znYmBcUuvgrvbtkJgfpGMWSbLNJ8YkY4zVzcv76RvCa1KDe0q9U8iz6eIyqH9j998vBI8jLBuSt7853SEIfUZrOgDkP5irhLyXcZlYSiLe9d29V4u4hMX6KfFQ1Bw2dLB9zRYZ2HyjSXd3sYim6lms3GlTytt7+MXQJHQsgZImwjHB6pTLPJovSeNA05pJCy0ppGBMLrj0UB75o4Kzl1eeNnHd1/SX5TlqBY4rsI1uWm1RYh2MLfbMrUOV7W8rfcl0P7ei3yEvahEj9BvDh6X2CMofE9CgLgdGMez4Mz8+T0pYgtquPfjA+LMM1Y09sbYqGXkO5+6wPPrLhVieV/Rx7HIhslZtokVusrHerpch4pkRdIu/S8fllPaYe0yP2Rp98kJ1N//+1hNw/DZx+b8/Yo1voWuHedE5u9Rh9Prm2tPEpouQ9nqZgdCLaB/N73hXLZ9fpn3LrscbcUyl29j5q7//m8bgsDgJnKqKHud5K8aaE3p5cLVtgB3Z66KbnEZUxst/Yh5ooof4sJ6wsYrQtLLA="
+    secure: X2k80vMF/lbxcC+EFnyWJIDnTvS72toA4kVqpc6AP/5wmen+vSDmfG1HYfb99EyCS63rzGIFwhSmiUb84jCcW39kqWk+27jKogNgZffvThxsZZdwiDd+xhzSqaNcvrVwmYl6Luuu7EdBnrDJMb7TisSRm8q/ZMMFsG5eJytorOAOxB01zqwPAD61eY1Nict0eoTdt/5rS2GX5LGhnV5z5M/DI1W+XX/IE+cnbmSFegTg5BzQJ1uOxjl6vBtYx9LISS4xPi6hp1oTVSm54L851LRwjazLpkS+ZDfz7GBDbXXtSlzgprPJfzSSuRmxwNPrTDL0690+LBCX7EyaLgh96O/HrCtRwrjATMCrz3faaf1c3FOJXuTe1gZ3j2/dAhfp5gsoEjZmX3ZLTO57XaX56AUWWzuJG84FVjkWb7bCHy36O+pdoa12euyvKAfKtRaapXx7NNh3Tph1VihrqCgTIP8c883URDys49CuQu4oLX+Se0B8jYtHbOTX/YftT622xhnd/SQIYbwNug3vQYp53evH7RQB9EaSFv6DOoUiZhHeqAdyF47kNYrs2lLjwIwOZAiotaFaxQVTzF9TJ/8xvAX1e7hKTjGQyJuJdG/7AeYGLTeVQ5SPvz4vpIR5X99mDxsCmmYd3dj+RBSW/BjVSVSFzLlqnJ+lrhul3D0Yo3o=
   on:
     tags: true
     branch: master
