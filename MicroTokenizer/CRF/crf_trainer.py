@@ -81,8 +81,12 @@ class CRFTrainer:
 
         if i > 1:
             prev_two_word = sent[i - 2]
+            prev_one_word = sent[i - 1]
+
             features.extend([
-                '-2:char=' + prev_two_word
+                '-2:char=' + prev_two_word,
+                '-2/-1:char=' + '/'.join([prev_two_word, prev_one_word]),
+                '-2/-1/0:char=' + '/'.join([prev_two_word, prev_one_word, char])
             ])
         else:
             features.append('near_BOS')
@@ -90,15 +94,20 @@ class CRFTrainer:
         if i < len(sent) - 1:
             next_one_word = sent[i + 1]
             features.extend([
-                '+1:char' + next_one_word
+                '+1:char' + next_one_word,
+                '+1/0:char' + '/'.join([next_one_word, char])
             ])
         else:
             features.append('EOS')
 
         if i < len(sent) - 2:
             next_two_word = sent[i + 2]
+            next_one_word = sent[i + 1]
+
             features.extend([
-                '+2:char' + next_two_word
+                '+2:char' + next_two_word,
+                '+2/+1:char=' + '/'.join([next_two_word, next_one_word]),
+                '+2/+1/0:char=' + '/'.join([next_two_word, next_one_word, char])
             ])
         else:
             features.append('near_EOS')
