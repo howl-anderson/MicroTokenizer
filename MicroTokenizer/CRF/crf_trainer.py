@@ -8,9 +8,9 @@ from MicroTokenizer.hmm import HMMTokenizer
 
 class CRFTrainer:
     _default_params = {
-        'c1': 1.0,  # coefficient for L1 penalty
-        'c2': 1e-3,  # coefficient for L2 penalty
-        'max_iterations': 50,  # stop earlier
+        'c1': 0.1,  # coefficient for L1 penalty
+        'c2': 0.01,  # coefficient for L2 penalty
+        'max_iterations': 200,  # stop earlier
 
         # include transitions that are possible, but not observed
         'feature.possible_transitions': True
