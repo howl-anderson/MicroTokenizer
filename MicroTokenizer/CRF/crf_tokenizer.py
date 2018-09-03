@@ -66,6 +66,7 @@ class CRFTokenizer(BaseTokenizer):
     def persist_to_dir(self, output_dir):
         # type: (str) -> None
 
+        # TODO: should persist feature function as well
         model_file = self.get_model_file(output_dir)
 
         self.crf_trainer.train(model_file)

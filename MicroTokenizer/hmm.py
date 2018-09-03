@@ -29,6 +29,7 @@ class HMMTokenizer(BaseTokenizer):
 
     @staticmethod
     def _generate_char_tag_for_word(word):
+        # TODO: tag set related function should go to a standalone package
         len_of_word = len(word)
 
         if len_of_word == 1:
