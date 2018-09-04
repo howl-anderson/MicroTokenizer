@@ -2,6 +2,7 @@ from typing import List
 
 from MicroHMM.hmm import HMMModel
 
+from MicroTokenizer.hmm_loader import HMMLoader
 from MicroTokenizer.base_tokenizer import BaseTokenizer
 
 
@@ -78,3 +79,9 @@ class HMMTokenizer(BaseTokenizer):
     def persist_to_dir(self, output_dir):
         # type: (str) -> None
         self.hmm_model.save_model(output_dir)
+
+    def assign_from_loader(self, *args, **kwargs):
+        self.hmm_model = kwargs['hmm_model']
+
+    def get_loader(self):
+        return HMMLoader

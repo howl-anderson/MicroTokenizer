@@ -29,3 +29,9 @@ class BaseTokenizer(object):
     def persist_to_dir(self, output_dir):
         # type: (str) -> None
         raise NotImplemented
+
+    def get_loader(self):
+        raise NotImplemented
+
+    def assign_from_loader(self, *args, **kwargs):
+        raise NotImplemented

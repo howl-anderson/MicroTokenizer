@@ -1,6 +1,8 @@
 from typing import List
 
 from MicroTokenizer.DAG.dictionary.trie_algorithm import TrieAlgorithm
+from MicroTokenizer.backward_dictionary_loader import \
+    BackwardDictionaryBasedLoader
 from MicroTokenizer.base_dictionary_based_tokenizer import BaseDictionaryBasedTokenizer
 
 
@@ -48,3 +50,5 @@ class MaxMatchBackwardTokenizer(BaseDictionaryBasedTokenizer):
 
         return list(reversed(reversed_token_result))
 
+    def get_loader(self):
+        return BackwardDictionaryBasedLoader

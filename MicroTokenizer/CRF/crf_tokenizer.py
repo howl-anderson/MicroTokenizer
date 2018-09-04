@@ -6,6 +6,7 @@ import pycrfsuite
 
 from MicroTokenizer.CRF.crf_trainer import CRFTrainer
 from MicroTokenizer.base_tokenizer import BaseTokenizer
+from MicroTokenizer.crf_loader import CRFLoader
 from MicroTokenizer.seq2seq.BMES import decoding
 
 
@@ -70,3 +71,9 @@ class CRFTokenizer(BaseTokenizer):
         model_file = self.get_model_file(output_dir)
 
         self.crf_trainer.train(model_file)
+
+    def assign_from_loader(self, *args, **kwargs):
+        self.crf_tagger = kwargs['crf_tagger']
+
+    def get_loader(self):
+        return CRFLoader

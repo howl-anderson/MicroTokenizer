@@ -11,7 +11,6 @@ class BaseDictionaryBasedTokenizer(BaseTokenizer):
     def __init__(self, *args, **kwargs):
         super(BaseDictionaryBasedTokenizer, self).__init__(*args, **kwargs)
 
-        self.graph_builder = None  # type: GraphBuilder
         self.train_dictionary = TrainDictionary()
         self.dict_data = kwargs.get('dict_data')  # type: DictionaryData
         self.dict_file = None  # type: str
@@ -36,3 +35,7 @@ class BaseDictionaryBasedTokenizer(BaseTokenizer):
     def persist_to_dir(self, output_dir):
         # type: (str) -> None
         self.train_dictionary.persist_to_dir(output_dir)
+
+    def assign_from_loader(self, *args, **kwargs):
+        self.dict_file = kwargs['dict_file']
+        self.dict_data = kwargs['dict_data']

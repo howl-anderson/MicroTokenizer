@@ -2,6 +2,7 @@ from typing import List
 
 from MicroTokenizer.DAG.dictionary.trie_algorithm import TrieAlgorithm
 from MicroTokenizer.base_dictionary_based_tokenizer import BaseDictionaryBasedTokenizer
+from MicroTokenizer.forward_dictionary_loader import ForwardDictionaryBasedLoader
 
 
 class MaxMatchForwardTokenizer(BaseDictionaryBasedTokenizer):
@@ -47,3 +48,6 @@ class MaxMatchForwardTokenizer(BaseDictionaryBasedTokenizer):
                 break
 
         return token_result
+
+    def get_loader(self):
+        return ForwardDictionaryBasedLoader

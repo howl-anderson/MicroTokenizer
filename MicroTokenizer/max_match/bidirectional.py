@@ -1,9 +1,12 @@
 import operator
 
 from MicroTokenizer.DAG.dictionary.trie_algorithm import TrieAlgorithm
-from MicroTokenizer.base_dictionary_based_tokenizer import BaseDictionaryBasedTokenizer
-from MicroTokenizer.max_match.forward import MaxMatchForwardTokenizer
+from MicroTokenizer.base_dictionary_based_tokenizer import \
+    BaseDictionaryBasedTokenizer
+from MicroTokenizer.bidirectional_dictionary_loader import \
+    BidirectionalDictionaryBasedLoader
 from MicroTokenizer.max_match.backward import MaxMatchBackwardTokenizer
+from MicroTokenizer.max_match.forward import MaxMatchForwardTokenizer
 
 
 class MaxMatchBidirectionalTokenizer(BaseDictionaryBasedTokenizer):
@@ -74,3 +77,10 @@ class MaxMatchBidirectionalTokenizer(BaseDictionaryBasedTokenizer):
     def compute_token_len_variability(token_list):
         mean_length = sum(map(lambda x: len(x), token_list)) / len(token_list)
         return sum(map(lambda x: abs(len(x) - mean_length)**2, token_list)) / len(token_list)
+
+    def get_loader(self):
+        return BidirectionalDictionaryBasedLoader
+
+    def assign_from_loader(self, *args, **kwargs):
+        self.forward_tokenizer = kwargs['forward_tokenizer']
+        self.backward_tokenizer = kwargs['backward_tokenizer']

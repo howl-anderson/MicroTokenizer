@@ -1,4 +1,8 @@
-# -*- coding: utf-8 -*-
+# coding: utf8
+from __future__ import unicode_literals
+
+from .about import __version__
+from .errors import Warnings, deprecation_warning
 
 """Top-level package for Micro Tokenizer for Chinese."""
 import os
@@ -97,3 +101,12 @@ def load_userdict(f):
     initialize()
 
     return default_tokenizer.load_user_dict(f)
+
+
+def load(name, **overrides):
+    from . import util
+
+    depr_path = overrides.get('path')
+    if depr_path not in (True, False, None):
+        deprecation_warning(Warnings.W001.format(path=depr_path))
+    return util.load_model(name, **overrides)

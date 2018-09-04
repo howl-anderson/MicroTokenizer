@@ -3,12 +3,18 @@
 """Console script for MicroTokenizer."""
 import plac
 import sys
-from .cli_command import train
+from .cli_command import (
+    train,
+    download,
+    link
+)
 
 
 def main(args=None):
     commands = {
         'train': train,
+        'download': download,
+        'link': link
     }
     if len(sys.argv) == 1:
         print("{title}: {content}, exits: {exits}".format(

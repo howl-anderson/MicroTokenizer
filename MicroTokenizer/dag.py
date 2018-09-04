@@ -1,15 +1,18 @@
 from typing import List
 
-from MicroTokenizer import get_dict_file
 from MicroTokenizer.DAG.dictionary.dictionary import DictionaryData
+from MicroTokenizer.DAG.dictionary.train_dictionary import TrainDictionary
 from MicroTokenizer.DAG.dictionary.trie_algorithm import TrieAlgorithm
 from MicroTokenizer.DAG.graph_builder.graph_builder import GraphBuilder
-from MicroTokenizer.DAG.graph_builder.non_recursive_algorithm import NonRecursiveAlgorithm
-from MicroTokenizer.base_tokenizer import BaseTokenizer
-from MicroTokenizer.DAG.dictionary.train_dictionary import TrainDictionary
+from MicroTokenizer.DAG.graph_builder.non_recursive_algorithm import \
+    NonRecursiveAlgorithm
+from MicroTokenizer.base_dictionary_based_tokenizer import \
+    BaseDictionaryBasedTokenizer
+from MicroTokenizer.forward_dictionary_loader import \
+    ForwardDictionaryBasedLoader
 
 
-class DAGTokenizer(BaseTokenizer):
+class DAGTokenizer(BaseDictionaryBasedTokenizer):
     def __init__(self, *args, **kwargs):
         super(DAGTokenizer, self).__init__(*args, **kwargs)
 
@@ -18,9 +21,9 @@ class DAGTokenizer(BaseTokenizer):
         self.dict_data = None  # type: DictionaryData
 
     def load_model(self):
-        dag_dict_file = get_dict_file(self.model_dir)
+        super(DAGTokenizer, self).load_model()
 
-        self.dict_data = TrieAlgorithm(dag_dict_file)
+        self.dict_data = TrieAlgorithm(self.dict_file)
 
         self.graph_builder = NonRecursiveAlgorithm(self.dict_data)
 
@@ -54,3 +57,10 @@ class DAGTokenizer(BaseTokenizer):
         # type: (str) -> None
 
         self.train_dictionary.persist_to_dir(output_dir)
+
+    def get_loader(self):
+        return ForwardDictionaryBasedLoader
+
+    def assign_from_loader(self, *args, **kwargs):
+        super(DAGTokenizer, self).assign_from_loader(*args, **kwargs)
+        self.graph_builder = NonRecursiveAlgorithm(self.dict_data)
