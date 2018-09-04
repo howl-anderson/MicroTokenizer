@@ -62,7 +62,7 @@ def get_compatibility():
     version = about.__version__
     version = version.rsplit('.dev', 1)[0]
     comp_table = get_json(about.__compatibility__, "compatibility table")
-    comp = comp_table['spacy']
+    comp = comp_table['MicroTokenizer']
     if version not in comp:
         prints(Messages.M006.format(version=version), title=Messages.M005,
                exits=1)
