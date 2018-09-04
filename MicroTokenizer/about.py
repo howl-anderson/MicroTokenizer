@@ -4,12 +4,12 @@
 # https://python-packaging-user-guide.readthedocs.org/en/latest/single_source_version/
 # https://github.com/pypa/warehouse/blob/master/warehouse/__about__.py
 
-__title__ = 'spacy'
-__version__ = '2.0.12'
+__title__ = 'MicroTokenizer'
+__version__ = '0.13.1'
 __summary__ = 'Industrial-strength Natural Language Processing (NLP) with Python and Cython'
-__uri__ = 'https://spacy.io'
-__author__ = 'Explosion AI'
-__email__ = 'contact@explosion.ai'
+__uri__ = 'https://github.com/howl-anderson/MicroTokenizer'
+__author__ = 'Xiaoquan Kong'
+__email__ = 'u1mail2me@gmail.com'
 __license__ = 'MIT'
 __release__ = True
 
