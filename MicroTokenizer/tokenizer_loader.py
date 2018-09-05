@@ -11,6 +11,7 @@ from MicroTokenizer.max_match.bidirectional import \
     MaxMatchBidirectionalTokenizer
 from MicroTokenizer.max_match.forward import MaxMatchForwardTokenizer
 from MicroTokenizer.base_tokenizer import BaseTokenizer
+from MicroTokenizer.tokenizer import Tokenizer
 
 
 class BaseDefaults(object):
@@ -110,3 +111,26 @@ class TokenizerLoader(object):
         util.from_disk(path, deserializers, exclude)
         return self
 
+    def get_tokenizer(self):
+        def assemble_max_match_bidirectional_tokenizer(forward_tokenizer, backward_tokenizer):
+            if forward_tokenizer and backward_tokenizer:
+                max_match_bidirectional_tokenizer = MaxMatchBidirectionalTokenizer()
+                max_match_bidirectional_tokenizer.forward_tokenizer = forward_tokenizer
+                max_match_bidirectional_tokenizer.backward_tokenizer = backward_tokenizer
+
+                return max_match_bidirectional_tokenizer
+
+            return None
+
+        forward_tokenizer = self.tokenizers.get('max_match_forward_tokenizer')
+        backward_tokenizer = self.tokenizers.get('max_match_backward_tokenizer')
+
+        tokenizer = Tokenizer()
+        tokenizer.max_match_forward_tokenizer = forward_tokenizer
+        tokenizer.max_match_backward_tokenizer = backward_tokenizer
+        tokenizer.max_match_bidirectional_tokenizer = assemble_max_match_bidirectional_tokenizer(forward_tokenizer, backward_tokenizer)
+        tokenizer.hmm_tokenizer = self.tokenizers.get('hmm_tokenizer')
+        tokenizer.dag_tokenizer = self.tokenizers.get('dag_tokenizer')
+        tokenizer.crf_tokenizer = self.tokenizers.get('crf_tokenizer')
+
+        return tokenizer
