@@ -66,6 +66,8 @@ class CRFTrainer:
     @staticmethod
     def _default_word2features(sent, i):
         char = sent[i]
+        sent_len = len(sent)
+
         features = [
             'bias',
             'char=' + char
@@ -91,25 +93,32 @@ class CRFTrainer:
         else:
             features.append('near_BOS')
 
-        if i < len(sent) - 1:
+        if i < sent_len - 1:
             next_one_word = sent[i + 1]
             features.extend([
                 '+1:char' + next_one_word,
-                '+1/0:char' + '/'.join([next_one_word, char])
+                '0/+1:char' + '/'.join([char, next_one_word])
             ])
         else:
             features.append('EOS')
 
-        if i < len(sent) - 2:
+        if i < sent_len - 2:
             next_two_word = sent[i + 2]
             next_one_word = sent[i + 1]
 
             features.extend([
                 '+2:char' + next_two_word,
-                '+2/+1:char=' + '/'.join([next_two_word, next_one_word]),
-                '+2/+1/0:char=' + '/'.join([next_two_word, next_one_word, char])
+                '+1/+2:char=' + '/'.join([next_one_word, next_two_word]),
+                '0/+1/+2:char=' + '/'.join([char, next_one_word, next_two_word])
             ])
         else:
             features.append('near_EOS')
+
+        if 0 < i < sent_len - 1:
+            prev_one_word = sent[i - 1]
+            next_one_word = sent[i + 1]
+
+            features.append('-1/0/+1:char=' + '/'.join([prev_one_word, char, next_one_word]))
+            features.append('-1/+1:char=' + '/'.join([prev_one_word, next_one_word]))
 
         return features
