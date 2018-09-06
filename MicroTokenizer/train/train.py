@@ -1,7 +1,8 @@
-from MicroTokenizer.train.registry import trainer_list
+from MicroTokenizer.train.registry import get_trainer_list
 
 
-def train(input_files_list, output_dir):
+def train(input_files_list, output_dir, **kwargs):
+    trainer_list = get_trainer_list(**kwargs)
     trainer_instance_list = [i() for i in trainer_list]
 
     for input_file in input_files_list:
