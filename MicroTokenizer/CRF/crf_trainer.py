@@ -2,8 +2,9 @@ import copy
 from functools import reduce
 
 import pycrfsuite
+from tokenizer_tools.tagset.BMES import BMESEncoderDecoder
 
-from MicroTokenizer.hmm import HMMTokenizer
+tag_encoder_decoder = BMESEncoderDecoder()
 
 
 class CRFTrainer:
@@ -27,6 +28,13 @@ class CRFTrainer:
 
         self.train_one_line_by_token(token_list)
 
+    def train_one_line_by_char_tag(self, char_list, tag_list):
+        feature_list = [
+            self.char2feature_func(char_list, i) for i in range(len(char_list))
+        ]
+
+        self.train_one_line(feature_list, tag_list)
+
     def train_one_line_by_token(self, token_list):
         # drop blank line
         if not token_list:
@@ -35,7 +43,8 @@ class CRFTrainer:
         tag_list = reduce(
             lambda x, y: x + y,
             [
-                HMMTokenizer._generate_char_tag_for_word(i)
+                # default coding schema is BMES
+                tag_encoder_decoder.encode_word(i)
                 for i in token_list
             ],
         )
@@ -44,11 +53,7 @@ class CRFTrainer:
             token_list
         )
 
-        feature_list = [
-            self.char2feature_func(char_list, i) for i in range(len(char_list))
-        ]
-
-        self.train_one_line(feature_list, tag_list)
+        self.train_one_line_by_char_tag(char_list, tag_list)
 
     def train_one_line(self, x, y):
         self.crf_trainer.append(x, y)
