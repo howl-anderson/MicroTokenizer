@@ -1,6 +1,6 @@
 import plac
 
-from MicroTokenizer.train.train import train
+from MicroTokenizer.train.train import train as train_func
 
 
 @plac.annotations(
@@ -9,4 +9,4 @@ from MicroTokenizer.train.train import train
                 None, str, None, "n")
 )
 def train(output_dir, *train_data):
-    train(train_data, output_dir)
+    train_func(train_data, output_dir)
