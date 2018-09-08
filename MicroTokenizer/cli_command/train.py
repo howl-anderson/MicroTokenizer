@@ -3,6 +3,7 @@ import plac
 from MicroTokenizer.train.train import train as train_func
 
 
+# TODO: plac based CLI may have bug, need be checked
 @plac.annotations(
     output_dir=("output directory to store model in", "positional", None, str),
     train_data=("location of training data", "positional",
