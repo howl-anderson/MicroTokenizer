@@ -261,6 +261,7 @@ TODO
 * [TODO] 增加并发处理的能力
 * [TODO] 允许用户非常方便的训练自己的模型包
 * [TODO] 使用人明日报字典替换 jieba 提供的字典
+* [TODO] 添加 jieba 兼容的 banana peel 接口
 
 
 # Credits
