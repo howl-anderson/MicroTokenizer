@@ -90,29 +90,88 @@ TODO
 只在 python 3.5+ 环境测试过，其他环境不做兼容性保障。
 
 # 安装
-## pip
+新版本的 MicroTokenizer 引入了和 [SpaCy](https://spacy.io/) 类似的代码和模型分离的理念。这一理念具有以下优点：
+
+* 极大减小 MicroTokenizer 安装包的大小。未分离版本的 MicroTokenizer 大约 20 MB，分离后将减少到 10 KB 的规模，将大大减少下载安装的时间。
+* 给予模型最大的灵活性，用户可以下载想要的模型，多种模型可以同时共存，极大的方便用户的使用。
+* 让用户定制化模型变得简单，用户可以将自己定制的模型打包成 Python package, 用管理 package 的方式管理模型。
+
+为了兼容以前的使用方式，MicroTokenizer 安装包依旧带有模型数据。但为了获得以上的优势，建议使用代码和模型分离的方式。
+
+## 安装 MicroTokenizer
+### pip (推荐，稳定版本)
 ```bash
 pip install MicroTokenizer
 ```
 
-## source
-```console
+### source (最新特性版本)
+```bash
 pip install git+https://github.com/howl-anderson/MicroTokenizer.git
 ```
-
-# 如何使用
-## 分词
-### 使用 DAG 分词算法
-```python
-{{ tokenize_with_DAG }}
+## 安装模型
+这里我们选择下载和安装默认的 model package
+```bash
+MicroTokenizer download
 ```
 
+上述命令将会自动下载和安装默认的模型。
+
+# 如何使用
+
+## 分词
+
+### 使用基于 Loader 的方式（推荐）
+```python
+{{ tokenize_with_loader }}
+```
+
+输出：
+
+```python
+{{ tokenize_with_loader_output }}
+```
+
+### 使用基于 legacy 的方式
+```python
+{{ tokenize_with_legacy }}
+```
+
+输出：
+
+```python
+{{ tokenize_with_legacy_output }}
+```
+
+
 ## 导出 GraphML 文件
+
+针对基于 DAG 的算法，用户可以到处 GraphML 文件，研究其工作原理。
+
 ```python
 {{ export_graphml }}
 ```
 
 NOTE: 导出后的 `graphml` 文件可以使用 [Cytoscape](http://www.cytoscape.org/) 进行浏览和渲染
+
+## 如何训练自己的模型
+
+### 基于 Loader 的模型
+
+TODO
+
+### 基于 legacy 的模型
+
+TODO
+
+## 如何安装和使用自定义模型
+
+### 基于 Loader 的模型
+
+TODO
+
+### 基于 legacy 的模型
+
+TODO
 
 # Roadmap
 * [DONE] DAG 模型融合 HMM 模型 以处理 OOV 以及提高 Performance
@@ -128,7 +187,9 @@ NOTE: 导出后的 `graphml` 文件可以使用 [Cytoscape](http://www.cytoscape
 * [DOING] 添加测试代码，确保功能正常和 Python 2/3 的兼容性
 * [TODO] 增加并发处理的能力
 * [TODO] 允许用户非常方便的训练自己的模型包
+* [TODO] 使用人明日报字典替换 jieba 提供的字典
 
 
 # Credits
 * 目前 DAG 算法所用的字典文件来自 [jieba](https://github.com/fxsjy/jieba) 项目
+* 代码和模型分离所使用的机制和代码全部修改自 [SpaCy](https://spacy.io/) 项目
