@@ -16,3 +16,4 @@ __release__ = True
 __download_url__ = 'https://github.com/howl-anderson/MicroTokenizer-models/releases/download'
 __compatibility__ = 'https://raw.githubusercontent.com/howl-anderson/MicroTokenizer-models/master/compatibility.json'
 __shortcuts__ = 'https://raw.githubusercontent.com/howl-anderson/MicroTokenizer-models/master/shortcuts.json'
+__default_corpus__ = 'pd'

@@ -103,8 +103,12 @@ def load_userdict(f):
     return default_tokenizer.load_user_dict(f)
 
 
-def load(name, **overrides):
+def load(name=None, **overrides):
     from . import util
+    from . import about
+
+    if name is None:
+        name = about.__default_corpus__
 
     depr_path = overrides.get('path')
     if depr_path not in (True, False, None):

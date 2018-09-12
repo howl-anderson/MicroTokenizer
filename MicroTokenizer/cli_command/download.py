@@ -19,12 +19,15 @@ from MicroTokenizer import about
             "perform compatibility check", "flag", "d", bool),
     pip_args=("additional arguments to be passed to `pip install` when "
               "installing the model"))
-def download(model, direct=False, *pip_args):
+def download(model=None, direct=False, *pip_args):
     """
     Download compatible model from default download path using pip. Model
     can be shortcut, model name or, if --direct flag is set, full model name
     with version.
     """
+    if model is None:
+        model = about.__default_corpus__
+
     if direct:
         dl = download_model('{m}/{m}.tar.gz#egg={m}'.format(m=model), pip_args)
     else:
