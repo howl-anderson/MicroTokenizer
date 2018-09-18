@@ -24,7 +24,12 @@
 # 演示
 
 ## 在线演示
-在线的 Jupyter Notebook 在 [![Binder](https://mybinder.org/badge.svg)](https://mybinder.org/v2/gh/howl-anderson/MicroTokenizer/master?filepath=.notebooks%2FMicroTokenizer.ipynb)
+
+### 在线的 Jupyter Notebook
+点击右侧图标，即可访问 [![Binder](https://mybinder.org/badge.svg)](https://mybinder.org/v2/gh/howl-anderson/MicroTokenizer/master?filepath=.notebooks%2FMicroTokenizer.ipynb)
+
+### Online web demo
+@ [http://nlp_demo.xiaoquankong.ai/](http://nlp_demo.xiaoquankong.ai/)
 
 ## 离线演示
 ### DAG 分词
