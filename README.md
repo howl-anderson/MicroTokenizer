@@ -260,10 +260,9 @@ TODO
 * [DOING] 添加测试代码，确保功能正常和 Python 2/3 的兼容性
 * [TODO] 增加并发处理的能力
 * [TODO] 允许用户非常方便的训练自己的模型包
-* [TODO] 使用人明日报字典替换 jieba 提供的字典
+* [DONE] 使用人明日报字典替换 jieba 提供的字典
 * [TODO] 添加 jieba 兼容的 banana peel 接口
 
 
 # Credits
-* 目前 DAG 算法所用的字典文件来自 [jieba](https://github.com/fxsjy/jieba) 项目
 * 代码和模型分离所使用的机制和代码全部修改自 [SpaCy](https://spacy.io/) 项目
