@@ -23,7 +23,7 @@ class CRFTokenizer(BaseTokenizer):
         self.open_mode = None
         self.file_content = None
 
-        self.word2features_func = default_word2features
+        self.word2features_func = None
 
     @staticmethod
     def get_model_file(model_dir):
