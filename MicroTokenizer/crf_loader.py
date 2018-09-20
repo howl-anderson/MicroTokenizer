@@ -30,7 +30,7 @@ class CRFLoader(BaseLoader):
         self.crf_tagger = pycrfsuite.Tagger()
         self.crf_tagger.open(self.model_file)
 
-        pickle_file = self.get_char2feature_file(output_dir)
+        pickle_file = self.get_char2feature_file(model_path)
         with open(pickle_file, 'rb') as fd:
             self.char2feature_func = pickle.load(fd)
 
