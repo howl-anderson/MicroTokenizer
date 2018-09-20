@@ -85,7 +85,8 @@ class CRFTokenizer(BaseTokenizer):
 
         pickle_file = self.get_char2feature_file(output_dir)
         with open(pickle_file, 'wb') as fd:
-            cloudpickle.dump(self.crf_trainer.char2feature_func, fd)
+            # using protocol=2 to keep compatible with python 2
+            cloudpickle.dump(self.crf_trainer.char2feature_func, fd, protocol=2)
 
     def assign_from_loader(self, *args, **kwargs):
         self.crf_tagger = kwargs['crf_tagger']
