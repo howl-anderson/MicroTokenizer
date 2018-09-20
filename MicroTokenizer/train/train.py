@@ -44,7 +44,7 @@ def train_parallel(input_files_list, output_dir, **kwargs):
 
                 token_collection.append(token_list)
 
-    Parallel(n_jobs=1)(
+    Parallel(n_jobs=-1)(
         delayed(train_tokenizer_from_collection)(
             trainer_instance, token_collection, output_dir
         )
