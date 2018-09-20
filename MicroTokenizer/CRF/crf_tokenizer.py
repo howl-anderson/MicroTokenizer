@@ -37,6 +37,10 @@ class CRFTokenizer(BaseTokenizer):
         self.crf_tagger = pycrfsuite.Tagger()
         self.crf_tagger.open(self.model_file)
 
+        pickle_file = self.get_char2feature_file(self.model_dir)
+        with open(pickle_file, 'rb') as fd:
+            self.word2features_func = pickle.load(fd)
+
     def predict_char_tag(self, char_list):
         tag_list = self.predict_tag(char_list)
 
