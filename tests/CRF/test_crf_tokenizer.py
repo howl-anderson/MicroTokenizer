@@ -17,7 +17,7 @@ def test_persist(tmpdir):
     tokenizer.do_train()
     tokenizer.persist_to_dir(temp_path_str)
 
-    assert len(temp_path.listdir()) == 1
+    assert len(temp_path.listdir()) == 2
 
 
 @pytest.mark.parametrize("input_text", pytest.helpers.tokenizer_test_cases())
