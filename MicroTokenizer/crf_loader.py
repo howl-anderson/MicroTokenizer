@@ -1,5 +1,5 @@
 import os
-import pickle
+import cloudpickle
 
 import pycrfsuite
 
@@ -32,7 +32,7 @@ class CRFLoader(BaseLoader):
 
         pickle_file = self.get_char2feature_file(model_path)
         with open(pickle_file, 'rb') as fd:
-            self.char2feature_func = pickle.load(fd)
+            self.char2feature_func = cloudpickle.load(fd)
 
         for tokenizer in tokenizer_list:
             tokenizer.assign_from_loader(

@@ -1,5 +1,5 @@
 import os
-import pickle
+import cloudpickle
 from typing import List
 from warnings import warn
 
@@ -39,7 +39,7 @@ class CRFTokenizer(BaseTokenizer):
 
         pickle_file = self.get_char2feature_file(self.model_dir)
         with open(pickle_file, 'rb') as fd:
-            self.word2features_func = pickle.load(fd)
+            self.word2features_func = cloudpickle.load(fd)
 
     def predict_char_tag(self, char_list):
         tag_list = self.predict_tag(char_list)
@@ -85,7 +85,7 @@ class CRFTokenizer(BaseTokenizer):
 
         pickle_file = self.get_char2feature_file(output_dir)
         with open(pickle_file, 'wb') as fd:
-            pickle.dump(self.crf_trainer.char2feature_func, fd)
+            cloudpickle.dump(self.crf_trainer.char2feature_func, fd)
 
     def assign_from_loader(self, *args, **kwargs):
         self.crf_tagger = kwargs['crf_tagger']
