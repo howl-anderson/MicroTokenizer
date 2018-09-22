@@ -21,7 +21,7 @@ class CRFTrainer:
         self.crf_trainer = pycrfsuite.Trainer(verbose=False)
 
         if not char2feature_func:
-            self.char2feature_func = default_word2features
+            self.feature_func_list = default_feature_func_list
 
     def train_one_raw_line(self, blank_splittable_string):
         token_list = blank_splittable_string.split()
@@ -30,7 +30,7 @@ class CRFTrainer:
 
     def train_one_line_by_char_tag(self, char_list, tag_list):
         feature_list = [
-            self.char2feature_func(char_list, i) for i in range(len(char_list))
+            word2features(char_list, i, self.feature_func_list) for i in range(len(char_list))
         ]
 
         self.train_one_line(feature_list, tag_list)
@@ -69,61 +69,50 @@ class CRFTrainer:
         self.crf_trainer.train(output_file)
 
 
-def default_word2features(sent, i):
-    char = sent[i]
-    sent_len = len(sent)
+feature_func_dict = {
+    'bias': lambda sent, i: None,
+    'char': lambda sent, i: sent[i],
+    '-1:char': lambda sent, i: sent.get(i - 1, ''),
+    '-1/0:char': lambda sent, i: sent.get(i - 1, '') + '/' + sent[i],
+    '-2:char': lambda sent, i: sent.get(i - 2, ''),
+    '-2/-1:char': lambda sent, i: sent.get(i - 2, '') + '/' + sent.get(i - 1, ''),
+    '-2/-1/0:char': lambda sent, i: sent.get(i - 2, '') + '/' + sent.get(i - 1, '') + '/' + sent[i],
+    '+1:char': lambda sent, i: sent.get(i + 1, ''),
+    '0/+1:char': lambda sent, i: sent[i] + '/' + sent.get(i + 1, ''),
+    '+2:char': lambda sent, i: sent.get(i + 2, ''),
+    '+1/+2:char': lambda sent, i: sent.get(i + 1, '') + '/' + sent.get(i + 2, ''),
+    '0/+1/+2:char': lambda sent, i: sent[i] + '/' + sent.get(i + 1, '') + '/' + sent.get(i + 2, ''),
+    '-1/0/+1:char': lambda sent, i: sent.get(i - 1, '') + '/' + sent[i] + '/' + sent.get(i + 1, ''),
+    '-1/+1:char': lambda sent, i: sent.get(i - 1, '') + '/' + sent.get(i + 1, ''),
+}
 
-    features = [
-        'bias',
-        'char=' + char
-    ]
-    if i > 0:
-        prev_one_word = sent[i - 1]
-        features.extend([
-            '-1:char=' + prev_one_word,
-            '-1/0:char=' + prev_one_word + '/' + char
-        ])
-    else:
-        features.append('BOS')
 
-    if i > 1:
-        prev_two_word = sent[i - 2]
-        prev_one_word = sent[i - 1]
+class DictLikeSequence(str):
+    def get(self, index, default=None):
+        try:
+            return self[index]
+        except IndexError:
+            return default
 
-        features.extend([
-            '-2:char=' + prev_two_word,
-            '-2/-1:char=' + '/'.join([prev_two_word, prev_one_word]),
-            '-2/-1/0:char=' + '/'.join([prev_two_word, prev_one_word, char])
-        ])
-    else:
-        features.append('near_BOS')
 
-    if i < sent_len - 1:
-        next_one_word = sent[i + 1]
-        features.extend([
-            '+1:char' + next_one_word,
-            '0/+1:char' + '/'.join([char, next_one_word])
-        ])
-    else:
-        features.append('EOS')
+def word2features(sent, i, feature_func_list):
+    # make sure is a DictLikeSequence which can using get(index, default_value)
+    sent = DictLikeSequence(sent)
 
-    if i < sent_len - 2:
-        next_two_word = sent[i + 2]
-        next_one_word = sent[i + 1]
+    feature_list = []
+    for feature_func_name in feature_func_list:
+        feature_func = feature_func_dict.get(feature_func_name)
+        feature_value = feature_func(sent, i)
 
-        features.extend([
-            '+2:char' + next_two_word,
-            '+1/+2:char=' + '/'.join([next_one_word, next_two_word]),
-            '0/+1/+2:char=' + '/'.join([char, next_one_word, next_two_word])
-        ])
-    else:
-        features.append('near_EOS')
+        if feature_value is None:
+            # special for bias
+            feature = feature_func_name
+        else:
+            feature = feature_func_name + '=' + feature_value
 
-    if 0 < i < sent_len - 1:
-        prev_one_word = sent[i - 1]
-        next_one_word = sent[i + 1]
+        feature_list.append(feature)
 
-        features.append('-1/0/+1:char=' + '/'.join([prev_one_word, char, next_one_word]))
-        features.append('-1/+1:char=' + '/'.join([prev_one_word, next_one_word]))
+    return feature_list
 
-    return features
+
+default_feature_func_list = list(feature_func_dict.keys())

@@ -1,11 +1,11 @@
 import os
-import cloudpickle
+import pickle
 from typing import List
 from warnings import warn
 
 import pycrfsuite
 
-from MicroTokenizer.CRF.crf_trainer import CRFTrainer, default_word2features
+from MicroTokenizer.CRF.crf_trainer import CRFTrainer, word2features, default_feature_func_list
 from MicroTokenizer.base_tokenizer import BaseTokenizer
 from MicroTokenizer.crf_loader import CRFLoader
 from MicroTokenizer.seq2seq.BMES import decoding
@@ -23,7 +23,10 @@ class CRFTokenizer(BaseTokenizer):
         self.open_mode = None
         self.file_content = None
 
-        self.word2features_func = None
+        self.feature_func_list = None
+
+        if self.feature_func_list is None:
+            self.feature_func_list = default_feature_func_list
 
     @staticmethod
     def get_model_file(model_dir):
@@ -31,7 +34,7 @@ class CRFTokenizer(BaseTokenizer):
 
     @staticmethod
     def get_char2feature_file(model_dir):
-        return os.path.join(model_dir, 'char2feature.pickle')
+        return os.path.join(model_dir, 'feature_func_list.pickle')
 
     def load_model(self):
         self.crf_tagger = pycrfsuite.Tagger()
@@ -39,7 +42,7 @@ class CRFTokenizer(BaseTokenizer):
 
         pickle_file = self.get_char2feature_file(self.model_dir)
         with open(pickle_file, 'rb') as fd:
-            self.word2features_func = cloudpickle.load(fd)
+            self.feature_func_list = pickle.load(fd)
 
     def predict_char_tag(self, char_list):
         tag_list = self.predict_tag(char_list)
@@ -48,7 +51,7 @@ class CRFTokenizer(BaseTokenizer):
 
     def predict_tag(self, char_list):
         feature_list = [
-            self.word2features_func(char_list, i)
+            word2features(char_list, i, self.feature_func_list)
             for i in range(len(char_list))
         ]
 
@@ -86,11 +89,11 @@ class CRFTokenizer(BaseTokenizer):
         pickle_file = self.get_char2feature_file(output_dir)
         with open(pickle_file, 'wb') as fd:
             # using protocol=2 to keep compatible with python 2
-            cloudpickle.dump(self.crf_trainer.char2feature_func, fd, protocol=2)
+            pickle.dump(self.feature_func_list, fd, protocol=2)
 
     def assign_from_loader(self, *args, **kwargs):
         self.crf_tagger = kwargs['crf_tagger']
-        self.word2features_func = kwargs['word2features_func']
+        self.feature_func_list = kwargs['feature_func_list']
 
     def get_loader(self):
         return CRFLoader
