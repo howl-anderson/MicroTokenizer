@@ -63,6 +63,9 @@ class TrieAlgorithm(DictionaryData):
                 break
 
     def add_token_and_weight(self, token, weight):
+        if self.reverse:
+            token = reversed(token)
+
         current_node = self.tree_root
         for i in token:
             if i not in current_node:
