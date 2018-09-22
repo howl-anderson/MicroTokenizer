@@ -5,6 +5,7 @@ import copy
 from functools import reduce
 
 import pycrfsuite
+import six
 from tokenizer_tools.tagset.BMES import BMESEncoderDecoder
 
 tag_encoder_decoder = BMESEncoderDecoder()
@@ -90,7 +91,7 @@ feature_func_dict = {
 }
 
 
-class DictLikeSequence(str):
+class DictLikeSequence(six.text_type):
     def get(self, index, default=None):
         try:
             return self[index]
@@ -99,6 +100,9 @@ class DictLikeSequence(str):
 
 
 def word2features(sent, i, feature_func_list):
+    # if six.PY2:
+    #     sent = sent.encode('utf-8')
+
     # make sure is a DictLikeSequence which can using get(index, default_value)
     sent = DictLikeSequence(sent)
 

@@ -1,6 +1,11 @@
+# -*- coding: utf-8 -*-
+from __future__ import unicode_literals
+
 import os
 from typing import List
 from collections import Counter
+
+import six
 
 
 class TrainDictionary:
@@ -26,6 +31,9 @@ class TrainDictionary:
             ["{}\t{}".format(k, v) for k, v in self.dictionary.items()]
         )
 
-        with open(dictionary_file, 'w') as fd:
+        with open(dictionary_file, 'wt') as fd:
+            if six.PY2:
+                file_content = file_content.encode('utf-8')
+
             fd.write(file_content)
             fd.write('\n')  # write tail newline
