@@ -115,4 +115,16 @@ def word2features(sent, i, feature_func_list):
     return feature_list
 
 
-default_feature_func_list = list(feature_func_dict.keys())
+all_feature_func_list = list(feature_func_dict.keys())
+
+regular_feature_func_list = [
+    'bias',
+    'char',
+    '-1:char',
+    '-1/0:char',
+    '+1:char',
+    '0/+1:char',
+    '-1/+1:char',
+]
+
+default_feature_func_list = regular_feature_func_list
