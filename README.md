@@ -232,10 +232,47 @@ dag_tokenizer.graph_builder.write_graphml("output.graphml")
 NOTE: 导出后的 `graphml` 文件可以使用 [Cytoscape](http://www.cytoscape.org/) 进行浏览和渲染
 
 ## 如何训练自己的模型
+MicroTokenizer 也提供了非常强大工具帮助你训练工具。
+安装 MicroTokenizer 后，你可以使用如下命令来训练模型。
+
+```bash
+MicroTokenizer train output_model_dir input_data.txt
+```
+
+`output_model_dir` 指定了输出目录，`input_data.txt` 则指定了输入文件。
+输入文件的格式为纯文本格式，每个词语之间用空格隔开即可。
+
+
 
 ### 基于 Loader 的模型
+MicroTokenizer 提供了非常强大的包和模型分离的机制，用户可以训练自己的数据并打包成一个普通的 python package, 安装就可以使用，非常强大。
+首先我们先安装 cookiecutter， 这是一个项目创建工具，帮助我们快速创建所需的 package 模板。
+```bash
+pip install cookiecutter
+```
 
-TODO
+利用 cookiecutter 创建我们 MicroTokenizer 专属的 package 格式。
+
+```bash
+cokiecutter https://github.com/howl-anderson/cookiecutter-MicroTokenizer
+```
+
+回答几个相关的问题后，就将为你生成一个 python package 在  `{{ cookiecutter.project_slug }}-{{ cookiecutter.version }}` 位置。`{{ cookiecutter.xx }}` 为变量，具体值在上一步填写问题中得到。
+
+|                    源文件                    |                                                                                      拷贝至目录                                                                                      |
+| :------------------------------------------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `A.pickle`、`B.pickle`、`vocabulary.pickle`  | `{{ cookiecutter.project_slug }}-{{ cookiecutter.version }}` / `{{ cookiecutter.project_slug }}` / `{{ cookiecutter.project_slug }}-{{ cookiecutter.version }}` / `hmm_based`        |
+| `feature_func_list.pickle`、`model.crfsuite` | `{{ cookiecutter.project_slug }}-{{ cookiecutter.version }}` / `{{ cookiecutter.project_slug }}` / `{{ cookiecutter.project_slug }}-{{ cookiecutter.version }}` / `crf_based`        |
+| `dict.txt`                                   | `{{ cookiecutter.project_slug }}-{{ cookiecutter.version }}` / `{{ cookiecutter.project_slug }}` / `{{ cookiecutter.project_slug }}-{{ cookiecutter.version }}` / `dictionary_based` |
+
+然后在 `{{ cookiecutter.project_slug }}-{{ cookiecutter.version }}` 执行：
+```bash
+make dist
+```
+
+就可以在 `{{ cookiecutter.project_slug }}-{{ cookiecutter.version }}` / dist 目录得到 python package
+
+
 
 ### 基于 legacy 的模型
 
@@ -244,8 +281,57 @@ TODO
 ## 如何安装和使用自定义模型
 
 ### 基于 Loader 的模型
+#### 安装
+安装模型
+```bash
+MicroTokenzier download xxxx
+```
 
-TODO
+`xxx` 为你的 package name (如果他在 pypi 上) 或者 package file 都可以
+
+
+在这完成以后，为了更加方便的使用，你还可以建立一个符号链接
+
+```bash
+MicroTokenizer link xxxx xy
+```
+
+也就是将 xy 符号链接到 xxxx package
+
+##### 使用
+直接使用 xxxx package
+```python
+import xxx
+
+tokenizer_loader = xxx.load()
+tokenizer = tokenizer_loader.get_tokenizer()
+
+...
+```
+
+使用 MicroTokenizer 的方式
+
+```python
+import MicroTokenizer
+
+tokenizer_loader = MicroTokenizer.load('xxxx')
+tokenizer = tokenizer_loader.get_tokenizer()
+
+...
+```
+
+如果你建立了符号链接，那么你还可以用
+
+```python
+import MicroTokenizer
+
+tokenizer_loader = MicroTokenizer.load('xy')
+tokenizer = tokenizer_loader.get_tokenizer()
+
+...
+```
+
+这里的 xy 和 上面的链接符号对应
 
 ### 基于 legacy 的模型
 
