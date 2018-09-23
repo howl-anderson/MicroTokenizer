@@ -51,6 +51,12 @@ class Tokenizer(object):
 
         return best_solution
 
+    def joint_solutions(self, solutions):
+        merge_solutions = MergeSolutions()
+        best_solution = merge_solutions.merge(solutions)
+
+        return best_solution
+
     cut = cut_by_DAG
 
     def init_max_match_forward_tokenizer(self):
