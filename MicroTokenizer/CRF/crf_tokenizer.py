@@ -5,7 +5,8 @@ from warnings import warn
 
 import pycrfsuite
 
-from MicroTokenizer.CRF.crf_trainer import CRFTrainer, word2features, default_feature_func_list
+from MicroTokenizer.CRF.crf_trainer import CRFTrainer, word2features, \
+    default_feature_func_list, get_feature_list
 from MicroTokenizer.base_tokenizer import BaseTokenizer
 from MicroTokenizer.crf_loader import CRFLoader
 from MicroTokenizer.seq2seq.BMES import decoding
@@ -50,10 +51,7 @@ class CRFTokenizer(BaseTokenizer):
         return list(zip(char_list, tag_list))
 
     def predict_tag(self, char_list):
-        feature_list = [
-            word2features(char_list, i, self.feature_func_list)
-            for i in range(len(char_list))
-        ]
+        feature_list = get_feature_list(char_list, self.feature_func_list)
 
         tag_list = self.crf_tagger.tag(feature_list)
 

@@ -33,9 +33,7 @@ class CRFTrainer:
         self.train_one_line_by_token(token_list)
 
     def train_one_line_by_char_tag(self, char_list, tag_list):
-        feature_list = [
-            word2features(char_list, i, self.feature_func_list) for i in range(len(char_list))
-        ]
+        feature_list = get_feature_list(char_list, self.feature_func_list)
 
         self.train_one_line(feature_list, tag_list)
 
@@ -122,6 +120,15 @@ def word2features(sent, i, feature_func_list):
     return feature_list
 
 
+def get_feature_list(sent, feature_func_list):
+    feature_list = [
+        word2features(sent, i, feature_func_list)
+        for i in range(len(sent))
+    ]
+
+    return feature_list
+
+
 all_feature_func_list = list(feature_func_dict.keys())
 
 regular_feature_func_list = [
@@ -131,7 +138,6 @@ regular_feature_func_list = [
     '-1/0:char',
     '+1:char',
     '0/+1:char',
-    '-1/+1:char',
 ]
 
 default_feature_func_list = regular_feature_func_list
