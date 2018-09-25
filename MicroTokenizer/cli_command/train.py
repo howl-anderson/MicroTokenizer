@@ -1,14 +1,10 @@
-import plac
-
-from MicroTokenizer.train.train import train as train_func
+from MicroTokenizer.train.train import train_from_configure
 
 
-# TODO: plac based CLI may have bug, need be checked
-# TODO: Add configure file option for CRF feature function list
-@plac.annotations(
-    output_dir=("output directory to store model in", "positional", None, str),
-    train_data=("location of training data", "positional",
-                None, str, None, "n")
-)
-def train(output_dir, *train_data):
-    train_func(train_data, output_dir)
+def train(output_dir, train_data, configure_file=None):
+    train_from_configure([train_data], output_dir, configure_file=configure_file)
+
+
+if __name__ == "__main__":
+    import plac
+    print(plac.call(train))

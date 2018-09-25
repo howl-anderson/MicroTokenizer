@@ -1,6 +1,15 @@
 from joblib import Parallel, delayed
+import yaml
 
 from MicroTokenizer.train.registry import get_trainer_list
+
+
+def train_from_configure(input_files_list, output_dir, configure_file):
+    with open(configure_file) as fd:
+        stream = fd.read()
+        configure = yaml.load(stream)
+
+    return train(input_files_list, output_dir, **configure)
 
 
 def train(input_files_list, output_dir, **kwargs):
