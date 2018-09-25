@@ -18,7 +18,7 @@ trainer_registry = {
 }
 
 
-def get_trainer_list(enable_list=None, disable_list=None):
+def get_trainer_list(enable_list=None, disable_list=None, *args, **kwargs):
     if enable_list and disable_list:
         warnings.warn(
             "User can not use both enable_list and disable_list at same time."
