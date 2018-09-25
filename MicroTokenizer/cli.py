@@ -24,7 +24,7 @@ def main(args=None):
         )
 
     command = sys.argv.pop(1)
-    sys.argv[0] = 'spacy %s' % command
+    sys.argv[0] = 'MicroTokenizer %s' % command
 
     if command in commands:
         plac.call(commands[command], sys.argv[1:])
