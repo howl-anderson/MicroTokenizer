@@ -10,7 +10,7 @@ from MicroTokenizer import __version__, __author__, __email__, __long_descriptio
 long_description = __long_description__
 
 requirements = [
-    'Click>=6.0', 'networkx>=2.1', 'tqdm', 'matplotlib', 'MicroHMM', 'plac',
+    'Click', 'networkx', 'tqdm', 'matplotlib', 'MicroHMM', 'plac',
     'requests', 'regex', 'ujson',
     'python-crfsuite', 'tokenizer_tools',
     'pathlib;python_version<"3.4"',
