@@ -19,8 +19,6 @@ class CRFTokenizer(BaseTokenizer):
         self.model_file = self.get_model_file(self.model_dir)
         self.crf_tagger = None
 
-        self.crf_trainer = CRFTrainer()
-
         self.open_mode = None
         self.file_content = None
 
@@ -28,6 +26,8 @@ class CRFTokenizer(BaseTokenizer):
 
         if self.feature_func_list is None:
             self.feature_func_list = default_feature_func_list
+
+        self.crf_trainer = CRFTrainer(self.feature_func_list)
 
     @staticmethod
     def get_model_file(model_dir):

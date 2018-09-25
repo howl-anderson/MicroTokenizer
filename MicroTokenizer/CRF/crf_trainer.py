@@ -21,10 +21,12 @@ class CRFTrainer:
         'feature.possible_transitions': True
     }
 
-    def __init__(self, char2feature_func=None):
+    def __init__(self, feature_func_list=None):
         self.crf_trainer = pycrfsuite.Trainer(verbose=False)
 
-        if not char2feature_func:
+        self.feature_func_list = feature_func_list
+
+        if not self.feature_func_list:
             self.feature_func_list = default_feature_func_list
 
     def train_one_raw_line(self, blank_splittable_string):
