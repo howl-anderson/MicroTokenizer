@@ -24,7 +24,7 @@ class CRFTokenizer(BaseTokenizer):
         self.open_mode = None
         self.file_content = None
 
-        self.feature_func_list = None
+        self.feature_func_list = kwargs.get('feature_func_list')
 
         if self.feature_func_list is None:
             self.feature_func_list = default_feature_func_list
