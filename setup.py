@@ -14,7 +14,7 @@ requirements = [
     'requests', 'regex', 'ujson',
     'python-crfsuite', 'tokenizer_tools',
     'pathlib;python_version<"3.4"',
-    'typing;python_version<"3.5"', 'numpy', 'joblib', 'six'
+    'typing;python_version<"3.5"', 'numpy', 'joblib', 'six', 'pyyaml'
 ]
 
 setup_requirements = ['pytest-runner', ]
