@@ -9,12 +9,13 @@ bmes_decoder = BMESEncoderDecoder()
 
 
 class HTTPClient(object):
-    def __init__(self, host, model_name='seq2label', port=8501, https=False):
-        self.server_url = '{protocol}://{host}:{port}/v1/models/{model_name}:predict'.format(
+    def __init__(self, host, model_name='seq2label', port=8501, https=False, url_prefix=''):
+        self.server_url = '{protocol}://{host}:{port}{url_prefix}/v1/models/{model_name}:predict'.format(
             protocol='https' if https else 'http',
             host=host,
             port=port,
-            model_name=model_name
+            model_name=model_name,
+            url_prefix=url_prefix
         )
 
     def segment(self, input_str):
