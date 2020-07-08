@@ -108,6 +108,9 @@ class Tokenizer(object):
         pass
 
     def load_user_dict(self, dict_file):
+        if self.dag_tokenizer is None:
+            self.init_dag_tokenizer()
+
         return self.dag_tokenizer.dict_data.load_user_dict(dict_file)
 
     # alias
