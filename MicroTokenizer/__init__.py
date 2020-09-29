@@ -15,13 +15,13 @@ current_dir = os.path.dirname(os.path.abspath(__file__))
 
 # dynamic load version from version file
 version_file = os.path.join(current_dir, 'version.txt')
-with open(version_file) as fd:
+with open(version_file, encoding="utf-8") as fd:
     version_string = fd.read().strip()
     __version__ = version_string
 
 # dynamic load long_description from long_description.rst
 long_description_file = os.path.join(current_dir, 'long_description.rst')
-with open(long_description_file) as fd:
+with open(long_description_file, encoding="utf-8") as fd:
     ong_description_string = fd.read()
     __long_description__ = ong_description_string
 
