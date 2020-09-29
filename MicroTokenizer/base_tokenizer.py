@@ -13,25 +13,25 @@ class BaseTokenizer(object):
         self.model_dir = model_dir
 
     def load_model(self):
-        raise NotImplemented
+        raise NotImplementedError()
 
     def segment(self, message):
         # type: (str) -> List[str]
-        raise NotImplemented
+        raise NotImplementedError()
 
     def train_one_line(self, token_list):
         # type: ( List[str]) -> None
-        raise NotImplemented
+        raise NotImplementedError()
 
     def do_train(self):
-        raise NotImplemented
+        raise NotImplementedError()
 
     def persist_to_dir(self, output_dir):
         # type: (str) -> None
-        raise NotImplemented
+        raise NotImplementedError()
 
     def get_loader(self):
-        raise NotImplemented
+        raise NotImplementedError()
 
     def assign_from_loader(self, *args, **kwargs):
-        raise NotImplemented
+        raise NotImplementedError()

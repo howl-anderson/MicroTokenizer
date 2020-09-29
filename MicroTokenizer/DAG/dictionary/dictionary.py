@@ -27,10 +27,10 @@ class DictionaryData(object):
         return {k: math.log(total_count/v) for k, v in raw_dict_data.items()}
 
     def get_token_and_weight_at_text_head(self, text):
-        raise NotImplemented
+        raise NotImplementedError()
 
     def add_token_and_weight(self, token, weight):
-        raise NotImplemented
+        raise NotImplementedError()
 
     def load_user_dict(self, dict_file):
         with open(dict_file) as fd:

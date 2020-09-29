@@ -54,4 +54,4 @@ class GraphBuilder(object):
         )
 
     def build_graph(self, message):
-        raise NotImplemented
+        raise NotImplementedError()

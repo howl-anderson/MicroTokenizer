@@ -12,7 +12,7 @@ class BaseLoader(SingletonMixin):
         return cls.name
 
     def from_disk(self, path, tokenizer_list):
-        raise NotImplemented
+        raise NotImplementedError()
 
     def get_model_dir(self):
         return False

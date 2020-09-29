@@ -21,7 +21,7 @@ class BaseDictionaryBasedTokenizer(BaseTokenizer):
 
     def segment(self, message):
         # type: (str) -> List[str]
-        raise NotImplemented
+        raise NotImplementedError()
 
     def train_one_line(self, token_list):
         # type: (List[str]) -> None

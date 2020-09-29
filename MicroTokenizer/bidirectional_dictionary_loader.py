@@ -7,6 +7,8 @@ from MicroTokenizer.forward_dictionary_loader import \
 from MicroTokenizer.max_match.backward import MaxMatchBackwardTokenizer
 from MicroTokenizer.max_match.forward import MaxMatchForwardTokenizer
 
+from typing import List
+from MicroTokenizer.base_tokenizer import BaseTokenizer
 
 class BidirectionalDictionaryBasedLoader(BaseDictionaryBasedLoader):
     name = 'bidirectional_dictionary_based'
