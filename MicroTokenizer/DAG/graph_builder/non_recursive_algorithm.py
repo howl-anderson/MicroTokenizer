@@ -17,32 +17,38 @@ class NonRecursiveAlgorithm(GraphBuilder):
 
         while True:
             new_previous_node_and_message_pair = []
-            for previous_node, current_message, offset, previous_node_weight in previous_node_and_message_pair:
+            for (
+                previous_node,
+                current_message,
+                offset,
+                previous_node_weight,
+            ) in previous_node_and_message_pair:
                 work_list = []
 
                 if not current_message:  # end of a message
-                    self.add_edge(previous_node, self.end_node_id,
-                                  previous_node_weight)
+                    self.add_edge(previous_node, self.end_node_id, previous_node_weight)
                     continue
 
                 # try find a cache
                 if current_message in cached_process_result:
                     for head_node in cached_process_result.get(current_message):
-                        self.add_edge(previous_node, head_node,
-                                      previous_node_weight)
+                        self.add_edge(previous_node, head_node, previous_node_weight)
                     continue
 
                 token_weight_pair = list(
-                    self.dict_data.get_token_and_weight_at_text_head(
-                    current_message)
+                    self.dict_data.get_token_and_weight_at_text_head(current_message)
                 )
 
                 for token, current_weight in token_weight_pair:
                     work_list.append(
-                        self.build_raw_node(token, previous_node,
-                                            current_message, offset,
-                                            previous_node_weight,
-                                            current_weight)
+                        self.build_raw_node(
+                            token,
+                            previous_node,
+                            current_message,
+                            offset,
+                            previous_node_weight,
+                            current_weight,
+                        )
                     )
 
                 if not token_weight_pair:  # it's OOV
@@ -53,14 +59,19 @@ class NonRecursiveAlgorithm(GraphBuilder):
                     default_node_weight = 0.001
 
                     work_list.append(
-                        self.build_raw_node(token, previous_node,
-                                            current_message, offset,
-                                            previous_node_weight,
-                                            default_node_weight)
+                        self.build_raw_node(
+                            token,
+                            previous_node,
+                            current_message,
+                            offset,
+                            previous_node_weight,
+                            default_node_weight,
+                        )
                     )
 
                 cached_process_result[current_message] = list(
-                    map(lambda x: x[0], work_list))
+                    map(lambda x: x[0], work_list)
+                )
 
                 new_previous_node_and_message_pair.extend(work_list)
 
@@ -70,8 +81,15 @@ class NonRecursiveAlgorithm(GraphBuilder):
                 # no more working need to do
                 break
 
-    def build_raw_node(self, token, previous_node, current_message, offset,
-                       previous_node_weight, current_weight):
+    def build_raw_node(
+        self,
+        token,
+        previous_node,
+        current_message,
+        offset,
+        previous_node_weight,
+        current_weight,
+    ):
         token_weight = current_weight
 
         len_token = len(token)
@@ -94,10 +112,13 @@ class NonRecursiveAlgorithm(GraphBuilder):
         # e.g. 2.12343234234234324 to 2.13
         prev_node_round_weight = round(prev_node_weight, 2)
 
-        self.G.add_edge(prev_node_id, node_id,
-                        weight=prev_node_weight,
-                        round_weight=prev_node_round_weight,
-                        shortest_path=False)
+        self.G.add_edge(
+            prev_node_id,
+            node_id,
+            weight=prev_node_weight,
+            round_weight=prev_node_round_weight,
+            shortest_path=False,
+        )
 
 
 if __name__ == "__main__":
@@ -105,7 +126,7 @@ if __name__ == "__main__":
 
     graph_builder = NonRecursiveAlgorithm()
 
-    with Timer('Building DAG graph'):
+    with Timer("Building DAG graph"):
         for _ in range(1):
             graph_builder.init_graph()
             graph_builder.build_graph("王小明在北京的清华大学读书。")

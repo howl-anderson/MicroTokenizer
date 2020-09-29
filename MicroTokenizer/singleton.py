@@ -18,14 +18,13 @@ class SingletonMixin(object):
         return cls.__singleton_instance
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
+
     class A(SingletonMixin):
         pass
 
-
     class B(SingletonMixin):
         pass
-
 
     a, a2 = A.instance(), A.instance()
     b, b2 = B.instance(), B.instance()
@@ -34,5 +33,5 @@ if __name__ == '__main__':
     assert b is b2
     assert a is not b
 
-    print('a:  %s\na2: %s' % (a, a2))
-    print('b:  %s\nb2: %s' % (b, b2))
+    print("a:  %s\na2: %s" % (a, a2))
+    print("b:  %s\nb2: %s" % (b, b2))

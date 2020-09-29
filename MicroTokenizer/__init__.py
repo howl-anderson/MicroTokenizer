@@ -1,7 +1,6 @@
 # coding: utf8
 from __future__ import unicode_literals
 
-from .about import __version__
 from .errors import Warnings, deprecation_warning
 
 """Top-level package for Micro Tokenizer for Chinese."""
