@@ -31,7 +31,7 @@ class TrainDictionary:
             ["{}\t{}".format(k, v) for k, v in self.dictionary.items()]
         )
 
-        with open(dictionary_file, 'wt') as fd:
+        with open(dictionary_file, 'wt', encoding="utf-8") as fd:
             if six.PY2:
                 file_content = file_content.encode('utf-8')
 

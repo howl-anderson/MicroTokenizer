@@ -13,7 +13,7 @@ class DictionaryData(object):
     def read_dict(dict_file):
         dict_data = {}
 
-        with open(dict_file) as fd:
+        with open(dict_file, encoding="utf-8") as fd:
             for line in fd:
                 token, frequency = line.split()
                 dict_data[token] = int(frequency)
@@ -33,7 +33,7 @@ class DictionaryData(object):
         raise NotImplementedError()
 
     def load_user_dict(self, dict_file):
-        with open(dict_file) as fd:
+        with open(dict_file, encoding="utf-8") as fd:
             for raw_line in fd:
                 line = raw_line.strip()
                 word, frequency_str = line.split()
