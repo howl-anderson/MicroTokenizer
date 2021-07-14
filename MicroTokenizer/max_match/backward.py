@@ -17,9 +17,7 @@ class MaxMatchBackwardTokenizer(BaseDictionaryBasedTokenizer):
 
         self.dict_data = TrieAlgorithm(raw_dict_data=self.raw_dict_data, reverse=True)
 
-    def segment(self, message):
-        # type: (str) -> List[str]
-
+    def segment(self, message: str) -> List[str]:
         reversed_token_result = []
 
         while True:

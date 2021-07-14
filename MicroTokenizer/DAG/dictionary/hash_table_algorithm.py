@@ -9,7 +9,7 @@ class HashTableAlgorithm(DictionaryData):
     def __init__(self, dict_file):
         super(HashTableAlgorithm, self).__init__(dict_file)
 
-    def get_token_and_weight_at_text_head(self, text):
+    def get_token_and_weight_at_text_head(self, text: str):
         for token, weight in self.dict_data.items():
             if text.startswith(token):
                 yield token, weight

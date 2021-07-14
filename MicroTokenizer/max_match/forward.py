@@ -16,36 +16,31 @@ class MaxMatchForwardTokenizer(BaseDictionaryBasedTokenizer):
 
         self.dict_data = TrieAlgorithm(raw_dict_data=self.raw_dict_data)
 
-    def segment(self, message):
-        # type: (str) -> List[str]
-
+    def segment(self, message: str) -> List[str]:
         token_result = []
 
-        while True:
+        while message:
+            max_match = None
+
             token_weight_pair = list(
                 self.dict_data.get_token_and_weight_at_text_head(
                     message)
             )
 
-            max_match = None
-
             if token_weight_pair:
+                # find the max long token
                 sorted_token_weight_pair = sorted(token_weight_pair,
                                                   key=lambda x: len(x[0]),
                                                   reverse=True)
-
                 max_match = sorted_token_weight_pair[0][0]
-
             else:  # OOV now
+                # use single character as token
                 max_match = message[0]
 
             token_result.append(max_match)
 
+            # update message, may cause while loop stop
             message = message[len(max_match):]
-
-            if not message:
-                # no more message
-                break
 
         return token_result
 

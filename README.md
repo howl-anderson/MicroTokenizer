@@ -215,7 +215,7 @@ print(result)
 
 ## 导出 GraphML 文件
 
-针对基于 DAG 的算法，用户可以到处 GraphML 文件，研究其工作原理。
+针对基于 DAG 的算法，用户可以导出 GraphML 文件，研究其工作原理。
 
 ```python
 from MicroTokenizer.tokenizer import Tokenizer

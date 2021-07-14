@@ -39,7 +39,7 @@ def get_dict_file(model_dir):
 def get_crf_file(model_dir):
     return os.path.join(model_dir, 'model.crfsuite')
 
-
+# this is a jieba (https://github.com/fxsjy/jieba) compatible API
 def cut(message, HMM=False):
     initialize()
 

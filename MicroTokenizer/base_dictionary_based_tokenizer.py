@@ -8,6 +8,8 @@ from MicroTokenizer.DAG.dictionary.train_dictionary import TrainDictionary
 
 
 class BaseDictionaryBasedTokenizer(BaseTokenizer):
+    """Base class for all directory based tokenizer"""
+
     def __init__(self, *args, **kwargs):
         super(BaseDictionaryBasedTokenizer, self).__init__(*args, **kwargs)
 
@@ -17,14 +19,10 @@ class BaseDictionaryBasedTokenizer(BaseTokenizer):
         self.raw_dict_data = None  # type: Dict
 
     def load_model(self):
+        """Load the directory form model_dir"""
         self.dict_file = get_dict_file(self.model_dir)
 
-    def segment(self, message):
-        # type: (str) -> List[str]
-        raise NotImplementedError()
-
-    def train_one_line(self, token_list):
-        # type: (List[str]) -> None
+    def train_one_line(self, token_list: List[str]) -> None:
         self.train_dictionary.train_one_line(token_list)
 
     def do_train(self):

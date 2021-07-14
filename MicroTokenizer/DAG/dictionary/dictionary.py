@@ -1,4 +1,5 @@
 import math
+from typing import Generator, Tuple, Any
 
 
 class DictionaryData(object):
@@ -26,7 +27,8 @@ class DictionaryData(object):
 
         return {k: math.log(total_count/v) for k, v in raw_dict_data.items()}
 
-    def get_token_and_weight_at_text_head(self, text):
+    def get_token_and_weight_at_text_head(self, text: str) -> Generator[Tuple[str, Any], None, None]:
+        """find all the tokens that start at the text head"""
         raise NotImplementedError()
 
     def add_token_and_weight(self, token, weight):

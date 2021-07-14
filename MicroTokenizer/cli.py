@@ -18,8 +18,8 @@ def main(args=None):
     }
     if len(sys.argv) == 1:
         print("{title}: {content}, exits: {exits}".format(
-            content=', '.join(commands),
             title="Available commands",
+            content=', '.join(commands),
             exits=1)
         )
 
@@ -30,8 +30,8 @@ def main(args=None):
         plac.call(commands[command], sys.argv[1:])
     else:
         print("{title}: {content}, exits: {exits}".format(
-            content="Available: %s" % ', '.join(commands),
             title="Unknown command: %s" % command,
+            content="Available: %s" % ', '.join(commands),
             exits=1)
         )
 
