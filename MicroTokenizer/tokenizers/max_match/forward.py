@@ -1,12 +1,10 @@
-from typing import List, Dict
+from typing import Dict, List
 
 from MicroTokenizer import get_dict_file
 from MicroTokenizer.DAG.dictionary.dictionary import DictionaryData
-from MicroTokenizer.DAG.dictionary.trie_algorithm import TrieAlgorithm
-from MicroTokenizer.base_dictionary_based_tokenizer import BaseDictionaryBasedTokenizer
-from MicroTokenizer.forward_dictionary_loader import ForwardDictionaryBasedLoader
-from MicroTokenizer.tokenizers import BaseTokenizerV2
 from MicroTokenizer.DAG.dictionary.train_dictionary import TrainDictionary
+from MicroTokenizer.DAG.dictionary.trie_algorithm import TrieAlgorithm
+from MicroTokenizer.tokenizers import BaseTokenizerV2
 
 
 class MaxMatchForwardTokenizer(BaseTokenizerV2):

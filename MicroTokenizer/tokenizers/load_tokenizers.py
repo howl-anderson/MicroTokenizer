@@ -1,8 +1,8 @@
 from typing import List
-from MicroTokenizer.base_tokenizer import BaseTokenizer
+from MicroTokenizer.tokenizers.base_tokenizer_v2 import BaseTokenizerV2
 
 
 
-def load_tokenizers(model_dir: str) -> List[BaseTokenizer]:
+def load_tokenizers(model_dir: str) -> List[BaseTokenizerV2]:
     """Load tokenizers from model_dir"""
     pass

@@ -1,32 +1,44 @@
-from typing import List
+from typing import Dict, List
 
+from MicroTokenizer import get_dict_file
+from MicroTokenizer.DAG.dictionary.dictionary import DictionaryData
+from MicroTokenizer.DAG.dictionary.train_dictionary import TrainDictionary
 from MicroTokenizer.DAG.dictionary.trie_algorithm import TrieAlgorithm
-from MicroTokenizer.backward_dictionary_loader import \
-    BackwardDictionaryBasedLoader
-from MicroTokenizer.base_dictionary_based_tokenizer import BaseDictionaryBasedTokenizer
+from MicroTokenizer.tokenizers import BaseTokenizerV2
 
 
-class MaxMatchBackwardTokenizer(BaseDictionaryBasedTokenizer):
-    def load_model(self):
-        super(MaxMatchBackwardTokenizer, self).load_model()
+class MaxMatchBackwardTokenizer(BaseTokenizerV2):
+    def __init__(self, token_dict: Dict[str, int] = None) -> None:
+        # for inference
+        self.trie_tree = TrieAlgorithm(raw_dict_data=token_dict, reverse=True) if token_dict else None
+        # for training
+        self.token_dict = TrainDictionary()
 
-        self.dict_data = TrieAlgorithm(self.dict_file, reverse=True)
+    @classmethod
+    def load(cls, model_dir: str):
+        dict_file = get_dict_file(model_dir)
+        token_dict = DictionaryData.read_dict(dict_file)
+        return cls(token_dict)
 
-    def do_train(self):
-        super(MaxMatchBackwardTokenizer, self).do_train()
+    def save(self, model_dir: str):
+        self.token_dict.persist_to_dir(model_dir)
 
-        self.dict_data = TrieAlgorithm(raw_dict_data=self.raw_dict_data, reverse=True)
+    def train(self, corpus: List[List[str]]):
+        for line in corpus:
+            self.token_dict.train_one_line(line)
+        self.token_dict.do_train()
+        self.trie_tree = TrieAlgorithm(raw_dict_data = self.token_dict.dictionary, reverse=True)
 
     def segment(self, message: str) -> List[str]:
         reversed_token_result = []
 
-        while True:
+        while message:
+            max_match = None
+
             token_weight_pair = list(
-                self.dict_data.get_token_and_weight_at_text_head(
+                self.trie_tree.get_token_and_weight_at_text_head(
                     message)
             )
-
-            max_match = None
 
             if token_weight_pair:
                 sorted_token_weight_pair = sorted(token_weight_pair,
@@ -40,13 +52,7 @@ class MaxMatchBackwardTokenizer(BaseDictionaryBasedTokenizer):
 
             reversed_token_result.append(max_match)
 
+            # update message
             message = message[: - len(max_match)]
 
-            if not message:
-                # no more message
-                break
-
         return list(reversed(reversed_token_result))
-
-    def get_loader(self):
-        return BackwardDictionaryBasedLoader

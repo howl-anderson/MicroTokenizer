@@ -1,5 +1,6 @@
 pytest
 pytest-runner==2.11.1
+pytest-datadir
 # for pytest helper
 pytest-helpers-namespace
 tox==2.9.1

@@ -113,3 +113,44 @@ def load(name=None, **overrides):
     if depr_path not in (True, False, None):
         deprecation_warning(Warnings.W001.format(path=depr_path))
     return util.load_model(name, **overrides)
+
+
+from MicroTokenizer.tokenizers.max_match.backward import MaxMatchBackwardTokenizer as MaxMatchBackwardTokenizerV2
+from MicroTokenizer.tokenizers.max_match.forward import MaxMatchForwardTokenizer as MaxMatchForwardTokenizerV2
+from MicroTokenizer.tokenizers.max_match.bidirectional import MaxMatchBidirectionalTokenizer as MaxMatchBidirectionalTokenizerV2
+from MicroTokenizer.tokenizers.dag_tokenizer import DAGTokenizer as DAGTokenizerV2
+from MicroTokenizer.tokenizers.hmm_tokenizer import HMMTokenizer as HMMTokenizerV2
+from MicroTokenizer.tokenizers.crf.tokenizer import CRFTokenizer as CRFTokenizerV2
+from MicroTokenizer.ensemble.merge_solutions import MergeSolutions
+
+max_match_backward_tokenizer_v2 = MaxMatchBackwardTokenizerV2.load(default_model_dir)
+max_match_forward_tokenizer_v2 = MaxMatchForwardTokenizerV2.load(default_model_dir)
+max_match_bidirectional_tokenizer_v2 = MaxMatchBidirectionalTokenizerV2.load(default_model_dir)
+dag_tokenizer_v2 = DAGTokenizerV2.load(default_model_dir)
+hmm_tokenizer_v2 = HMMTokenizerV2.load(default_model_dir)
+crf_tokenizer_v2 = CRFTokenizerV2.load(default_model_dir)
+
+
+def _cut_by_dag_hmm_joint_model(message):
+    solutions = [
+        dag_tokenizer_v2.segment(message),
+        hmm_tokenizer_v2.segment(message)
+    ]
+    merge_solutions = MergeSolutions()
+    best_solution = merge_solutions.merge(solutions)
+
+    return best_solution
+
+# this is a jieba (https://github.com/fxsjy/jieba) compatible API
+def cut_v2(message, HMM=False):
+    initialize()
+
+    if HMM:
+        return _cut_by_dag_hmm_joint_model(message)
+    else:
+        return dag_tokenizer_v2.segment(message)
+
+
+# this is a jieba (https://github.com/fxsjy/jieba) compatible API
+def load_userdict_v2(dict_file):
+    return dag_tokenizer_v2.trie_tree.load_user_dict(dict_file)

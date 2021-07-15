@@ -1,41 +1,32 @@
 import operator
 
-from MicroTokenizer.DAG.dictionary.trie_algorithm import TrieAlgorithm
-from MicroTokenizer.base_dictionary_based_tokenizer import \
-    BaseDictionaryBasedTokenizer
-from MicroTokenizer.bidirectional_dictionary_loader import \
-    BidirectionalDictionaryBasedLoader
-from MicroTokenizer.max_match.backward import MaxMatchBackwardTokenizer
-from MicroTokenizer.max_match.forward import MaxMatchForwardTokenizer
+from MicroTokenizer.tokenizers import BaseTokenizerV2
+from MicroTokenizer.tokenizers.max_match.backward import MaxMatchBackwardTokenizer
+from MicroTokenizer.tokenizers.max_match.forward import MaxMatchForwardTokenizer
 
 
-class MaxMatchBidirectionalTokenizer(BaseDictionaryBasedTokenizer):
-    def __init__(self, *args, **kwargs):
-        super(MaxMatchBidirectionalTokenizer, self).__init__(*args, **kwargs)
+class MaxMatchBidirectionalTokenizer(BaseTokenizerV2):
+    def __init__(self, forward_tokenizer=None, backward_tokenizer=None):
+        self.forward_tokenizer = forward_tokenizer
+        self.backward_tokenizer = backward_tokenizer
 
-        self.forward_tokenizer = None
-        self.backward_tokenizer = None
+    def train(self, corpus):
+        self.forward_tokenizer = MaxMatchForwardTokenizer()
+        self.forward_tokenizer.train(corpus)
 
-    def do_train(self):
-        super(MaxMatchBidirectionalTokenizer, self).do_train()
+        self.backward_tokenizer = MaxMatchBackwardTokenizer()
+        self.backward_tokenizer.train(corpus)
 
-        dict_data = TrieAlgorithm(raw_dict_data=self.raw_dict_data)
+    @classmethod
+    def load(cls, model_dir):
+        forward_tokenizer = MaxMatchForwardTokenizer.load(model_dir)
+        backward_tokenizer = MaxMatchBackwardTokenizer.load(model_dir)
 
-        reverse_dict_data = TrieAlgorithm(raw_dict_data=self.raw_dict_data,
-                                          reverse=True)
+        return cls(forward_tokenizer, backward_tokenizer)
 
-        self.forward_tokenizer = MaxMatchForwardTokenizer(dict_data=dict_data)
-
-        self.backward_tokenizer = MaxMatchBackwardTokenizer(dict_data=reverse_dict_data)
-
-    def load_model(self):
-        super(MaxMatchBidirectionalTokenizer, self).load_model()
-
-        self.forward_tokenizer = MaxMatchForwardTokenizer(self.model_dir)
-        self.forward_tokenizer.load_model()
-
-        self.backward_tokenizer = MaxMatchBackwardTokenizer(self.model_dir)
-        self.backward_tokenizer.load_model()
+    def save(self, model_dir: str):
+        self.forward_tokenizer.save(model_dir)
+        self.backward_tokenizer.save(model_dir)
 
     def segment(self, message):
         forward_token = self.forward_tokenizer.segment(message)
@@ -43,16 +34,14 @@ class MaxMatchBidirectionalTokenizer(BaseDictionaryBasedTokenizer):
 
         token_result = [forward_token, backward_token]
 
-        token_count = operator.le(
-            * map(self.compute_token_count, token_result)
-        )
+        token_count = operator.le(*map(self.compute_token_count, token_result))
 
         token_granularity = operator.ge(
-            * map(self.compute_token_granularity, token_result)
+            *map(self.compute_token_granularity, token_result)
         )
 
         token_len_variability = operator.le(
-            * map(self.compute_token_len_variability, token_result)
+            *map(self.compute_token_len_variability, token_result)
         )
 
         if token_count + token_granularity + token_len_variability >= 2:
@@ -76,11 +65,6 @@ class MaxMatchBidirectionalTokenizer(BaseDictionaryBasedTokenizer):
     @staticmethod
     def compute_token_len_variability(token_list):
         mean_length = sum(map(lambda x: len(x), token_list)) / len(token_list)
-        return sum(map(lambda x: abs(len(x) - mean_length)**2, token_list)) / len(token_list)
-
-    def get_loader(self):
-        return BidirectionalDictionaryBasedLoader
-
-    def assign_from_loader(self, *args, **kwargs):
-        self.forward_tokenizer = kwargs['forward_tokenizer']
-        self.backward_tokenizer = kwargs['backward_tokenizer']
+        return sum(map(lambda x: abs(len(x) - mean_length) ** 2, token_list)) / len(
+            token_list
+        )
