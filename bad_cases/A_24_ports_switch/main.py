@@ -1,7 +1,4 @@
-from MicroTokenizer.tokenizer import Tokenizer
+from MicroTokenizer import dag_tokenizer
 
-tokenizer = Tokenizer()
-tokenizer.init_dag_tokenizer()
-
-tokenizer.dag_tokenizer.graph_builder.build_graph("二十四口交换机")
-tokenizer.dag_tokenizer.graph_builder.write_graphml("output.graphml")
+dag_tokenizer.graph_builder.build_graph("二十四口交换机")
+dag_tokenizer.graph_builder.write_graphml("output.graphml")

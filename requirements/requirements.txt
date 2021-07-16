@@ -13,5 +13,4 @@ pathlib;python_version<"3.4"
 typing;python_version<"3.5"
 numpy
 joblib
-six
 pyyaml

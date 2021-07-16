@@ -2,8 +2,6 @@ import os
 from typing import List
 from collections import Counter
 
-import six
-
 
 class TrainDictionary:
     def __init__(self):
@@ -18,8 +16,6 @@ class TrainDictionary:
         self.dictionary = dict(self.counter.most_common())
 
     def persist_to_dir(self, output_dir: str) -> None:
-        # type: (str) -> None
-
         dictionary_file = os.path.join(output_dir, 'dict.txt')
 
         file_content = '\n'.join(
@@ -27,8 +23,5 @@ class TrainDictionary:
         )
 
         with open(dictionary_file, 'wt', encoding="utf-8") as fd:
-            if six.PY2:
-                file_content = file_content.encode('utf-8')
-
             fd.write(file_content)
             fd.write('\n')  # write tail newline
