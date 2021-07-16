@@ -82,7 +82,7 @@ setup(
             'MicroTokenizer/model_data/A.pickle',
             'MicroTokenizer/model_data/B.pickle',
             'MicroTokenizer/model_data/vocabulary.pickle',
-
+            'MicroTokenizer/model_data/feature_func_list.pickle',
             'MicroTokenizer/model_data/model.crfsuite'
         ]
     )],
