@@ -1,5 +1,5 @@
 """Top-level package for Micro Tokenizer for Chinese."""
-__version__ = "0.20.0"
+__version__ = "0.20.1"
 
 import os
 
