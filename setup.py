@@ -89,6 +89,6 @@ setup(
     test_suite='tests',
     tests_require=test_requirements,
     url='https://github.com/howl-anderson/MicroTokenizer',
-    version="0.19.2",
+    version="0.20.0",
     zip_safe=False,
 )
