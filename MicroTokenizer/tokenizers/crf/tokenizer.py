@@ -11,10 +11,10 @@ from MicroTokenizer.tokenizers.crf.trainer import (
     get_feature_list,
 )
 from MicroTokenizer.encoding.BMES import decoding
-from MicroTokenizer.tokenizers.base_tokenizer_v2 import BaseTokenizerV2
+from MicroTokenizer.tokenizers.base_tokenizer import BaseTokenizer
 
 
-class CRFTokenizer(BaseTokenizerV2):
+class CRFTokenizer(BaseTokenizer):
     def __init__(self, crf_tagger=None, feature_func_list=None):
         # for inference
         self.crf_tagger = crf_tagger

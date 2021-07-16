@@ -53,8 +53,8 @@ clean-test: ## remove test and coverage artifacts
 lint: ## check style with flake8
 	flake8 MicroTokenizer tests
 
-test: ## run tests quickly with the default Python
-	python -m pytest tests README_tests
+test: clean ## run tests quickly with the default Python
+	pytest tests readme/tests
 
 test-all: ## run tests on every Python version with tox
 	tox
@@ -87,14 +87,20 @@ dist: clean ## builds source and wheel package
 install: clean ## install the package to the active Python's site-packages
 	python setup.py install
 
+install_requriements:
+	pip install -r ./requirements/requirements.txt
+	pip install -r ./requirements/requirements_dev.txt
+	pip install -r ./requirements/requirements_test.txt
+	pip install -r ./requirements/requirements_spacemacs.txt
+
 .PHONY: update_minor_version
 update_minor_version:
-	punch --part minor
+	bumpversion minor
 
 .PHONY: update_patch_version
 update_patch_version:
-	punch --part patch
+	bumpversion patch
 
 .PHONY: update_major_version
 update_major_version:
-	punch --part major
+	bumpversion major

@@ -1,11 +1,11 @@
 import operator
 
-from MicroTokenizer.tokenizers import BaseTokenizerV2
+from MicroTokenizer.tokenizers import BaseTokenizer
 from MicroTokenizer.tokenizers.max_match.backward import MaxMatchBackwardTokenizer
 from MicroTokenizer.tokenizers.max_match.forward import MaxMatchForwardTokenizer
 
 
-class MaxMatchBidirectionalTokenizer(BaseTokenizerV2):
+class MaxMatchBidirectionalTokenizer(BaseTokenizer):
     def __init__(self, forward_tokenizer=None, backward_tokenizer=None):
         self.forward_tokenizer = forward_tokenizer
         self.backward_tokenizer = backward_tokenizer

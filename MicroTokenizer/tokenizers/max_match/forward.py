@@ -4,10 +4,10 @@ from MicroTokenizer import get_dict_file
 from MicroTokenizer.data_structures.dictionary import DictionaryData
 from MicroTokenizer.data_structures.train_dictionary import TrainDictionary
 from MicroTokenizer.data_structures.trie_algorithm import TrieAlgorithm
-from MicroTokenizer.tokenizers import BaseTokenizerV2
+from MicroTokenizer.tokenizers import BaseTokenizer
 
 
-class MaxMatchForwardTokenizer(BaseTokenizerV2):
+class MaxMatchForwardTokenizer(BaseTokenizer):
     def __init__(self, token_dict: Dict[str, int] = None) -> None:
         # for inference
         self.trie_tree = TrieAlgorithm(raw_dict_data=token_dict) if token_dict else None

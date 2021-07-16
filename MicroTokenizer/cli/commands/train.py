@@ -1,4 +1,4 @@
-from MicroTokenizer.train.train import train_from_configure
+from MicroTokenizer.training.train import train_from_configure
 
 
 def train(output_dir, train_data, configure_file=None):

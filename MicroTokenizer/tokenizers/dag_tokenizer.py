@@ -5,10 +5,10 @@ from MicroTokenizer.data_structures.dictionary import DictionaryData
 from MicroTokenizer.data_structures.non_recursive_algorithm import NonRecursiveAlgorithm
 from MicroTokenizer.data_structures.train_dictionary import TrainDictionary
 from MicroTokenizer.data_structures.trie_algorithm import TrieAlgorithm
-from MicroTokenizer.tokenizers.base_tokenizer_v2 import BaseTokenizerV2
+from MicroTokenizer.tokenizers.base_tokenizer import BaseTokenizer
 
 
-class DAGTokenizer(BaseTokenizerV2):
+class DAGTokenizer(BaseTokenizer):
     def __init__(self, token_dict: Dict[str, int] = None):
         # for inference
         self.trie_tree = TrieAlgorithm(raw_dict_data=token_dict) if token_dict else None

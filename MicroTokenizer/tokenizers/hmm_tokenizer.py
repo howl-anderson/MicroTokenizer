@@ -2,10 +2,10 @@ from typing import List
 
 from MicroHMM.hmm import HMMModel
 
-from MicroTokenizer.tokenizers.base_tokenizer_v2 import BaseTokenizerV2
+from MicroTokenizer.tokenizers.base_tokenizer import BaseTokenizer
 
 
-class HMMTokenizer(BaseTokenizerV2):
+class HMMTokenizer(BaseTokenizer):
     def __init__(self, hmm_model: HMMModel = None):
         self.hmm_model = hmm_model if hmm_model else None
 
