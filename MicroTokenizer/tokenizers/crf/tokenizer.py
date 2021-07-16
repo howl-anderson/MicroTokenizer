@@ -10,7 +10,7 @@ from MicroTokenizer.tokenizers.crf.trainer import (
     default_feature_func_list,
     get_feature_list,
 )
-from MicroTokenizer.seq2seq.BMES import decoding
+from MicroTokenizer.encoding.BMES import decoding
 from MicroTokenizer.tokenizers.base_tokenizer_v2 import BaseTokenizerV2
 
 

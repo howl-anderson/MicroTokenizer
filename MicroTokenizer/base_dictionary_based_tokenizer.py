@@ -1,6 +1,6 @@
 from typing import List, Dict
 
-from MicroTokenizer import get_dict_file
+from MicroTokenizer import _get_dict_file
 from MicroTokenizer.DAG.dictionary.dictionary import DictionaryData
 from MicroTokenizer.DAG.graph_builder.graph_builder import GraphBuilder
 from MicroTokenizer.base_tokenizer import BaseTokenizer
@@ -20,7 +20,7 @@ class BaseDictionaryBasedTokenizer(BaseTokenizer):
 
     def load_model(self):
         """Load the directory form model_dir"""
-        self.dict_file = get_dict_file(self.model_dir)
+        self.dict_file = _get_dict_file(self.model_dir)
 
     def train_one_line(self, token_list: List[str]) -> None:
         self.train_dictionary.train_one_line(token_list)

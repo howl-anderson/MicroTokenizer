@@ -14,7 +14,8 @@ def test_train(input_text):
     pytest.helpers.assert_token_equals(result, input_text)
 
 
-def test_persist(tmpdir):
+@pytest.mark.parametrize("input_text", pytest.helpers.tokenizer_test_cases())
+def test_persist(tmpdir, input_text):
     temp_path = tmpdir.mkdir("dag")
     temp_path_str = str(temp_path)
 
@@ -23,6 +24,10 @@ def test_persist(tmpdir):
     tokenizer.save(temp_path_str)
 
     assert len(temp_path.listdir()) == 1
+
+    roundtrip_tokenizer = MaxMatchBackwardTokenizer.load(temp_path)
+    result = roundtrip_tokenizer.segment(input_text)
+    pytest.helpers.assert_token_equals(result, input_text)
 
 
 @pytest.mark.parametrize("input_text", pytest.helpers.tokenizer_test_cases())

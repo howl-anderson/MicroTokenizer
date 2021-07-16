@@ -1,4 +1,4 @@
-from MicroTokenizer.DAG.dictionary.dictionary import DictionaryData
+from MicroTokenizer.data_structures.dictionary import DictionaryData
 
 
 class TreeNode(dict):

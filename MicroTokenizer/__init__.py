@@ -1,6 +1,3 @@
-# coding: utf8
-from __future__ import unicode_literals
-
 from .errors import Warnings, deprecation_warning
 
 """Top-level package for Micro Tokenizer for Chinese."""
@@ -36,11 +33,11 @@ def get_dict_file(model_dir):
     return os.path.join(model_dir, 'dict.txt')
 
 
-def get_crf_file(model_dir):
+def _get_crf_file(model_dir):
     return os.path.join(model_dir, 'model.crfsuite')
 
 # this is a jieba (https://github.com/fxsjy/jieba) compatible API
-def cut(message, HMM=False):
+def _cut(message, HMM=False):
     initialize()
 
     if HMM:
@@ -49,31 +46,31 @@ def cut(message, HMM=False):
         return default_tokenizer.cut_by_DAG(message)
 
 
-def cut_by_DAG(message):
+def _cut_by_DAG(message):
     initialize()
 
     return default_tokenizer.cut_by_DAG(message)
 
 
-def cut_by_HMM(message):
+def _cut_by_HMM(message):
     initialize()
 
     return default_tokenizer.cut_by_HMM(message)
 
 
-def cut_by_CRF(message):
+def _cut_by_CRF(message):
     initialize()
 
     return default_tokenizer.cut_by_CRF(message)
 
 
-def cut_by_joint_model(message):
+def _cut_by_joint_model(message):
     initialize()
 
     return default_tokenizer.cut_by_joint_model(message)
 
 
-def initialize():
+def _initialize():
     # put this code under the `default_mode_dir` to prevent import order issue
     # in case Tokenizer can't use `default_mode_dir` for it not be executed yet
     from MicroTokenizer.tokenizer import Tokenizer
@@ -84,25 +81,25 @@ def initialize():
         default_tokenizer = Tokenizer()
 
 
-def load_model(model_path):
+def _load_model(model_path):
     global current_model_dir
     current_model_dir = model_path
 
 
-def load_default_model():
+def _load_default_model():
     global current_model_dir
     current_model_dir = default_model_dir
 
 # below interfaces/functions are designed exactly equal to jieba's #
 
 
-def load_userdict(f):
+def _load_userdict(f):
     initialize()
 
     return default_tokenizer.load_user_dict(f)
 
 
-def load(name=None, **overrides):
+def _load(name=None, **overrides):
     from . import util
     from . import about
 
@@ -143,8 +140,6 @@ def _cut_by_dag_hmm_joint_model(message):
 
 # this is a jieba (https://github.com/fxsjy/jieba) compatible API
 def cut_v2(message, HMM=False):
-    initialize()
-
     if HMM:
         return _cut_by_dag_hmm_joint_model(message)
     else:

@@ -1,9 +1,9 @@
 from typing import Dict, List
 
 from MicroTokenizer import get_dict_file
-from MicroTokenizer.DAG.dictionary.dictionary import DictionaryData
-from MicroTokenizer.DAG.dictionary.train_dictionary import TrainDictionary
-from MicroTokenizer.DAG.dictionary.trie_algorithm import TrieAlgorithm
+from MicroTokenizer.data_structures.dictionary import DictionaryData
+from MicroTokenizer.data_structures.train_dictionary import TrainDictionary
+from MicroTokenizer.data_structures.trie_algorithm import TrieAlgorithm
 from MicroTokenizer.tokenizers import BaseTokenizerV2
 
 

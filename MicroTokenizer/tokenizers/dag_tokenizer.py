@@ -1,16 +1,10 @@
 from typing import Dict, List
 
 from MicroTokenizer import get_dict_file
-from MicroTokenizer.base_dictionary_based_tokenizer import \
-    BaseDictionaryBasedTokenizer
-from MicroTokenizer.DAG.dictionary.dictionary import DictionaryData
-from MicroTokenizer.DAG.dictionary.train_dictionary import TrainDictionary
-from MicroTokenizer.DAG.dictionary.trie_algorithm import TrieAlgorithm
-from MicroTokenizer.DAG.graph_builder.graph_builder import GraphBuilder
-from MicroTokenizer.DAG.graph_builder.non_recursive_algorithm import \
-    NonRecursiveAlgorithm
-from MicroTokenizer.forward_dictionary_loader import \
-    ForwardDictionaryBasedLoader
+from MicroTokenizer.data_structures.dictionary import DictionaryData
+from MicroTokenizer.data_structures.non_recursive_algorithm import NonRecursiveAlgorithm
+from MicroTokenizer.data_structures.train_dictionary import TrainDictionary
+from MicroTokenizer.data_structures.trie_algorithm import TrieAlgorithm
 from MicroTokenizer.tokenizers.base_tokenizer_v2 import BaseTokenizerV2
 
 
@@ -18,7 +12,9 @@ class DAGTokenizer(BaseTokenizerV2):
     def __init__(self, token_dict: Dict[str, int] = None):
         # for inference
         self.trie_tree = TrieAlgorithm(raw_dict_data=token_dict) if token_dict else None
-        self.graph_builder = NonRecursiveAlgorithm(self.trie_tree) if token_dict else None
+        self.graph_builder = (
+            NonRecursiveAlgorithm(self.trie_tree) if token_dict else None
+        )
         # for training
         self.token_dict = TrainDictionary()
 
