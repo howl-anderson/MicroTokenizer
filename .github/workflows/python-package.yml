@@ -29,7 +29,9 @@ jobs:
         python -m pip install --upgrade pip
         pip install flake8 pytest
         pip install -e .
-        pip install -r ./requirements_test.txt
+        pip install -r ./requirements/requirements.txt
+        pip install -r ./requirements/requirements_test.txt
+        pip install -r ./requirements/requirements_dev.txt
     - name: Lint with flake8
       run: |
         # stop the build if there are Python syntax errors or undefined names
@@ -38,4 +40,4 @@ jobs:
         flake8 MicroTokenizer --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
     - name: Test with pytest
       run: |
-        pytest tests
+        pytest tests readme/tests
