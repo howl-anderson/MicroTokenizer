@@ -59,7 +59,7 @@ def train(input_files_list, output_dir, **kwargs):
 
     corpus = []
     for input_file in input_files_list:
-        with open(input_file) as fd:
+        with open(input_file, encoding="utf-8") as fd:
             for raw_line in fd:
                 line = raw_line.strip()
 
