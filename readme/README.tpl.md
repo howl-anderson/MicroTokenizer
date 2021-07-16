@@ -1,6 +1,6 @@
 # 微型中文分词器
 
-[![Build Status](https://travis-ci.org/howl-anderson/MicroTokenizer.svg?branch=master)](https://travis-ci.org/howl-anderson/MicroTokenizer)
+[![Python package](https://github.com/howl-anderson/MicroTokenizer/actions/workflows/python-package.yml/badge.svg)](https://github.com/howl-anderson/MicroTokenizer/actions/workflows/python-package.yml)
 [![PyPI Status](https://img.shields.io/pypi/v/MicroTokenizer.svg)](https://pypi.python.org/pypi/MicroTokenizer)
 
 一个微型的中文分词器，目前提供了七种分词算法:
