@@ -109,62 +109,48 @@ print(tokens)
 TODO
 
 # 依赖
-只在 python 3.5+ 环境测试过，其他环境不做兼容性保障。
+只在 python 3.6+ 环境测试过，其他环境不做兼容性保障。
 
 # 安装
-新版本的 MicroTokenizer 引入了和 [SpaCy](https://spacy.io/) 类似的代码和模型分离的理念。这一理念具有以下优点：
 
-* 极大减小 MicroTokenizer 安装包的大小。未分离版本的 MicroTokenizer 大约 20 MB，分离后将减少到 10 KB 的规模，将大大减少下载安装的时间。
-* 给予模型最大的灵活性，用户可以下载想要的模型，多种模型可以同时共存，极大的方便用户的使用。
-* 让用户定制化模型变得简单，用户可以将自己定制的模型打包成 Python package, 用管理 package 的方式管理模型。
-
-为了兼容以前的使用方式，MicroTokenizer 安装包依旧带有模型数据。但为了获得以上的优势，建议使用代码和模型分离的方式。
-
-## 安装 MicroTokenizer
-### pip (推荐，稳定版本)
 ```bash
 pip install MicroTokenizer
 ```
-
-### source (最新特性版本)
-```bash
-pip install git+https://github.com/howl-anderson/MicroTokenizer.git
-```
-## 安装模型
-这里我们选择下载和安装默认的 model package
-```bash
-MicroTokenizer download
-```
-
-上述命令将会自动下载和安装默认的模型。
 
 # 如何使用
 
 ## 分词
 
-### 使用基于 Loader 的方式（推荐）
 ```python
-import MicroTokenizer
+from MicroTokenizer import (
+    hmm_tokenizer,
+    crf_tokenizer,
+    dag_tokenizer,
+    max_match_forward_tokenizer,
+    max_match_backward_tokenizer,
+    max_match_bidirectional_tokenizer,
+)
 
-tokenizer_loader = MicroTokenizer.load()
-tokenizer = tokenizer_loader.get_tokenizer()
+input_text = "王小明在北京的清华大学读书。"
 
-input_text = '王小明在北京的清华大学读书。'
+# 使用相关的算法来分词。
 
-# 取消下面代码的注释，就可以使用相关的算法来分词。
-#
-# result = tokenizer.cut_by_HMM(input_text)
-#
-# result = tokenizer.cut_by_CRF(input_text)
-#
-# result = tokenizer.cut_by_max_match_forward(input_text)
-#
-# result = tokenizer.cut_by_max_match_backward(input_text)
-#
-# result = tokenizer.cut_by_max_match_bidirectional(input_text)
-#
-result = tokenizer.cut_by_DAG(input_text)
+result = hmm_tokenizer.segment(input_text)
+print(result)
 
+result = crf_tokenizer.segment(input_text)
+print(result)
+
+result = max_match_forward_tokenizer.segment(input_text)
+print(result)
+
+result = max_match_backward_tokenizer.segment(input_text)
+print(result)
+
+result = max_match_bidirectional_tokenizer.segment(input_text)
+print(result)
+
+result = dag_tokenizer.segment(input_text)
 print(result)
 
 ```
@@ -175,55 +161,14 @@ print(result)
 ['小', '明', '在', '北京', '的', '清华大学', '读书', '。']
 
 ```
-
-### 使用基于 legacy 的方式
-```python
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
-
-from MicroTokenizer.tokenizer import Tokenizer
-
-tokenizer = Tokenizer()
-
-input_text = '王小明在北京的清华大学读书。'
-
-# 取消下面代码的注释，就可以使用相关的算法来分词。
-#
-# result = tokenizer.cut_by_HMM(input_text)
-#
-# result = tokenizer.cut_by_CRF(input_text)
-#
-# result = tokenizer.cut_by_max_match_forward(input_text)
-#
-# result = tokenizer.cut_by_max_match_backward(input_text)
-#
-# result = tokenizer.cut_by_max_match_bidirectional(input_text)
-#
-result = tokenizer.cut_by_DAG(input_text)
-
-print(result)
-
-```
-
-输出：
-
-```python
-['小', '明', '在', '北京', '的', '清华大学', '读书', '。']
-
-```
-
 
 ## 导出 GraphML 文件
 
 针对基于 DAG 的算法，用户可以导出 GraphML 文件，研究其工作原理。
 
 ```python
-from MicroTokenizer.tokenizer import Tokenizer
+from MicroTokenizer import dag_tokenizer
 
-tokenizer = Tokenizer()
-tokenizer.init_dag_tokenizer()
-
-dag_tokenizer = tokenizer.dag_tokenizer
 dag_tokenizer.graph_builder.build_graph("知识就是力量")
 dag_tokenizer.graph_builder.write_graphml("output.graphml")
 
@@ -232,15 +177,52 @@ dag_tokenizer.graph_builder.write_graphml("output.graphml")
 NOTE: 导出后的 `graphml` 文件可以使用 [Cytoscape](http://www.cytoscape.org/) 进行浏览和渲染
 
 ## 如何训练自己的模型
-MicroTokenizer 也提供了非常强大工具帮助你训练工具。
-安装 MicroTokenizer 后，你可以使用如下命令来训练模型。
+MicroTokenizer 也提供了工具帮助你训练模型。
 
-```bash
-MicroTokenizer train output_model_dir input_data.txt
+### 代码训练
+
+```python
+from MicroTokenizer.training.train import train
+
+# you can use multiple files as training data, it is a list
+train(["./corpus.txt"], "./model_data")
+
 ```
 
-`output_model_dir` 指定了输出目录，`input_data.txt` 则指定了输入文件。
-输入文件的格式为纯文本格式，每个词语之间用空格隔开即可。
+## 如何使用自己的模型
+
+```python
+from MicroTokenizer import MaxMatchBackwardTokenizer
+from MicroTokenizer import MaxMatchForwardTokenizer
+from MicroTokenizer import MaxMatchBidirectionalTokenizer
+from MicroTokenizer import DAGTokenizer
+from MicroTokenizer import HMMTokenizer
+from MicroTokenizer import CRFTokenizer
+
+model_dir = "path/to/your/model"
+input_text = "你的待分词文本"
+
+max_match_backward_tokenizer = MaxMatchBackwardTokenizer.load(model_dir)
+tokens = max_match_backward_tokenizer.segment(input_text)
+
+max_match_forward_tokenizer = MaxMatchForwardTokenizer.load(model_dir)
+tokens = max_match_forward_tokenizer.segment(input_text)
+
+max_match_bidirectional_tokenizer = MaxMatchBidirectionalTokenizer.load(model_dir)
+tokens = max_match_bidirectional_tokenizer.segment(input_text)
+
+dag_tokenizer = DAGTokenizer.load(model_dir)
+tokens = dag_tokenizer.segment(input_text)
+
+hmm_tokenizer = HMMTokenizer.load(model_dir)
+tokens = hmm_tokenizer.segment(input_text)
+
+crf_tokenizer = CRFTokenizer.load(model_dir)
+tokens = crf_tokenizer.segment(input_text)
+
+```
+
+
 
 
 # Roadmap
@@ -260,4 +242,4 @@ MicroTokenizer train output_model_dir input_data.txt
 * [DONE] 使用人明日报字典替换 jieba 提供的字典
 * [TODO] 添加 jieba 兼容的 banana peel 接口
 * [TODO] 使用 scikit-crfsuite 替代 python-crfsuite
-* [TODO] 移除对于模型的下载、安装、连接等支持（资源有限，无力支持
+* [TODO] 移除对于模型的下载、安装、连接等支持（资源有限，无力支持）

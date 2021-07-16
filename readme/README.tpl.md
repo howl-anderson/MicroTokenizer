@@ -138,8 +138,7 @@ MicroTokenizer 也提供了工具帮助你训练模型。
 ```python
 {{ use_own_model }}
 ```
-
-{% raw %}
+{% raw %}{% endraw %}
 
 # Roadmap
 * [DONE] DAG 模型融合 HMM 模型 以处理 OOV 以及提高 Performance
