@@ -100,3 +100,6 @@ ENV/
 
 # mypy
 .mypy_cache/
+
+.direnv
+.idea
