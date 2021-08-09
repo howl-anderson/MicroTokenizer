@@ -12,6 +12,8 @@
 5. 反向最大匹配法
 6. 双向最大匹配法
 7. 基于 CRF (Conditional Random Field, 条件随机场) 的分词方法
+8. UnicodeScriptTokenizer: 当 Unicode Script 发生变化时拆分
+9. EmsembelTokenizer: 按照 Unicode Script 切分文本，然后按照每个文本段的 Unicode Script 调用不同的分词器进行处理。
 
 # 特点 / 特色
 
@@ -112,6 +114,30 @@ pip install MicroTokenizer
 
 ```python
 {{ tokenize_with_legacy_output }}
+```
+
+## Unicode Script 分词
+
+```python
+{{ tokenize_with_unicode_script }}
+```
+
+输出：
+
+```python
+{{ tokenize_with_unicode_script_output }}
+```
+
+## Ensemble 分词
+
+```python
+{{ tokenize_with_ensemble }}
+```
+
+输出：
+
+```python
+{{ tokenize_with_ensemble_output }}
 ```
 
 ## 导出 GraphML 文件

@@ -12,6 +12,8 @@
 5. 反向最大匹配法
 6. 双向最大匹配法
 7. 基于 CRF (Conditional Random Field, 条件随机场) 的分词方法
+8. UnicodeScriptTokenizer: 当 Unicode Script 发生变化时拆分
+9. EmsembelTokenizer: 按照 Unicode Script 切分文本，然后按照每个文本段的 Unicode Script 调用不同的分词器进行处理。
 
 # 特点 / 特色
 
@@ -160,6 +162,43 @@ print(result)
 ```python
 ['小', '明', '在', '北京', '的', '清华大学', '读书', '。']
 
+```
+
+## Unicode Script 分词
+
+```python
+from MicroTokenizer.tokenizers.unicode_script.tokenizer import UnicodeScriptTokenizer
+
+
+tokenizer = UnicodeScriptTokenizer()
+tokens = tokenizer.segment("2021年时我在Korea的汉城听了이효리的にほんご这首歌。")
+print([(token.text, token.script) for token in tokens])
+
+```
+
+输出：
+
+```python
+[('2021', 'Common'), ('年时我在', 'Han'), ('Korea', 'Latin'), ('的汉城听了', 'Han'), ('이효리', 'Hangul'), ('的', 'Han'), ('にほんご', 'Hiragana'), ('这首歌', 'Han'), ('。', 'Common')]
+```
+
+## Ensemble 分词
+
+```python
+from MicroTokenizer.tokenizers.ensemble.tokenizer import EnsembleTokenizer
+from MicroTokenizer import dag_tokenizer
+
+
+tokenizer = EnsembleTokenizer({"Han": dag_tokenizer})
+tokens = tokenizer.segment("2021年时我在Korea的汉城听了이효리的にほんご这首歌。")
+print(tokens)
+
+```
+
+输出：
+
+```python
+['2021', '年', '时', '我', '在', 'Korea', '的', '汉城', '听', '了', '이효리', '的', 'にほんご', '这', '首', '歌', '。']
 ```
 
 ## 导出 GraphML 文件
