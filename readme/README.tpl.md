@@ -3,7 +3,7 @@
 [![Python package](https://github.com/howl-anderson/MicroTokenizer/actions/workflows/python-package.yml/badge.svg)](https://github.com/howl-anderson/MicroTokenizer/actions/workflows/python-package.yml)
 [![PyPI Status](https://img.shields.io/pypi/v/MicroTokenizer.svg)](https://pypi.python.org/pypi/MicroTokenizer)
 
-一个微型的中文分词器，目前提供了七种分词算法:
+一个微型的中文分词器，目前提供了以下几种分词算法:
 
 1. 按照词语的频率（概率）来利用构建 DAG（有向无环图）来分词，使用 `Trie Tree` 构建前缀字典树
 2. 使用隐马尔可夫模型（Hidden Markov Model，HMM）来分词
