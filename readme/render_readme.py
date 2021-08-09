@@ -9,7 +9,7 @@ current_dir = os.path.dirname(os.path.abspath(__file__ ))
 input_file = os.path.join(current_dir, 'README.tpl.md')
 output_file = os.path.join(os.path.dirname(current_dir), 'README.md')
 
-readme_variable_dir = 'code'
+readme_variable_dir = os.path.join(current_dir, 'code')
 
 
 def get_file_content(relative_file_path):
