@@ -36,11 +36,7 @@ long_description = """
 """
 
 requirements = [
-    'Click', 'networkx', 'tqdm', 'matplotlib', 'MicroHMM', 'plac',
-    'requests', 'regex', 'ujson',
-    'python-crfsuite', 'tokenizer_tools',
-    'pathlib;python_version<"3.4"',
-    'typing;python_version<"3.5"', 'numpy', 'joblib', 'pyyaml'
+    'networkx', 'MicroHMM', 'python-crfsuite', 'tokenizer_tools', 'pyyaml'
 ]
 
 setup_requirements = ['pytest-runner', ]
@@ -55,8 +51,6 @@ setup(
         'Intended Audience :: Developers',
         'License :: OSI Approved :: MIT License',
         'Natural Language :: English',
-        "Programming Language :: Python :: 2",
-        'Programming Language :: Python :: 2.7',
         'Programming Language :: Python :: 3',
         'Programming Language :: Python :: 3.5',
         'Programming Language :: Python :: 3.6',
