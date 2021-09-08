@@ -3,7 +3,7 @@ from functools import reduce
 
 import pycrfsuite
 import six
-from tokenizer_tools.tagset.BMES import BMESEncoderDecoder
+from MicroTokenizer.tokenizers.BMES import BMESEncoderDecoder
 
 tag_encoder_decoder = BMESEncoderDecoder()
 

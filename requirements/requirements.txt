@@ -1,5 +1,4 @@
 networkx
 MicroHMM
 python-crfsuite
-tokenizer_tools
 pyyaml

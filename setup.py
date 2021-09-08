@@ -36,7 +36,7 @@ long_description = """
 """
 
 requirements = [
-    'networkx', 'MicroHMM', 'python-crfsuite', 'tokenizer_tools', 'pyyaml'
+    'networkx', 'MicroHMM', 'python-crfsuite', 'pyyaml'
 ]
 
 setup_requirements = ['pytest-runner', ]
