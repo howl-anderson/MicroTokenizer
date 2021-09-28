@@ -1,2 +1,1 @@
 from MicroTokenizer.tokenizers.base_tokenizer import BaseTokenizer
-from MicroTokenizer.tokenizers.load_tokenizers import load_tokenizers
