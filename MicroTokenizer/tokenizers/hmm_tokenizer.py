@@ -65,8 +65,7 @@ class HMMTokenizer(BaseTokenizer):
 
         return token_list
 
-    def segment(self, message):
-        # type: (str) -> List[str]
+    def segment(self, message: str) -> List[str]:
 
         return self.predict(message)
 

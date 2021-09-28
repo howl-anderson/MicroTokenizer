@@ -1,4 +1,3 @@
-from urllib.request import CacheFTPHandler
 from MicroTokenizer.tokenizers.unicode_script.script_data import script_data
 from MicroTokenizer.tokenizers.unicode_script.token import Token
 

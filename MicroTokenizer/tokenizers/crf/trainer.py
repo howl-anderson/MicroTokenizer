@@ -9,12 +9,11 @@ tag_encoder_decoder = BMESEncoderDecoder()
 
 class CRFTrainer:
     _default_params = {
-        'c1': 0.1,  # coefficient for L1 penalty
-        'c2': 0.01,  # coefficient for L2 penalty
-        'max_iterations': 200,  # stop earlier
-
+        "c1": 0.1,  # coefficient for L1 penalty
+        "c2": 0.01,  # coefficient for L2 penalty
+        "max_iterations": 200,  # stop earlier
         # include transitions that are possible, but not observed
-        'feature.possible_transitions': True
+        "feature.possible_transitions": True,
     }
 
     def __init__(self, feature_func_list=None):
@@ -48,10 +47,7 @@ class CRFTrainer:
                 for i in token_list
             ],
         )
-        char_list = reduce(
-            lambda x, y: x + y,
-            token_list
-        )
+        char_list = reduce(lambda x, y: x + y, token_list)
 
         self.train_one_line_by_char_tag(char_list, tag_list)
 
@@ -70,20 +66,32 @@ class CRFTrainer:
 
 
 feature_func_dict = {
-    'bias': lambda sent, i: None,
-    'char': lambda sent, i: sent[i],
-    '-1:char': lambda sent, i: sent.get(i - 1, ''),
-    '-1/0:char': lambda sent, i: sent.get(i - 1, '') + '/' + sent[i],
-    '-2:char': lambda sent, i: sent.get(i - 2, ''),
-    '-2/-1:char': lambda sent, i: sent.get(i - 2, '') + '/' + sent.get(i - 1, ''),
-    '-2/-1/0:char': lambda sent, i: sent.get(i - 2, '') + '/' + sent.get(i - 1, '') + '/' + sent[i],
-    '+1:char': lambda sent, i: sent.get(i + 1, ''),
-    '0/+1:char': lambda sent, i: sent[i] + '/' + sent.get(i + 1, ''),
-    '+2:char': lambda sent, i: sent.get(i + 2, ''),
-    '+1/+2:char': lambda sent, i: sent.get(i + 1, '') + '/' + sent.get(i + 2, ''),
-    '0/+1/+2:char': lambda sent, i: sent[i] + '/' + sent.get(i + 1, '') + '/' + sent.get(i + 2, ''),
-    '-1/0/+1:char': lambda sent, i: sent.get(i - 1, '') + '/' + sent[i] + '/' + sent.get(i + 1, ''),
-    '-1/+1:char': lambda sent, i: sent.get(i - 1, '') + '/' + sent.get(i + 1, ''),
+    "bias": lambda sent, i: None,
+    "char": lambda sent, i: sent[i],
+    "-1:char": lambda sent, i: sent.get(i - 1, ""),
+    "-1/0:char": lambda sent, i: sent.get(i - 1, "") + "/" + sent[i],
+    "-2:char": lambda sent, i: sent.get(i - 2, ""),
+    "-2/-1:char": lambda sent, i: sent.get(i - 2, "") + "/" + sent.get(i - 1, ""),
+    "-2/-1/0:char": lambda sent, i: sent.get(i - 2, "")
+    + "/"
+    + sent.get(i - 1, "")
+    + "/"
+    + sent[i],
+    "+1:char": lambda sent, i: sent.get(i + 1, ""),
+    "0/+1:char": lambda sent, i: sent[i] + "/" + sent.get(i + 1, ""),
+    "+2:char": lambda sent, i: sent.get(i + 2, ""),
+    "+1/+2:char": lambda sent, i: sent.get(i + 1, "") + "/" + sent.get(i + 2, ""),
+    "0/+1/+2:char": lambda sent, i: sent[i]
+    + "/"
+    + sent.get(i + 1, "")
+    + "/"
+    + sent.get(i + 2, ""),
+    "-1/0/+1:char": lambda sent, i: sent.get(i - 1, "")
+    + "/"
+    + sent[i]
+    + "/"
+    + sent.get(i + 1, ""),
+    "-1/+1:char": lambda sent, i: sent.get(i - 1, "") + "/" + sent.get(i + 1, ""),
 }
 
 
@@ -108,7 +116,7 @@ def word2features(sent, i, feature_func_list):
             # special for bias
             feature = feature_func_name
         else:
-            feature = feature_func_name + '=' + feature_value
+            feature = feature_func_name + "=" + feature_value
 
         feature_list.append(feature)
 
@@ -116,10 +124,7 @@ def word2features(sent, i, feature_func_list):
 
 
 def get_feature_list(sent, feature_func_list):
-    feature_list = [
-        word2features(sent, i, feature_func_list)
-        for i in range(len(sent))
-    ]
+    feature_list = [word2features(sent, i, feature_func_list) for i in range(len(sent))]
 
     return feature_list
 
@@ -127,12 +132,12 @@ def get_feature_list(sent, feature_func_list):
 all_feature_func_list = list(feature_func_dict.keys())
 
 regular_feature_func_list = [
-    'bias',
-    'char',
-    '-1:char',
-    '-1/0:char',
-    '+1:char',
-    '0/+1:char',
+    "bias",
+    "char",
+    "-1:char",
+    "-1/0:char",
+    "+1:char",
+    "0/+1:char",
 ]
 
 default_feature_func_list = regular_feature_func_list

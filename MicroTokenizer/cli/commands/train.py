@@ -7,4 +7,5 @@ def train(output_dir, train_data, configure_file=None):
 
 if __name__ == "__main__":
     import plac
+
     print(plac.call(train))

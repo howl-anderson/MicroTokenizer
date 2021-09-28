@@ -4,9 +4,9 @@ import networkx as nx
 class MergeSolutions(object):
     def __init__(self):
         self.G = nx.DiGraph()
-        self.start_node = '<start>'
+        self.start_node = "<start>"
         self.G.add_node(self.start_node, label=self.start_node)
-        self.end_node = '<end>'
+        self.end_node = "<end>"
         self.G.add_node(self.end_node, label=self.end_node)
 
         self.existing_nodes = {self.start_node, self.end_node}
@@ -33,7 +33,9 @@ class MergeSolutions(object):
                     self.existing_nodes.add(current_node)
 
                 if current_checkpoint_node not in self.existing_checkpoint_notes:
-                    self.G.add_node(current_checkpoint_node, token="", label=current_checkpoint_node)
+                    self.G.add_node(
+                        current_checkpoint_node, token="", label=current_checkpoint_node
+                    )
                     self.existing_checkpoint_notes.add(current_checkpoint_node)
 
                 self.G.add_edge(previous_node, current_node, weight=1)
@@ -54,15 +56,13 @@ class MergeSolutions(object):
 
         # remove all the checkpoint node
         cleaned_shortest_path_nodes = filter(
-            lambda x: self.G.nodes.get(x).get('token'),
-            shortest_path_nodes
+            lambda x: self.G.nodes.get(x).get("token"), shortest_path_nodes
         )
 
         # extract tokens
-        best_solution_tokens = list(map(
-            lambda x: self.G.nodes.get(x)['token'],
-            cleaned_shortest_path_nodes
-        ))
+        best_solution_tokens = list(
+            map(lambda x: self.G.nodes.get(x)["token"], cleaned_shortest_path_nodes)
+        )
 
         return best_solution_tokens
 
@@ -72,8 +72,8 @@ class MergeSolutions(object):
 
 if __name__ == "__main__":
     solutions = [
-        ['王小明', '来到', '了', '网易', '杭', '研', '大厦'],
-        ['王', '小明', '来到', '了', '网易', '杭研', '大', '厦']
+        ["王小明", "来到", "了", "网易", "杭", "研", "大厦"],
+        ["王", "小明", "来到", "了", "网易", "杭研", "大", "厦"],
     ]
     merge_solutions = MergeSolutions()
     best_solution = merge_solutions.merge(solutions)

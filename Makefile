@@ -51,13 +51,13 @@ clean-test: ## remove test and coverage artifacts
 	rm -fr .pytest_cache
 
 formatter:
-	autoflake --recursive MicroTokenizer tests --remove-all-unused-imports
+	autoflake --recursive MicroTokenizer tests
 	black MicroTokenizer tests
 
 lint: ## check style with flake8
 	flake8 MicroTokenizer tests
 	black --check MicroTokenizer tests
-	autoflake --recursive --check MicroTokenizer tests
+	autoflake -vvv --check --recursive MicroTokenizer tests
 
 test: clean ## run tests quickly with the default Python
 	pytest tests readme/tests

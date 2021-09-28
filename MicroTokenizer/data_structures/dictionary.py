@@ -25,9 +25,11 @@ class DictionaryData(object):
     def process_data(raw_dict_data):
         total_count = sum(raw_dict_data.values())
 
-        return {k: math.log(total_count/v) for k, v in raw_dict_data.items()}
+        return {k: math.log(total_count / v) for k, v in raw_dict_data.items()}
 
-    def get_token_and_weight_at_text_head(self, text: str) -> Generator[Tuple[str, Any], None, None]:
+    def get_token_and_weight_at_text_head(
+        self, text: str
+    ) -> Generator[Tuple[str, Any], None, None]:
         """find all the tokens that start at the text head"""
         raise NotImplementedError()
 

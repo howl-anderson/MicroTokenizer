@@ -15,7 +15,7 @@ class TreeNode(dict):
 
 class TrieAlgorithm(DictionaryData):
     def __init__(self, *args, **kwargs):
-        reverse = kwargs.pop('reverse', False)
+        reverse = kwargs.pop("reverse", False)
 
         super(TrieAlgorithm, self).__init__(*args, **kwargs)
 
@@ -48,11 +48,11 @@ class TrieAlgorithm(DictionaryData):
                 char_node = current_node[char]
 
                 if char_node.is_leaf:
-                    token = char_list[:index+1]
+                    token = char_list[: index + 1]
 
                     token_weight_pair = (
                         "".join(reversed(token)) if self.reverse else token,
-                        char_node.weight
+                        char_node.weight,
                     )
 
                     yield token_weight_pair

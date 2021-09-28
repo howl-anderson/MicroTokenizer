@@ -1,8 +1,9 @@
 import pytest
 
 from MicroTokenizer import default_model_dir
-from MicroTokenizer.tokenizers.max_match.bidirectional import \
-    MaxMatchBidirectionalTokenizer
+from MicroTokenizer.tokenizers.max_match.bidirectional import (
+    MaxMatchBidirectionalTokenizer,
+)
 
 
 @pytest.mark.parametrize("input_text", pytest.helpers.tokenizer_test_cases())

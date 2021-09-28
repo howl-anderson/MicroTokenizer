@@ -5,7 +5,9 @@ def main():
     names = []
     cats = []
 
-    import urllib.request, re, textwrap
+    import urllib.request
+    import re
+    import textwrap
 
     url = "http://www.unicode.org/Public/UNIDATA/Scripts.txt"
     f = urllib.request.urlopen(url)

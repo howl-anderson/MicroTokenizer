@@ -27,7 +27,7 @@ class MaxMatchForwardTokenizer(BaseTokenizer):
         for line in corpus:
             self.token_dict.train_one_line(line)
         self.token_dict.do_train()
-        self.trie_tree = TrieAlgorithm(raw_dict_data = self.token_dict.dictionary)
+        self.trie_tree = TrieAlgorithm(raw_dict_data=self.token_dict.dictionary)
 
     def segment(self, message: str) -> List[str]:
         token_result = []

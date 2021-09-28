@@ -10,7 +10,11 @@ from MicroTokenizer.tokenizers import BaseTokenizer
 class MaxMatchBackwardTokenizer(BaseTokenizer):
     def __init__(self, token_dict: Dict[str, int] = None) -> None:
         # for inference
-        self.trie_tree = TrieAlgorithm(raw_dict_data=token_dict, reverse=True) if token_dict else None
+        self.trie_tree = (
+            TrieAlgorithm(raw_dict_data=token_dict, reverse=True)
+            if token_dict
+            else None
+        )
         # for training
         self.token_dict = TrainDictionary()
 
@@ -27,7 +31,9 @@ class MaxMatchBackwardTokenizer(BaseTokenizer):
         for line in corpus:
             self.token_dict.train_one_line(line)
         self.token_dict.do_train()
-        self.trie_tree = TrieAlgorithm(raw_dict_data = self.token_dict.dictionary, reverse=True)
+        self.trie_tree = TrieAlgorithm(
+            raw_dict_data=self.token_dict.dictionary, reverse=True
+        )
 
     def segment(self, message: str) -> List[str]:
         reversed_token_result = []
@@ -36,14 +42,13 @@ class MaxMatchBackwardTokenizer(BaseTokenizer):
             max_match = None
 
             token_weight_pair = list(
-                self.trie_tree.get_token_and_weight_at_text_head(
-                    message)
+                self.trie_tree.get_token_and_weight_at_text_head(message)
             )
 
             if token_weight_pair:
-                sorted_token_weight_pair = sorted(token_weight_pair,
-                                                  key=lambda x: len(x[0]),
-                                                  reverse=True)
+                sorted_token_weight_pair = sorted(
+                    token_weight_pair, key=lambda x: len(x[0]), reverse=True
+                )
 
                 max_match = sorted_token_weight_pair[0][0]
 
@@ -53,6 +58,6 @@ class MaxMatchBackwardTokenizer(BaseTokenizer):
             reversed_token_result.append(max_match)
 
             # update message
-            message = message[: - len(max_match)]
+            message = message[: -len(max_match)]
 
         return list(reversed(reversed_token_result))

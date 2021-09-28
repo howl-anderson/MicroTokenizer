@@ -1,5 +1,6 @@
 from MicroTokenizer.tokenizers.unicode_script.tokenizer import UnicodeScriptTokenizer
 
+
 def test_tokenizer():
     result = UnicodeScriptTokenizer.script("汉")
     assert result

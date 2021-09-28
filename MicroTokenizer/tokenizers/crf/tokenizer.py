@@ -56,8 +56,7 @@ class CRFTokenizer(BaseTokenizer):
 
         return tag_list
 
-    def segment(self, message):
-        # type: (str) -> List[str]
+    def segment(self, message: str) -> List[str]:
 
         char_tag_list = self.predict_char_tag(message)
 
@@ -73,9 +72,7 @@ class CRFTokenizer(BaseTokenizer):
             "Also because no training here, model for this instance will not update"
         )
 
-    def save(self, output_dir):
-        # type: (str) -> None
-
+    def save(self, output_dir: str):
         # TODO: should persist feature function as well
         model_file = self.get_model_file(output_dir)
 

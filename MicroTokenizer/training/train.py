@@ -34,12 +34,10 @@ def get_trainer_list(enable_list=None, disable_list=None, *args, **kwargs):
     trainer_list = set(trainer_registry.values())
 
     if enable_list:
-        trainer_list = {v for k, v in trainer_registry.items()
-                        if k in enable_list}
+        trainer_list = {v for k, v in trainer_registry.items() if k in enable_list}
 
     if disable_list:
-        trainer_list = {v for k, v in trainer_registry.items()
-                        if k not in trainer_list}
+        trainer_list = {v for k, v in trainer_registry.items() if k not in trainer_list}
 
     return trainer_list
 
