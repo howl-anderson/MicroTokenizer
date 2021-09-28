@@ -184,6 +184,8 @@ print([(token.text, token.script) for token in tokens])
 
 ## Ensemble 分词
 
+### 区分语言进行处理
+
 ```python
 from MicroTokenizer.tokenizers.ensemble.tokenizer import EnsembleTokenizer
 from MicroTokenizer import dag_tokenizer
@@ -199,6 +201,23 @@ print(tokens)
 
 ```python
 ['2021', '年', '时', '我', '在', 'Korea', '的', '汉城', '听', '了', '이효리', '的', 'にほんご', '这', '首', '歌', '。']
+```
+
+### [实验性质] 基于流水线的分词方案
+
+可以稳定的提取数字和电子邮箱地址。可以区分中文英文采用不同的分词方案（英文默认按照空格切分）。
+
+```python
+from MicroTokenizer.experimental import dag_tokenizer
+
+tokens = dag_tokenizer.segment("我的电话是15555555555，邮箱是xxx@yy.com,工作单位是 Tokyo University。")
+print(tokens)
+```
+
+输出：
+
+```python
+['我', '的', '电话', '是', '15555555555', '，', '邮箱', '是', 'xxx@yy.com', ',', '工作', '单位', '是', 'Tokyo', 'University', '。']
 ```
 
 ## 导出 GraphML 文件

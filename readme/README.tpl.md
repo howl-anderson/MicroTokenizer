@@ -130,6 +130,8 @@ pip install MicroTokenizer
 
 ## Ensemble 分词
 
+### 区分语言进行处理
+
 ```python
 {{ tokenize_with_ensemble }}
 ```
@@ -138,6 +140,20 @@ pip install MicroTokenizer
 
 ```python
 {{ tokenize_with_ensemble_output }}
+```
+
+### [实验性质] 基于流水线的分词方案
+
+可以稳定的提取数字和电子邮箱地址。可以区分中文英文采用不同的分词方案（英文默认按照空格切分）。
+
+```python
+{{ tokenize_with_pipeline }}
+```
+
+输出：
+
+```python
+{{ tokenize_with_pipeline_output }}
 ```
 
 ## 导出 GraphML 文件
