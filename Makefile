@@ -50,8 +50,14 @@ clean-test: ## remove test and coverage artifacts
 	rm -fr htmlcov/
 	rm -fr .pytest_cache
 
+formatter:
+	autoflake --recursive MicroTokenizer tests --remove-all-unused-imports
+	black MicroTokenizer tests
+
 lint: ## check style with flake8
 	flake8 MicroTokenizer tests
+	black --check MicroTokenizer tests
+	autoflake --recursive --check MicroTokenizer tests
 
 test: clean ## run tests quickly with the default Python
 	pytest tests readme/tests
