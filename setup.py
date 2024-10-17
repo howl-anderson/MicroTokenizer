@@ -6,33 +6,38 @@
 from setuptools import setup, find_packages
 
 long_description = """
-微型中文分词器
-==============
+MicroTokenizer: A Lightweight and Educational Chinese Tokenizer
 
-一个微型的中文分词器，目前提供了七种分词算法:
+MicroTokenizer is a lightweight, flexible, and powerful Chinese tokenizer designed for educational and research purposes. Its core objective is to simplify the understanding of natural language processing (NLP) techniques, offering a hands-on approach to text segmentation. This package not only delivers practical solutions for tokenizing Chinese text but also provides insight into how various tokenization methods work, making it an excellent resource for students, researchers, and NLP practitioners.
 
+### Key Features and Impact
 
-#. 按照词语的频率（概率）来利用构建 DAG（有向无环图）来分词，使用 ``Trie Tree`` 构建前缀字典树
-#. 使用隐马尔可夫模型（Hidden Markov Model，HMM）来分词
-#. 融合 DAG 和 HMM 两种分词模型的结果，按照分词粒度最大化的原则进行融合得到的模型
-#. 正向最大匹配法
-#. 反向最大匹配法
-#. 双向最大匹配法
-#. 基于 CRF (Conditional Random Field, 条件随机场) 的分词方法
+- **Educational Focus**: MicroTokenizer is crafted with an educational purpose in mind. It enables learners to understand the inner workings of tokenization algorithms by providing visual representations of their processes. Users can export graph structures in `graphml` format to visualize the tokenization pathways, facilitating a deeper comprehension of text processing.
 
-特点 / 特色
-===========
+- **High Performance and Customization**: The package implements several state-of-the-art tokenization techniques, including DAG-based segmentation, HMM, CRF, and hybrid methods. Its performance is on par with mainstream tokenizers like Jieba, but with greater flexibility, allowing users to easily integrate custom dictionaries or train their models to suit specific needs.
 
+- **Extensive Tokenization Algorithms**: MicroTokenizer includes multiple tokenization approaches, such as:
+  - Directed Acyclic Graph (DAG)-based segmentation.
+  - Hidden Markov Model (HMM) for statistical tokenization.
+  - CRF (Conditional Random Fields) for context-sensitive tokenization.
+  - Maximum Matching methods (Forward, Backward, and Bidirectional).
+  - Unicode Script-based segmentation for handling multilingual text.
+  - Ensemble approaches to combine the strengths of multiple tokenizers.
 
-* 面向教育：可以导出 ``graphml`` 格式的图结构文件，辅助学习者理解算法过程
-* 良好的分词性能：由于使用类似 ``结巴分词`` 的算法，具有良好的分词性能
-* 具有良好的扩展性：使用和 ``结巴分词`` 一样的字典文件，可以轻松添加自定义字典
-* 自定义能力强
-* 提供工具和脚本帮助用户训练自己的分词模型而不是使用内建的模型
+- **Research and Prototyping Tool**: Its lightweight nature makes MicroTokenizer ideal for prototyping and experimentation. Researchers can quickly test and refine tokenization techniques without the overhead of large-scale frameworks. The CRF-based tokenizer, for example, can be trained using user-specific data, providing customization for unique domains.
 
-----
+- **Community-Centric and Open Source**: MicroTokenizer is an open-source project, inviting collaboration and contributions from developers, educators, and researchers. Its development roadmap includes features aimed at enhancing user experience, expanding tokenization capabilities, and ensuring compatibility across diverse Python environments.
 
-更多内容见仓库 https://github.com/howl-anderson/MicroTokenizer
+### Applications
+
+- **Academic Use**: MicroTokenizer is perfect for use in NLP, linguistics, and data science courses. It helps students grasp the fundamentals of Chinese text segmentation and explore advanced models like CRF and hybrid tokenization.
+- **Custom NLP Solutions**: Users can create their dictionaries and models, tailoring tokenization to specialized contexts, such as legal documents, medical records, or technical manuals, thereby enhancing accuracy and utility.
+- **Educational and Research Projects**: The unique ability to visualize tokenization processes and train custom models makes MicroTokenizer a valuable resource for those conducting research or building educational tools in NLP.
+
+### Get Involved
+MicroTokenizer is more than just a tokenizer; it’s a community-driven effort to make NLP accessible. We welcome contributions and feedback from the community to improve and expand its capabilities.
+
+Explore, contribute, or simply learn—MicroTokenizer aims to empower the next generation of NLP enthusiasts and experts.
 """
 
 requirements = [
@@ -83,6 +88,6 @@ setup(
     test_suite='tests',
     tests_require=test_requirements,
     url='https://github.com/howl-anderson/MicroTokenizer',
-    version="0.21.2",
+    version="0.21.3",
     zip_safe=False,
 )
