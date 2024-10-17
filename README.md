@@ -66,6 +66,142 @@ Output:
 ['「', '杭', '研', '」', '正确', '应该', '不会', '被', '切开']
 ['「', '杭研', '」', '正确', '应该', '不会', '被', '切开']
 ```
+## Educational Features
+
+This section demonstrates the internal weights and logic of the Directed Acyclic Graph (DAG) tokenization. The following image showcases the built-in visualization of the tokenizer, which aids learners in understanding the internal workings of the tokenization process.
+![DAG of 'knowledge is power'](.images/DAG_of_knowledge_is_power.png)
+
+**Notes**:
+
+* `<s>` and `</s>` represent the start and end nodes of the graph, not the actual text to be tokenized.
+* The labels on the edges indicate `log(reciprocal of the next node's probability)`.
+* The shortest path is highlighted in `dark green`.
+
+This visualization tool is a powerful educational resource, providing a clear and intuitive way to grasp the complexities of tokenization algorithms. This feature is done by using the `graphml` format, which can be exported by the tokenizer for further analysis and visualization.
+
+### Exporting GraphML Files
+
+For the DAG-based algorithm, users can export GraphML files to study its working principles.
+
+```python
+from MicroTokenizer import dag_tokenizer
+
+dag_tokenizer.graph_builder.build_graph("Knowledge is power")
+dag_tokenizer.graph_builder.write_graphml("output.graphml")
+```
+
+**NOTE**: The exported `graphml` file can be viewed and rendered using software like [Cytoscape](http://www.cytoscape.org/). The previous image was rendered using Cytoscape.
+
+This feature allows users to delve deeper into the mechanics of the tokenization process, providing a hands-on approach to understanding and visualizing the algorithm's structure and behavior.
+
+## Usage of tokenization methods
+
+### Installation
+
+```bash
+pip install MicroTokenizer
+```
+
+### Basic Tokenization Methods
+
+```python
+from MicroTokenizer import (
+    hmm_tokenizer,
+    crf_tokenizer,
+    dag_tokenizer,
+    max_match_forward_tokenizer,
+    max_match_backward_tokenizer,
+    max_match_bidirectional_tokenizer,
+)
+
+input_text = "王小明在北京的清华大学读书。"
+
+# Use different algorithms for tokenization.
+
+result = hmm_tokenizer.segment(input_text)
+print("HMM Tokenizer:", result)
+
+result = crf_tokenizer.segment(input_text)
+print("CRF Tokenizer:", result)
+
+result = max_match_forward_tokenizer.segment(input_text)
+print("Max Match Forward Tokenizer:", result)
+
+result = max_match_backward_tokenizer.segment(input_text)
+print("Max Match Backward Tokenizer:", result)
+
+result = max_match_bidirectional_tokenizer.segment(input_text)
+print("Max Match Bidirectional Tokenizer:", result)
+
+result = dag_tokenizer.segment(input_text)
+print("DAG Tokenizer:", result)
+```
+
+Output:
+```python
+HMM Tokenizer: ['小', '明', '在', '北京', '的', '清华大学', '读书', '。']
+```
+
+### Unicode Script Tokenization
+
+```python
+from MicroTokenizer.tokenizers.unicode_script.tokenizer import UnicodeScriptTokenizer
+
+tokenizer = UnicodeScriptTokenizer()
+tokens = tokenizer.segment("2021年时我在Korea的汉城听了이효리的にほんご这首歌。")
+print([(token.text, token.script) for token in tokens])
+```
+
+Output:
+```python
+[('2021', 'Common'), ('年时我在', 'Han'), ('Korea', 'Latin'), ('的汉城听了', 'Han'), ('이효리', 'Hangul'), ('的', 'Han'), ('にほんご', 'Hiragana'), ('这首歌', 'Han'), ('。', 'Common')]
+```
+
+### Ensemble Tokenization
+
+#### Multi-Language Segmentation
+
+```python
+from MicroTokenizer.tokenizers.ensemble.tokenizer import EnsembleTokenizer
+from MicroTokenizer import dag_tokenizer
+
+# Use EnsembleTokenizer to segment text based on different scripts.
+tokenizer = EnsembleTokenizer({"Han": dag_tokenizer})
+tokens = tokenizer.segment("2021年时我在Korea的汉城听了이효리的にほんご这首歌。")
+print(tokens)
+```
+
+Output:
+```python
+['2021', '年', '时', '我', '在', 'Korea', '的', '汉城', '听', '了', '이효리', '的', 'にほんご', '这', '首', '歌', '。']
+```
+
+#### [Experimental] Pipeline-Based Tokenization Scheme
+
+Provides stable extraction of numbers and email addresses. Differentiates between Chinese and English using different tokenization methods (defaults to whitespace segmentation for English).
+
+```python
+from MicroTokenizer.experimental import dag_tokenizer
+
+tokens = dag_tokenizer.segment("我的电话是15555555555，邮箱是xxx@yy.com,工作单位是 Tokyo University。")
+print(tokens)
+```
+
+Output:
+```python
+['我', '的', '电话', '是', '15555555555', '，', '邮箱', '是', 'xxx@yy.com', ',', '工作', '单位', '是', 'Tokyo', 'University', '。']
+```
+
+
+## Algorithm Explanation
+
+You can find detailed exmaples and explanations of the tokenization algorithms in the following blog posts:
+
+Forward Maximum Matching (FMM): [Building a Chinese Tokenizer - Forward Maximum Matching](http://blog.xiaoquankong.ai/building-chinese-tokenizer-forward-maximum-matching/)
+
+Backward Maximum Matching (BMM): [Building a Chinese Tokenizer - Backward Maximum Matching](http://blog.xiaoquankong.ai/building-chinese-tokenizer-backward-maximum-matching/)
+
+Bidirectional Maximum Matching (BMM): [Building a Chinese Tokenizer - Bidirectional Maximum Matching](http://blog.xiaoquankong.ai/building-chinese-tokenizer-bidirectional-maximum-matching/)
 
 ## Impact and Applications
 
