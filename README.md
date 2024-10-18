@@ -192,6 +192,32 @@ Output:
 ['我', '的', '电话', '是', '15555555555', '，', '邮箱', '是', 'xxx@yy.com', ',', '工作', '单位', '是', 'Tokyo', 'University', '。']
 ```
 
+## How to train and use your own models
+
+### How to Train
+
+MicroTokenizer also provides tools to help you train your own models.
+
+```python
+from MicroTokenizer.training.train import train
+
+# You can use multiple files as training data, provided as a list
+train(["./corpus.txt"], "./model_data")
+```
+
+## How to Use Your Own Models
+
+```python
+# import your tokenizer, XXXTokenizer is just a placeholder
+from MicroTokenizer import XXXTokenizer
+
+model_dir = "path/to/your/model"
+input_text = "Your text to be tokenized"
+
+tokenizer = XXXTokenizer.load(model_dir)
+tokens = tokenizer.segment(input_text)
+print(f"{name} Tokenizer:", tokens)
+```
 
 ## Algorithm Explanation
 
