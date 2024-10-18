@@ -11,7 +11,7 @@ from MicroTokenizer.tokenizers.max_match.forward import MaxMatchForwardTokenizer
 from MicroTokenizer.training.train import train
 
 
-# @pytest.mark.skip("It will takes 670s to complete, too slow")
+@pytest.mark.skip("It will takes 670s to complete, too slow")
 def test_main(tmpdir, datadir):
     input_file_list = [datadir / "data.txt"]
     output_dir = str(tmpdir)
